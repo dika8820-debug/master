@@ -2,17 +2,20 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Madangan Trade Club - Platform Trading</title>
+    <!-- PWA Support -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#00E676">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Madangan Trade Club - AI Signals Pro</title>
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ============================================================
+        /* ================================================================
            ROOT VARIABLES
-           ============================================================ */
+           ================================================================ */
         :root {
             --primary: #00E676;
             --primary-dark: #00C853;
@@ -35,32 +38,28 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* ================================================================
+           RESET & BASE
+           ================================================================ */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-
         body {
             background: var(--bg-body);
             color: var(--text-secondary);
             min-height: 100vh;
             background-image: radial-gradient(ellipse at top, #1a1a2e 0%, var(--bg-body) 70%);
         }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-body);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
+        /* ================================================================
+           NAVBAR
+           ================================================================ */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -75,13 +74,11 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .navbar-left {
             display: flex;
             align-items: center;
             gap: 14px;
         }
-
         .navbar-left .logo-icon {
             width: 38px;
             height: 38px;
@@ -94,32 +91,24 @@
             font-weight: 800;
             color: #0a0a0e;
         }
-
         .navbar-left .logo-text {
             font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-primary);
         }
-
-        .navbar-left .logo-text span {
-            color: var(--primary);
-        }
-
+        .navbar-left .logo-text span { color: var(--primary); }
         .navbar-left .tagline {
             font-size: 0.65rem;
             color: var(--text-muted);
             display: block;
             margin-top: -2px;
         }
-
         .navbar-nav {
             display: flex;
             align-items: center;
             gap: 6px;
             flex-wrap: wrap;
         }
-
-        .navbar-nav a,
         .navbar-nav .nav-link {
             color: var(--text-muted);
             text-decoration: none;
@@ -135,19 +124,14 @@
             align-items: center;
             gap: 6px;
         }
-
-        .navbar-nav a:hover,
         .navbar-nav .nav-link:hover {
             color: var(--text-primary);
             background: rgba(255, 255, 255, 0.05);
         }
-
-        .navbar-nav a.active,
         .navbar-nav .nav-link.active {
             color: var(--primary);
             background: var(--primary-light);
         }
-
         .btn-pill {
             padding: 8px 20px;
             border: none;
@@ -160,55 +144,25 @@
             align-items: center;
             gap: 6px;
         }
+        .btn-primary { background: var(--primary); color: #0a0a0e; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+        .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.1); color: var(--text-primary); }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-danger:hover { background: #d50000; }
+        .btn-sm { padding: 4px 14px; font-size: 0.75rem; }
+        .btn-block { width: 100%; justify-content: center; }
 
-        .btn-primary {
-            background: var(--primary);
-            color: #0a0a0e;
-        }
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-        .btn-outline:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-        }
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-        }
-        .btn-danger {
-            background: var(--danger);
-            color: #fff;
-        }
-        .btn-danger:hover {
-            background: #d50000;
-        }
-        .btn-sm {
-            padding: 4px 14px;
-            font-size: 0.75rem;
-        }
-        .btn-block {
-            width: 100%;
-            justify-content: center;
-        }
-
+        /* ================================================================
+           MAIN LAYOUT
+           ================================================================ */
         .page {
             max-width: 1400px;
             margin: 0 auto;
             padding: 24px 32px 60px;
         }
-
         .page-header {
             display: flex;
             justify-content: space-between;
@@ -217,19 +171,20 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-
         .page-header h1 {
             font-size: 1.8rem;
             color: var(--text-primary);
             font-weight: 700;
         }
-
         .page-header .muted {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-top: 4px;
         }
 
+        /* ================================================================
+           CARDS & GRIDS
+           ================================================================ */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -237,11 +192,7 @@
             overflow: hidden;
             transition: var(--transition);
         }
-
-        .card:hover {
-            border-color: rgba(255, 255, 255, 0.08);
-        }
-
+        .card:hover { border-color: rgba(255, 255, 255, 0.08); }
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -250,74 +201,76 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .card-header h2 {
             color: var(--text-primary);
             font-size: 1.1rem;
             font-weight: 600;
         }
-
-        .card-header .muted {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .card-body {
-            padding: 0 24px 24px;
-        }
-
+        .card-header .muted { color: var(--text-muted); font-size: 0.8rem; }
+        .card-body { padding: 0 24px 24px; }
         .card-footer {
             padding: 12px 24px;
             border-top: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.75rem;
         }
-
         .grid {
             display: grid;
             gap: 20px;
         }
-        .grid-4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
-        .grid-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .grid-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
         @media (max-width: 1024px) {
-            .grid-4 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .grid-3 {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
         }
-
         @media (max-width: 640px) {
-            .grid-4,
-            .grid-3,
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-            .page {
-                padding: 16px;
-            }
-            .navbar {
-                padding: 12px 16px;
-            }
-            .navbar-nav a,
-            .navbar-nav .nav-link {
-                padding: 6px 10px;
-                font-size: 0.7rem;
-            }
+            .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+            .page { padding: 16px; }
+            .navbar { padding: 12px 16px; }
+            .navbar-nav .nav-link { padding: 6px 10px; font-size: 0.7rem; }
         }
 
-        /* ============================================================
-           AI SIGNALS - ENHANCED STYLES
-           ============================================================ */
+        /* ================================================================
+           METRIC CARDS
+           ================================================================ */
+        .metric-card {
+            padding: 20px 24px;
+            text-align: center;
+        }
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-main {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+            margin: 6px 0 2px;
+            flex-wrap: wrap;
+        }
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .metric-badge {
+            font-size: 0.7rem;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+        .badge-positive { background: rgba(0, 230, 118, 0.15); color: var(--primary); }
+        .badge-negative { background: rgba(255, 23, 68, 0.15); color: var(--danger); }
+        .metric-foot { font-size: 0.7rem; color: var(--text-muted); }
+
+        /* ================================================================
+           AI SIGNALS
+           ================================================================ */
         .signals-header {
             display: flex;
             justify-content: space-between;
@@ -326,50 +279,30 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .signals-header .status-indicator {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .signals-header .status-indicator .dot {
             width: 10px;
             height: 10px;
             border-radius: 50%;
             display: inline-block;
         }
-
-        .signals-header .status-indicator .dot.online {
-            background: var(--primary);
-            animation: pulse 2s infinite;
-        }
-
-        .signals-header .status-indicator .dot.offline {
-            background: var(--danger);
-        }
-
-        .signals-header .status-indicator .dot.loading {
-            background: var(--warning);
-            animation: pulse 0.5s infinite;
-        }
-
+        .signals-header .status-indicator .dot.online { background: var(--primary); animation: pulse 2s infinite; }
+        .signals-header .status-indicator .dot.offline { background: var(--danger); }
+        .signals-header .status-indicator .dot.loading { background: var(--warning); animation: pulse 0.5s infinite; }
         @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
-
         .signals-filters {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
-
         .signals-filters .filter-btn {
             padding: 6px 16px;
             border: 1px solid var(--border-color);
@@ -380,25 +313,21 @@
             transition: var(--transition);
             font-size: 0.8rem;
         }
-
         .signals-filters .filter-btn:hover {
             border-color: var(--primary);
             color: var(--text-primary);
         }
-
         .signals-filters .filter-btn.active {
             border-color: var(--primary);
             background: var(--primary-light);
             color: var(--primary);
         }
 
-        /* Signal Card Grid */
         .signals-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 16px;
         }
-
         .signal-card {
             background: var(--bg-input);
             border: 1px solid var(--border-color);
@@ -409,25 +338,21 @@
             position: relative;
             overflow: hidden;
         }
-
         .signal-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
-
         .signal-card .signal-top {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
         }
-
         .signal-card .signal-symbol {
             font-weight: 700;
             color: var(--text-primary);
             font-size: 1rem;
         }
-
         .signal-card .signal-type {
             font-size: 0.6rem;
             padding: 2px 10px;
@@ -436,22 +361,9 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
         }
-
-        .signal-card .signal-type.forex {
-            background: rgba(41, 98, 255, 0.15);
-            color: var(--secondary);
-        }
-
-        .signal-card .signal-type.crypto {
-            background: rgba(255, 171, 0, 0.15);
-            color: var(--warning);
-        }
-
-        .signal-card .signal-type.index {
-            background: rgba(0, 230, 118, 0.15);
-            color: var(--primary);
-        }
-
+        .signal-card .signal-type.forex { background: rgba(41, 98, 255, 0.15); color: var(--secondary); }
+        .signal-card .signal-type.crypto { background: rgba(255, 171, 0, 0.15); color: var(--warning); }
+        .signal-card .signal-type.index { background: rgba(0, 230, 118, 0.15); color: var(--primary); }
         .signal-card .signal-direction {
             font-size: 1.3rem;
             margin: 8px 0;
@@ -459,40 +371,28 @@
             align-items: center;
             gap: 8px;
         }
-
         .signal-card .signal-direction .signal-label {
             font-weight: 700;
             font-size: 0.9rem;
         }
-
-        .signal-card .signal-direction.buy {
-            color: var(--primary);
-        }
-        .signal-card .signal-direction.sell {
-            color: var(--danger);
-        }
-        .signal-card .signal-direction.hold {
-            color: var(--warning);
-        }
-
+        .signal-card .signal-direction.buy { color: var(--primary); }
+        .signal-card .signal-direction.sell { color: var(--danger); }
+        .signal-card .signal-direction.hold { color: var(--warning); }
         .signal-card .signal-price {
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
             margin: 4px 0;
         }
-
         .signal-card .signal-confidence {
             margin-top: 10px;
         }
-
         .signal-card .signal-confidence .conf-label {
             display: flex;
             justify-content: space-between;
             font-size: 0.7rem;
             color: var(--text-muted);
         }
-
         .signal-card .signal-confidence .conf-bar {
             width: 100%;
             height: 4px;
@@ -501,13 +401,11 @@
             margin-top: 4px;
             overflow: hidden;
         }
-
         .signal-card .signal-confidence .conf-bar .conf-fill {
             height: 100%;
             border-radius: 2px;
             transition: width 0.6s ease;
         }
-
         .signal-card .signal-meta {
             display: flex;
             justify-content: space-between;
@@ -517,18 +415,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             padding-top: 8px;
         }
-
-        .signal-card .signal-meta .signal-time {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .signal-card .signal-meta .signal-entries {
-            display: flex;
-            gap: 12px;
-        }
-
         .signal-card .signal-badge-new {
             position: absolute;
             top: 12px;
@@ -541,57 +427,741 @@
             color: #fff;
             animation: pulse 1.5s infinite;
         }
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            gap: 16px;
+        }
+        .loading-spinner .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.05);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Signal Detail Modal */
+        /* ================================================================
+           PERSONALITY / KARAKTER
+           ================================================================ */
+        .personality-section {
+            background: var(--bg-card);
+            border: 2px solid var(--secondary);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .personality-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(41, 98, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .personality-section .personality-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .personality-section .personality-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary-light);
+            color: var(--secondary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .personality-section .personality-header h2 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-top: 8px;
+        }
+        .personality-section .personality-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .personality-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .personality-form .form-group { margin-bottom: 4px; }
+        .personality-form label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+        .personality-form input, .personality-form select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .personality-form input:focus, .personality-form select:focus {
+            border-color: var(--secondary);
+        }
+        .personality-form select option { background: var(--bg-card); color: #fff; }
+        .personality-result {
+            display: none;
+            margin-top: 24px;
+            padding: 24px;
+            background: var(--bg-input);
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--secondary);
+            animation: fadeSlideIn 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .personality-result.show { display: block; }
+        .personality-result .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .personality-result .result-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 14px 16px;
+            border-radius: 8px;
+        }
+        .personality-result .result-item .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        .personality-result .result-item .value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 4px;
+        }
+        .personality-result .result-item.full { grid-column: span 2; }
+        .personality-result .result-item .badge-traits {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+        .personality-result .result-item .badge-traits span {
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: var(--secondary-light);
+            color: var(--secondary);
+        }
+        .personality-result .result-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .personality-form { grid-template-columns: 1fr; }
+            .personality-result .result-grid { grid-template-columns: 1fr; }
+            .personality-result .result-item.full { grid-column: span 1; }
+        }
+
+        /* ================================================================
+           QUIZ
+           ================================================================ */
+        .quiz-section {
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .quiz-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(0, 230, 118, 0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .quiz-section .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .quiz-section .quiz-header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .quiz-section .quiz-header h2 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-top: 8px;
+        }
+        .quiz-section .quiz-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .quiz-container { position: relative; z-index: 1; }
+        .quiz-container .progress-quiz {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .quiz-container .progress-quiz .dot {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--border-color);
+            transition: var(--transition);
+        }
+        .quiz-container .progress-quiz .dot.active { background: var(--primary); }
+        .quiz-container .progress-quiz .dot.completed { background: var(--primary-dark); }
+        .quiz-question {
+            display: none;
+            animation: fadeSlideIn 0.4s ease;
+        }
+        .quiz-question.active { display: block; }
+        .quiz-question .q-number {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+        }
+        .quiz-question .q-text {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .quiz-options .q-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .quiz-options .q-option:hover {
+            border-color: var(--primary);
+            background: var(--bg-hover);
+        }
+        .quiz-options .q-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .quiz-options .q-option .q-radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+        .quiz-options .q-option.selected .q-radio {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+        .quiz-options .q-option.selected .q-radio::after {
+            content: '✓';
+            color: #0a0a0e;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .quiz-options .q-option .q-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .quiz-options .q-option .q-badge {
+            margin-left: auto;
+            font-size: 0.6rem;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .quiz-options .q-option.selected .q-badge {
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--primary);
+        }
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 12px;
+        }
+        .quiz-nav .btn-quiz {
+            padding: 10px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quiz-nav .btn-quiz-prev {
+            background: var(--bg-input);
+            color: var(--text-muted);
+        }
+        .quiz-nav .btn-quiz-prev:hover:not(:disabled) {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .quiz-nav .btn-quiz-prev:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .quiz-nav .btn-quiz-next {
+            background: var(--primary);
+            color: #0a0a0e;
+        }
+        .quiz-nav .btn-quiz-next:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateX(4px);
+        }
+        .quiz-nav .btn-quiz-next:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .quiz-result-box {
+            display: none;
+            margin-top: 20px;
+            padding: 24px;
+            background: var(--bg-input);
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--primary);
+            animation: fadeSlideIn 0.5s ease;
+        }
+        .quiz-result-box.show { display: block; }
+        .quiz-result-box .result-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .quiz-result-box .result-header .result-icon { font-size: 2.5rem; }
+        .quiz-result-box .result-header h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+        .quiz-result-box .result-body {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .quiz-result-box .result-body .highlight-text {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .quiz-result-box .result-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ================================================================
+           MODULES
+           ================================================================ */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        .module-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 18px 20px;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .module-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+        .module-card .module-day {
+            font-size: 0.65rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .module-card .module-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin: 6px 0 4px;
+        }
+        .module-card .module-desc {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        .module-card .module-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 10px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .module-card .module-status {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .status-completed { background: rgba(0, 230, 118, 0.15); color: var(--primary); }
+        .status-progress { background: rgba(41, 98, 255, 0.15); color: var(--secondary); }
+        .status-locked { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
+        .status-recommended { background: rgba(255, 171, 0, 0.15); color: var(--warning); }
+        .status-personality { background: rgba(41, 98, 255, 0.2); color: var(--secondary); border: 1px solid var(--secondary); }
+        .btn-module {
+            margin-top: 12px;
+            padding: 6px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-module-play { background: var(--primary); color: #0a0a0e; }
+        .btn-module-play:hover { background: var(--primary-dark); transform: translateX(4px); }
+        .btn-module-locked { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed; }
+        .btn-module-personality { background: var(--secondary); color: #fff; }
+        .btn-module-personality:hover { background: #1a4fd0; transform: translateX(4px); }
+
+        .recommended-banner {
+            background: linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(41, 98, 255, 0.1));
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .recommended-banner.show { display: flex; }
+        .recommended-banner .rec-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .recommended-banner .rec-text .rec-icon { font-size: 1.5rem; color: var(--warning); }
+        .recommended-banner .rec-text h4 {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .recommended-banner .rec-text p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .personality-banner {
+            background: linear-gradient(135deg, rgba(41, 98, 255, 0.1), rgba(0, 230, 118, 0.1));
+            border: 1px solid var(--secondary);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .personality-banner.show { display: flex; }
+        .personality-banner .per-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .personality-banner .per-text .per-icon { font-size: 1.5rem; color: var(--secondary); }
+        .personality-banner .per-text h4 {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+        .personality-banner .per-text p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* ================================================================
+           SUBSCRIPTION PLANS
+           ================================================================ */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .plan-card {
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+        .plan-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+        .plan-card.popular {
+            border-color: var(--primary);
+            background: #1a2a3a;
+        }
+        .plan-card.popular::before {
+            content: '⭐ POPULER';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: #0a0a0e;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .plan-card .plan-icon { font-size: 2rem; color: var(--primary); }
+        .plan-card .plan-name {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 8px 0 4px;
+        }
+        .plan-card .plan-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .plan-card .plan-price .currency {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+        .plan-card .plan-period {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+        .plan-card .plan-features {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin: 16px 0;
+        }
+        .plan-card .plan-features li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .plan-card .plan-features li:last-child { border-bottom: none; }
+        .plan-card .plan-features li i {
+            color: var(--primary);
+            width: 18px;
+        }
+        .btn-subscribe {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+        .btn-subscribe-primary { background: var(--primary); color: #0a0a0e; }
+        .btn-subscribe-primary:hover {
+            background: var(--primary-dark);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
+        }
+        .btn-subscribe-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-subscribe-outline:hover {
+            background: var(--primary);
+            color: #0a0a0e;
+        }
+
+        /* ================================================================
+           MODAL
+           ================================================================ */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 30px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .modal-close:hover {
+            color: var(--text-primary);
+            transform: rotate(90deg);
+        }
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
         .signal-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-
         .signal-detail-grid .detail-item {
             background: rgba(255, 255, 255, 0.03);
             padding: 12px 14px;
             border-radius: 8px;
         }
-
         .signal-detail-grid .detail-item .detail-label {
             font-size: 0.65rem;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 0.5px;
         }
-
         .signal-detail-grid .detail-item .detail-value {
             font-size: 1rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-top: 2px;
         }
-
-        .signal-detail-grid .detail-item .detail-value.buy {
-            color: var(--primary);
-        }
-        .signal-detail-grid .detail-item .detail-value.sell {
-            color: var(--danger);
-        }
-        .signal-detail-grid .detail-item .detail-value.hold {
-            color: var(--warning);
-        }
-
-        .signal-detail-grid .detail-item.full {
-            grid-column: span 2;
-        }
-
+        .signal-detail-grid .detail-item .detail-value.buy { color: var(--primary); }
+        .signal-detail-grid .detail-item .detail-value.sell { color: var(--danger); }
+        .signal-detail-grid .detail-item .detail-value.hold { color: var(--warning); }
+        .signal-detail-grid .detail-item.full { grid-column: span 2; }
         .signal-detail-grid .detail-item .reasoning-text {
             color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        /* ============================================================
+        /* ================================================================
            TOAST
-           ============================================================ */
+           ================================================================ */
         .toast-container {
             position: fixed;
             bottom: 20px;
@@ -602,7 +1172,6 @@
             gap: 10px;
             max-width: 400px;
         }
-
         .toast {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -618,165 +1187,80 @@
             align-items: center;
             gap: 12px;
         }
-
         .toast.show {
             transform: translateX(0);
             opacity: 1;
         }
+        .toast.success { border-left: 4px solid var(--primary); }
+        .toast.error { border-left: 4px solid var(--danger); }
+        .toast.info { border-left: 4px solid var(--secondary); }
+        .toast.warning { border-left: 4px solid var(--warning); }
 
-        .toast.success {
-            border-left: 4px solid var(--primary);
+        /* ================================================================
+           VIDEO / MODULE MODAL
+           ================================================================ */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            margin: 16px 0;
+            background: #000;
         }
-        .toast.error {
-            border-left: 4px solid var(--danger);
-        }
-        .toast.info {
-            border-left: 4px solid var(--secondary);
-        }
-        .toast.warning {
-            border-left: 4px solid var(--warning);
-        }
-
-        /* ============================================================
-           MODAL
-           ============================================================ */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-overlay {
+        .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 30px;
-            max-width: 650px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: modalIn 0.3s ease;
-        }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-        }
-
-        .modal-close {
-            background: none;
             border: none;
-            color: var(--text-muted);
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: var(--transition);
         }
-
-        .modal-close:hover {
+        .module-content h3 {
             color: var(--text-primary);
-            transform: rotate(90deg);
+            font-size: 1rem;
+            margin-bottom: 8px;
         }
-
-        .modal-footer {
-            display: flex;
-            gap: 12px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-            flex-wrap: wrap;
-        }
-
-        /* ============================================================
-           LOADING
-           ============================================================ */
-        .loading-spinner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            gap: 16px;
-        }
-
-        .loading-spinner .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.05);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-spinner p {
+        .module-content p {
             color: var(--text-muted);
+            line-height: 1.7;
             font-size: 0.9rem;
         }
+        .module-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+        .module-content ul li {
+            padding: 6px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+        .module-content ul li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: 700;
+        }
 
+        /* ================================================================
+           TAB CONTENT
+           ================================================================ */
         .tab-content {
             display: none;
             animation: fadeSlideIn 0.4s ease;
         }
-
-        .tab-content.active {
-            display: block;
-        }
-
+        .tab-content.active { display: block; }
         @keyframes fadeSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ================================================================
+           FOOTER
+           ================================================================ */
         .footer {
             text-align: center;
             padding: 24px;
@@ -785,13 +1269,29 @@
             border-top: 1px solid var(--border-color);
             margin-top: 40px;
         }
+
+        /* ================================================================
+           PWA / MOBILE
+           ================================================================ */
+        @media (display-mode: standalone) {
+            body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+            .navbar { padding-top: calc(12px + env(safe-area-inset-top)); }
+        }
+        .notification-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            animation: pulse 1.5s infinite;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ============================================================
+    <!-- ================================================================
     NAVBAR
-    ============================================================ -->
+    ================================================================ -->
     <header class="navbar">
         <div class="navbar-left">
             <div class="logo-icon">M</div>
@@ -801,15 +1301,24 @@
             </div>
         </div>
         <nav class="navbar-nav">
-            <button class="nav-link" data-tab="dashboard" onclick="switchTab('dashboard')">
+            <button class="nav-link active" data-tab="dashboard" onclick="switchTab('dashboard')">
                 <i class="fas fa-home"></i> Home
             </button>
-            <button class="nav-link active" data-tab="signals" onclick="switchTab('signals')">
+            <button class="nav-link" data-tab="signals" onclick="switchTab('signals')">
                 <i class="fas fa-robot"></i> AI Signals
-                <span class="notification-dot" id="signalDot" style="display:none;width:8px;height:8px;border-radius:50%;background:var(--danger);display:inline-block;animation:pulse 1.5s infinite;"></span>
+                <span class="notification-dot" id="signalDot" style="display:none;"></span>
+            </button>
+            <button class="nav-link" data-tab="personality" onclick="switchTab('personality')">
+                <i class="fas fa-user-astronaut"></i> Karakter
+                <span class="notification-dot" id="personalityDot" style="display:none;"></span>
+            </button>
+            <button class="nav-link" data-tab="quiz" onclick="switchTab('quiz')">
+                <i class="fas fa-clipboard-list"></i> Kuis
+                <span class="notification-dot" id="quizDot" style="display:none;"></span>
             </button>
             <button class="nav-link" data-tab="modules" onclick="switchTab('modules')">
                 <i class="fas fa-graduation-cap"></i> Modul
+                <span class="notification-dot" id="moduleDot" style="display:none;"></span>
             </button>
             <button class="nav-link" data-tab="calculator" onclick="switchTab('calculator')">
                 <i class="fas fa-calculator"></i> Kalkulator
@@ -817,70 +1326,86 @@
         </nav>
     </header>
 
-    <!-- ============================================================
+    <!-- ================================================================
     MAIN CONTENT
-    ============================================================ -->
+    ================================================================ -->
     <main class="page">
 
         <!-- ============================================================
-        TAB: DASHBOARD (Simplified)
+        TAB: DASHBOARD
         ============================================================ -->
-        <div class="tab-content" id="tab-dashboard">
+        <div class="tab-content active" id="tab-dashboard">
             <div class="page-header">
                 <div>
                     <h1>Trading Dashboard</h1>
                     <p class="muted">Monitoring real‑time equity, risiko, dan performa sistem</p>
                 </div>
             </div>
-
             <div class="grid grid-4" style="margin-bottom:24px;">
-                <div class="card metric-card" style="padding:20px 24px;text-align:center;">
-                    <div style="color:var(--text-muted);font-size:0.75rem;text-transform:uppercase;">Equity</div>
-                    <div style="font-size:1.8rem;font-weight:700;color:var(--text-primary);">$ 85,420.50</div>
-                    <div style="font-size:0.7rem;color:var(--primary);">+3.12%</div>
+                <div class="card metric-card">
+                    <div class="metric-label">Equity</div>
+                    <div class="metric-main">
+                        <span class="metric-value" id="equityValue">$ 85,420.50</span>
+                        <span class="metric-badge badge-positive" id="equityChange">+3.12%</span>
+                    </div>
+                    <div class="metric-foot">Total akun terhubung</div>
                 </div>
-                <div class="card metric-card" style="padding:20px 24px;text-align:center;">
-                    <div style="color:var(--text-muted);font-size:0.75rem;text-transform:uppercase;">Open Positions</div>
-                    <div style="font-size:1.8rem;font-weight:700;color:var(--text-primary);">3</div>
-                    <div style="font-size:0.7rem;color:var(--text-muted);">3 posisi aktif</div>
+                <div class="card metric-card">
+                    <div class="metric-label">Open Positions</div>
+                    <div class="metric-main">
+                        <span class="metric-value" id="openCount">3</span>
+                        <span class="metric-sub" id="openSummary">3 posisi aktif</span>
+                    </div>
+                    <div class="metric-foot">Dari EA / bot aktif</div>
                 </div>
-                <div class="card metric-card" style="padding:20px 24px;text-align:center;">
-                    <div style="color:var(--text-muted);font-size:0.75rem;text-transform:uppercase;">Daily P/L</div>
-                    <div style="font-size:1.8rem;font-weight:700;color:var(--primary);">+ $2,580.40</div>
-                    <div style="font-size:0.7rem;color:var(--text-muted);">Akumulasi hari berjalan</div>
+                <div class="card metric-card">
+                    <div class="metric-label">Daily P/L</div>
+                    <div class="metric-main">
+                        <span class="metric-value" id="dailyPL">+ $2,580.40</span>
+                    </div>
+                    <div class="metric-foot">Akumulasi hari berjalan</div>
                 </div>
-                <div class="card metric-card" style="padding:20px 24px;text-align:center;">
-                    <div style="color:var(--text-muted);font-size:0.75rem;text-transform:uppercase;">Max Drawdown</div>
-                    <div style="font-size:1.8rem;font-weight:700;color:var(--text-primary);">5.15%</div>
-                    <div style="font-size:0.7rem;color:var(--text-muted);">30 hari terakhir</div>
+                <div class="card metric-card">
+                    <div class="metric-label">Max Drawdown (30D)</div>
+                    <div class="metric-main">
+                        <span class="metric-value" id="dd30d">5.15%</span>
+                    </div>
+                    <div class="metric-foot">Berbasis ekuitas 30 hari</div>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div>
-                        <h2>Quick Access</h2>
-                        <p class="muted small">Fitur utama platform</p>
+            <div class="grid grid-3">
+                <div class="card" style="cursor:pointer;" onclick="switchTab('signals')">
+                    <div class="card-body" style="text-align:center;padding:24px;">
+                        <div style="font-size:2.5rem;color:var(--primary);"><i class="fas fa-robot"></i></div>
+                        <h3 style="color:var(--text-primary);margin:10px 0 4px;">AI Signals</h3>
+                        <p style="color:var(--text-muted);font-size:0.85rem;">Sinyal trading real-time</p>
                     </div>
                 </div>
-                <div class="card-body" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding-bottom:24px;">
-                    <button class="btn-pill btn-primary" onclick="switchTab('signals')"><i class="fas fa-robot"></i> AI Signals</button>
-                    <button class="btn-pill btn-outline" onclick="switchTab('modules')"><i class="fas fa-graduation-cap"></i> Modul</button>
-                    <button class="btn-pill btn-outline" onclick="switchTab('calculator')"><i class="fas fa-calculator"></i> Kalkulator</button>
+                <div class="card" style="cursor:pointer;" onclick="switchTab('personality')">
+                    <div class="card-body" style="text-align:center;padding:24px;">
+                        <div style="font-size:2.5rem;color:var(--secondary);"><i class="fas fa-user-astronaut"></i></div>
+                        <h3 style="color:var(--text-primary);margin:10px 0 4px;">Karakter & Potensi</h3>
+                        <p style="color:var(--text-muted);font-size:0.85rem;">Kenali dirimu lebih dalam</p>
+                    </div>
+                </div>
+                <div class="card" style="cursor:pointer;" onclick="switchTab('modules')">
+                    <div class="card-body" style="text-align:center;padding:24px;">
+                        <div style="font-size:2.5rem;color:var(--warning);"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 style="color:var(--text-primary);margin:10px 0 4px;">Modul Belajar</h3>
+                        <p style="color:var(--text-muted);font-size:0.85rem;">28 hari pembelajaran</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- ============================================================
-        TAB: AI SIGNALS (ENHANCED)
+        TAB: AI SIGNALS
         ============================================================ -->
-        <div class="tab-content active" id="tab-signals">
-            <!-- Header -->
+        <div class="tab-content" id="tab-signals">
             <div class="signals-header">
                 <div>
                     <h2 style="color:var(--text-primary);font-size:1.3rem;">
-                        <i class="fas fa-robot" style="color:var(--primary);"></i>
-                        AI Trading Signals
+                        <i class="fas fa-robot" style="color:var(--primary);"></i> AI Trading Signals
                     </h2>
                     <p class="muted">Sinyal trading real-time berbasis analisis teknikal & sentimen pasar</p>
                 </div>
@@ -892,9 +1417,7 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Filters -->
-            <div class="signals-filters" style="margin-bottom:20px;">
+            <div class="signals-filters" id="signalFilters">
                 <button class="filter-btn active" data-filter="all" onclick="filterSignals('all', this)">Semua</button>
                 <button class="filter-btn" data-filter="forex" onclick="filterSignals('forex', this)">Forex</button>
                 <button class="filter-btn" data-filter="crypto" onclick="filterSignals('crypto', this)">Crypto</button>
@@ -902,8 +1425,6 @@
                 <button class="filter-btn" data-filter="buy" onclick="filterSignals('buy', this)">BUY</button>
                 <button class="filter-btn" data-filter="sell" onclick="filterSignals('sell', this)">SELL</button>
             </div>
-
-            <!-- Signals Grid -->
             <div class="card">
                 <div class="card-body" style="padding:20px 24px;" id="signalsContainer">
                     <div class="loading-spinner">
@@ -911,7 +1432,7 @@
                         <p>Memuat sinyal AI terbaru...</p>
                     </div>
                 </div>
-                <div class="card-footer" id="signalFooter">
+                <div class="card-footer">
                     <span id="signalCount">0 sinyal</span>
                     <span>Last update: <span id="signalLastUpdate">-</span></span>
                 </div>
@@ -919,42 +1440,364 @@
         </div>
 
         <!-- ============================================================
-        TAB: MODULES (Simplified)
+        TAB: PERSONALITY (KARAKTER)
         ============================================================ -->
-        <div class="tab-content" id="tab-modules">
-            <div class="page-header">
+        <div class="tab-content" id="tab-personality">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
                 <div>
-                    <h1>Modul Pembelajaran</h1>
-                    <p class="muted">28 hari pembelajaran terstruktur dari dasar hingga mahir</p>
+                    <h2 style="color:var(--text-primary);font-size:1.3rem;">
+                        <i class="fas fa-user-astronaut" style="color:var(--secondary);"></i> Kenali Karakter & Potensi Diri
+                    </h2>
+                    <p class="muted">Temukan siapa dirimu, kelebihan, dan arah hidup yang cocok berdasarkan tanggal lahirmu</p>
+                </div>
+                <div>
+                    <span style="color:var(--text-muted);font-size:0.8rem;" id="personalityStatus">Belum dianalisis</span>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-body" style="padding:24px;text-align:center;">
-                    <div style="font-size:3rem;color:var(--primary);margin-bottom:16px;"><i class="fas fa-graduation-cap"></i></div>
-                    <h3 style="color:var(--text-primary);">28 Modul Tersedia</h3>
-                    <p style="color:var(--text-muted);">Mulai dari dasar hingga strategi lanjutan</p>
-                    <button class="btn-pill btn-primary" style="margin-top:12px;" onclick="showToast('Modul akan segera hadir!', 'info')">
-                        <i class="fas fa-play"></i> Mulai Belajar
-                    </button>
+            <section class="personality-section">
+                <div class="personality-header">
+                    <div>
+                        <div class="badge" style="background:var(--secondary-light);color:var(--secondary);">
+                            <i class="fas fa-star"></i> Personal Profiling
+                        </div>
+                        <h2>🌟 Masukkan Tanggal Lahir</h2>
+                        <p>Isi data di bawah untuk mendapatkan analisis karakter, kelebihan, dan rekomendasi hidup yang personal.</p>
+                    </div>
                 </div>
-            </div>
+                <form class="personality-form" id="personalityForm" onsubmit="analyzePersonality(event)">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="personalityName" placeholder="Masukkan nama kamu" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="personalityBirthday" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <select id="personalityGender" required>
+                            <option value="">Pilih...</option>
+                            <option value="male">Laki-laki</option>
+                            <option value="female">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Zodiak (Otomatis)</label>
+                        <input type="text" id="personalityZodiac" placeholder="Akan terisi otomatis" readonly style="opacity:0.7;">
+                    </div>
+                    <div class="form-group" style="grid-column:span 2;">
+                        <button type="submit" class="btn-pill btn-primary btn-block" style="padding:12px;">
+                            <i class="fas fa-magic"></i> Analisis Karakter
+                        </button>
+                    </div>
+                </form>
+                <div class="personality-result" id="personalityResult">
+                    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                        <span style="font-size:2.5rem;">🌟</span>
+                        <div>
+                            <h3 style="color:var(--text-primary);" id="resultPersonalityName">Halo, [Nama]!</h3>
+                            <p style="color:var(--text-muted);font-size:0.85rem;" id="resultPersonalitySub">Inilah karakter dan potensi dirimu berdasarkan tanggal lahir.</p>
+                        </div>
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item"><div class="label">Zodiak</div><div class="value" id="resultZodiac">-</div></div>
+                        <div class="result-item"><div class="label">Elemen</div><div class="value" id="resultElement">-</div></div>
+                        <div class="result-item full"><div class="label">Karakter / Sifat</div><div class="value" id="resultCharacter">-</div></div>
+                        <div class="result-item full"><div class="label">Kelebihan</div><div class="value" id="resultStrengths">-</div></div>
+                        <div class="result-item full"><div class="label">Kekurangan yang Perlu Diperhatikan</div><div class="value" id="resultWeaknesses">-</div></div>
+                        <div class="result-item full"><div class="label">🌟 Karir & Arah Hidup yang Cocok</div><div class="value" id="resultCareer">-</div></div>
+                        <div class="result-item full"><div class="label">💡 Tips untuk Pengembangan Diri</div><div class="value" id="resultTips">-</div></div>
+                        <div class="result-item full" style="background:rgba(0,230,118,0.05);border:1px solid var(--primary);">
+                            <div class="label" style="color:var(--primary);">🎯 Rekomendasi Gaya Trading</div>
+                            <div class="value" id="resultTradingStyle" style="font-size:1.1rem;">-</div>
+                            <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;" id="resultTradingBadges"></div>
+                        </div>
+                    </div>
+                    <div class="result-actions">
+                        <button class="btn-pill btn-primary" onclick="goToModulesFromPersonality()">
+                            <i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi
+                        </button>
+                        <button class="btn-pill btn-outline" onclick="document.getElementById('personalityResult').classList.remove('show')">
+                            <i class="fas fa-times"></i> Tutup
+                        </button>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- ============================================================
-        TAB: CALCULATOR (Simplified)
+        TAB: QUIZ
         ============================================================ -->
-        <div class="tab-content" id="tab-calculator">
-            <div class="page-header">
+        <div class="tab-content" id="tab-quiz">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
                 <div>
-                    <h1>Kalkulator Risiko</h1>
-                    <p class="muted">Hitung position sizing & risk-to-reward ratio</p>
+                    <h2 style="color:var(--text-primary);font-size:1.3rem;">
+                        <i class="fas fa-clipboard-list" style="color:var(--primary);"></i> Kuis Profiling
+                    </h2>
+                    <p class="muted">Jawab 4 pertanyaan singkat untuk mendapatkan rekomendasi modul pembelajaran yang sesuai dengan profil tradingmu.</p>
+                </div>
+                <div>
+                    <span style="color:var(--text-muted);font-size:0.8rem;" id="quizStatus">Belum dikerjakan</span>
+                    <span style="padding:4px 12px;border-radius:12px;background:var(--primary-light);color:var(--primary);font-size:0.7rem;font-weight:600;margin-left:8px;" id="quizScoreBadge">0%</span>
                 </div>
             </div>
+            <section class="quiz-section">
+                <div class="quiz-container" id="quizContainer">
+                    <div class="progress-quiz" id="quizProgress">
+                        <div class="dot active" data-step="0"></div>
+                        <div class="dot" data-step="1"></div>
+                        <div class="dot" data-step="2"></div>
+                        <div class="dot" data-step="3"></div>
+                    </div>
+                    <div id="quizQuestions">
+                        <!-- Q1 -->
+                        <div class="quiz-question active" data-step="0">
+                            <div class="q-number">Pertanyaan 1 dari 4</div>
+                            <div class="q-text">Berapa banyak waktu yang bisa kamu alokasikan untuk memantau chart harian?</div>
+                            <div class="quiz-options">
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'short')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">&lt; 1 Jam Sehari</span>
+                                    <span class="q-badge">Minimalis</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'medium')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">1 - 3 Jam Sehari</span>
+                                    <span class="q-badge">Moderat</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'full')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">&gt; 4 Jam Sehari</span>
+                                    <span class="q-badge">Full Time</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="quiz-question" data-step="1">
+                            <div class="q-number">Pertanyaan 2 dari 4</div>
+                            <div class="q-text">Bagaimana reaksi psikologis kamu saat melihat transaksi minus (floating loss)?</div>
+                            <div class="quiz-options">
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'low')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Cemas & Ingin segera tutup posisi</span>
+                                    <span class="q-badge">Konservatif</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'med')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Tenang, selama masih sesuai rencana</span>
+                                    <span class="q-badge">Terukur</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'high')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Mencari peluang tambah posisi lagi</span>
+                                    <span class="q-badge">Agresif</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Q3 -->
+                        <div class="quiz-question" data-step="2">
+                            <div class="q-number">Pertanyaan 3 dari 4</div>
+                            <div class="q-text">Apa target utama kamu dari aktivitas trading ini?</div>
+                            <div class="quiz-options">
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'daily')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Profit Harian</span>
+                                    <span class="q-badge">Short-term</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'weekly')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Pertumbuhan Mingguan</span>
+                                    <span class="q-badge">Medium-term</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'long')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Akumulasi Jangka Panjang</span>
+                                    <span class="q-badge">Long-term</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Q4 -->
+                        <div class="quiz-question" data-step="3">
+                            <div class="q-number">Pertanyaan 4 dari 4</div>
+                            <div class="q-text">Pengalaman trading kamu sejauh ini?</div>
+                            <div class="quiz-options">
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'beginner')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Pemula - Belum pernah trading</span>
+                                    <span class="q-badge">Baru mulai</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'intermediate')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Menengah - Sudah pernah beberapa kali</span>
+                                    <span class="q-badge">Berpengalaman</span>
+                                </div>
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'advanced')">
+                                    <span class="q-radio"></span>
+                                    <span class="q-label">Mahir - Sudah trading rutin</span>
+                                    <span class="q-badge">Pro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quiz-nav">
+                        <button class="btn-quiz btn-quiz-prev" id="quizPrev" onclick="quizPrev()" disabled>
+                            <i class="fas fa-arrow-left"></i> Sebelumnya
+                        </button>
+                        <button class="btn-quiz btn-quiz-next" id="quizNext" onclick="quizNext()" disabled>
+                            Selanjutnya <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="quiz-result-box" id="quizResult">
+                    <div class="result-header">
+                        <span class="result-icon">🎉</span>
+                        <div>
+                            <h3>Kuis Selesai!</h3>
+                            <p style="color:var(--text-muted);font-size:0.85rem;" id="quizResultText">Berdasarkan jawabanmu, kami merekomendasikan modul yang sesuai untuk gaya tradingmu.</p>
+                        </div>
+                    </div>
+                    <div class="result-body" id="quizResultBody"></div>
+                    <div class="result-actions">
+                        <button class="btn-pill btn-primary" onclick="switchTab('modules')">
+                            <i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi
+                        </button>
+                        <button class="btn-pill btn-outline" onclick="resetQuiz()">
+                            <i class="fas fa-redo"></i> Ulangi Kuis
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================================
+        TAB: MODUL BELAJAR
+        ============================================================ -->
+        <div class="tab-content" id="tab-modules">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+                <div>
+                    <h2 style="color:var(--text-primary);font-size:1.3rem;">
+                        <i class="fas fa-graduation-cap" style="color:var(--primary);"></i> Modul Pembelajaran 28 Hari
+                    </h2>
+                    <p class="muted">Pelajari trading dari dasar hingga mahir dengan kurikulum terstruktur</p>
+                </div>
+                <div style="display:flex;gap:16px;">
+                    <span style="color:var(--text-muted);font-size:0.8rem;">
+                        <i class="fas fa-check-circle" style="color:var(--primary);"></i> Selesai: <span id="completedCount">0</span>
+                    </span>
+                    <span style="color:var(--text-muted);font-size:0.8rem;">
+                        <i class="fas fa-clock" style="color:var(--secondary);"></i> Tersisa: <span id="remainingCount">28</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="personality-banner" id="personalityBanner">
+                <div class="per-text">
+                    <span class="per-icon"><i class="fas fa-user-astronaut"></i></span>
+                    <div>
+                        <h4>🌟 Rekomendasi Berdasarkan Karakter</h4>
+                        <p id="personalityBannerText">Berdasarkan analisis karakter, kami merekomendasikan modul yang sesuai dengan kepribadianmu.</p>
+                    </div>
+                </div>
+                <button class="btn-pill btn-primary btn-sm" onclick="switchTab('personality')">
+                    <i class="fas fa-user-astronaut"></i> Lihat Karakter
+                </button>
+            </div>
+
+            <div class="recommended-banner" id="recommendedBanner">
+                <div class="rec-text">
+                    <span class="rec-icon"><i class="fas fa-star"></i></span>
+                    <div>
+                        <h4>🎯 Modul Rekomendasi dari Kuis</h4>
+                        <p id="recommendedText">Berdasarkan hasil kuis profiling, kami merekomendasikan modul yang sesuai dengan profil tradingmu.</p>
+                    </div>
+                </div>
+                <button class="btn-pill btn-primary btn-sm" onclick="scrollToRecommended()">
+                    <i class="fas fa-arrow-down"></i> Lihat Rekomendasi
+                </button>
+            </div>
+
+            <div class="card" style="margin-bottom:20px;border-color:var(--primary);">
+                <div class="card-body" style="padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                    <div>
+                        <span style="color:var(--primary);font-weight:600;">
+                            <i class="fas fa-lock"></i> Akses Modul Belajar
+                        </span>
+                        <span style="color:var(--text-muted);font-size:0.85rem;margin-left:8px;">
+                            Berlangganan untuk membuka semua modul pembelajaran
+                        </span>
+                    </div>
+                    <button class="btn-pill btn-primary" onclick="document.getElementById('plansSection').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-crown"></i> Berlangganan Sekarang
+                    </button>
+                </div>
+            </div>
+
+            <div class="modules-grid" id="modulesGrid"></div>
+
+            <section id="plansSection" style="margin-top:40px;">
+                <div style="text-align:center;margin-bottom:24px;">
+                    <h2 style="color:var(--text-primary);font-size:1.3rem;">🚀 Pilih Paket Langganan</h2>
+                    <p style="color:var(--text-muted);">Akses semua modul pembelajaran dan fitur premium</p>
+                </div>
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <div class="plan-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="plan-name">Starter</div>
+                        <div class="plan-price"><span class="currency">$</span>29</div>
+                        <div class="plan-period">/ bulan</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Akses 28 modul belajar</li>
+                            <li><i class="fas fa-check"></i> Signal tool dasar</li>
+                            <li><i class="fas fa-check"></i> Kalkulator risiko</li>
+                        </ul>
+                        <button class="btn-subscribe btn-subscribe-outline" onclick="subscribePlan('Starter', 29)">
+                            <i class="fas fa-shopping-cart"></i> Mulai Trial
+                        </button>
+                    </div>
+                    <div class="plan-card popular">
+                        <div class="plan-icon"><i class="fas fa-crown"></i></div>
+                        <div class="plan-name">Pro</div>
+                        <div class="plan-price"><span class="currency">$</span>49</div>
+                        <div class="plan-period">/ bulan</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Semua fitur Starter</li>
+                            <li><i class="fas fa-check"></i> Signal AI premium</li>
+                            <li><i class="fas fa-check"></i> Konsultasi 1-on-1</li>
+                        </ul>
+                        <button class="btn-subscribe btn-subscribe-primary" onclick="subscribePlan('Pro', 49)">
+                            <i class="fas fa-crown"></i> Pilih Pro
+                        </button>
+                    </div>
+                    <div class="plan-card">
+                        <div class="plan-icon"><i class="fas fa-gem"></i></div>
+                        <div class="plan-name">Premium</div>
+                        <div class="plan-price"><span class="currency">$</span>99</div>
+                        <div class="plan-period">/ tahun (hemat 83%)</div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Semua fitur Pro</li>
+                            <li><i class="fas fa-check"></i> Lifetime access</li>
+                            <li><i class="fas fa-check"></i> Sertifikat kelulusan</li>
+                        </ul>
+                        <button class="btn-subscribe btn-subscribe-outline" onclick="subscribePlan('Premium', 99)">
+                            <i class="fas fa-gem"></i> Ambil Premium
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================================
+        TAB: KALKULATOR
+        ============================================================ -->
+        <div class="tab-content" id="tab-calculator">
+            <h2 style="color:var(--text-primary);font-size:1.3rem;margin-bottom:24px;">
+                <i class="fas fa-calculator" style="color:var(--primary);"></i> Kalkulator Risiko & Position Sizing
+            </h2>
             <div class="grid grid-2">
                 <div class="card">
                     <div class="card-body" style="padding:24px;">
                         <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Modal</label>
+                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Modal (Balance)</label>
                             <input type="number" id="calcBalance" value="10000" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
                         </div>
                         <div style="margin-bottom:14px;">
@@ -966,24 +1809,34 @@
                             <input type="number" id="calcEntry" value="1965.42" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
                         </div>
                         <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Stop Loss</label>
+                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Stop Loss (SL)</label>
                             <input type="number" id="calcSL" value="1950.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
                         </div>
                         <div>
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Take Profit</label>
+                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Take Profit (TP)</label>
                             <input type="number" id="calcTP" value="1990.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
                         </div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body" style="padding:24px;">
-                        <h4 style="color:var(--text-primary);margin-bottom:16px;">Hasil Perhitungan</h4>
+                        <h4 style="color:var(--text-primary);margin-bottom:16px;">
+                            <i class="fas fa-chart-pie" style="color:var(--primary);"></i> Hasil Perhitungan
+                        </h4>
                         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
                             <span style="color:var(--text-muted);">Risk per Trade</span>
                             <span style="color:var(--danger);font-weight:700;" id="resultRisk">$200.00</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Risk-to-Reward</span>
+                            <span style="color:var(--text-muted);">Jarak SL (Pips)</span>
+                            <span style="color:var(--text-primary);font-weight:700;" id="resultSLDistance">15.42</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
+                            <span style="color:var(--text-muted);">Jarak TP (Pips)</span>
+                            <span style="color:var(--text-primary);font-weight:700;" id="resultTPDistance">24.58</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
+                            <span style="color:var(--text-muted);">Risk-to-Reward Ratio</span>
                             <span style="color:var(--primary);font-weight:700;" id="resultRR">1:1.59</span>
                         </div>
                         <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
@@ -1001,9 +1854,10 @@
 
     </main>
 
-    <!-- ============================================================
-    MODAL: SIGNAL DETAIL
-    ============================================================ -->
+    <!-- ================================================================
+    MODALS
+    ================================================================ -->
+    <!-- Signal Detail Modal -->
     <div class="modal" id="signalModal">
         <div class="modal-overlay" onclick="closeSignalModal()"></div>
         <div class="modal-content">
@@ -1013,407 +1867,310 @@
             </div>
             <div class="modal-body">
                 <div class="signal-detail-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Signal</div>
-                        <div class="detail-value buy" id="detailSignal">BUY</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Confidence</div>
-                        <div class="detail-value" id="detailConfidence">78%</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Entry Price</div>
-                        <div class="detail-value" id="detailEntry">$2,345.50</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Stop Loss</div>
-                        <div class="detail-value" style="color:var(--danger);" id="detailSL">$2,330.00</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Take Profit</div>
-                        <div class="detail-value" style="color:var(--primary);" id="detailTP">$2,390.00</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Time</div>
-                        <div class="detail-value" id="detailTime">-</div>
-                    </div>
-                    <div class="detail-item full">
-                        <div class="detail-label">AI Reasoning</div>
-                        <div class="reasoning-text" id="detailReasoning">Bullish breakout with RSI above 50 and MACD crossover. Strong support at 2,330.</div>
-                    </div>
-                    <div class="detail-item full">
-                        <div class="detail-label">Technical Indicators</div>
-                        <div class="detail-value" id="detailIndicators" style="font-size:0.85rem;color:var(--text-secondary);">RSI: 62.4 (BUY) | MACD: Bullish Crossover | MA50: 2,358.20</div>
-                    </div>
+                    <div class="detail-item"><div class="detail-label">Signal</div><div class="detail-value buy" id="detailSignal">BUY</div></div>
+                    <div class="detail-item"><div class="detail-label">Confidence</div><div class="detail-value" id="detailConfidence">78%</div></div>
+                    <div class="detail-item"><div class="detail-label">Entry Price</div><div class="detail-value" id="detailEntry">$2,345.50</div></div>
+                    <div class="detail-item"><div class="detail-label">Stop Loss</div><div class="detail-value" style="color:var(--danger);" id="detailSL">$2,330.00</div></div>
+                    <div class="detail-item"><div class="detail-label">Take Profit</div><div class="detail-value" style="color:var(--primary);" id="detailTP">$2,390.00</div></div>
+                    <div class="detail-item"><div class="detail-label">Time</div><div class="detail-value" id="detailTime">-</div></div>
+                    <div class="detail-item full"><div class="detail-label">AI Reasoning</div><div class="reasoning-text" id="detailReasoning">-</div></div>
+                    <div class="detail-item full"><div class="detail-label">Technical Indicators</div><div class="detail-value" id="detailIndicators" style="font-size:0.85rem;color:var(--text-secondary);">-</div></div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn-pill btn-primary" onclick="executeSignal()">
-                    <i class="fas fa-rocket"></i> Execute Signal
-                </button>
+                <button class="btn-pill btn-primary" onclick="executeSignal()"><i class="fas fa-rocket"></i> Execute Signal</button>
                 <button class="btn-pill btn-outline" onclick="closeSignalModal()">Close</button>
             </div>
         </div>
     </div>
 
-    <!-- ============================================================
+    <!-- Module Detail Modal -->
+    <div class="modal" id="moduleModal">
+        <div class="modal-overlay" onclick="closeModuleModal()"></div>
+        <div class="modal-content" style="max-width:800px;">
+            <div class="modal-header">
+                <h2 id="moduleModalTitle">Modul 1: Pengenalan Trading</h2>
+                <button class="modal-close" onclick="closeModuleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="video-container">
+                    <iframe id="moduleVideo" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+                </div>
+                <div class="module-content">
+                    <h3 id="moduleContentTitle">Apa itu Trading?</h3>
+                    <p id="moduleContentDesc">Trading adalah aktivitas jual beli aset keuangan dengan tujuan menghasilkan profit dari selisih harga.</p>
+                    <ul id="moduleContentList">
+                        <li>Memahami konsep dasar trading</li>
+                        <li>Jenis-jenis instrumen trading</li>
+                        <li>Risiko dan reward dalam trading</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-pill btn-primary" onclick="markModuleComplete()">
+                    <i class="fas fa-check"></i> Tandai Selesai
+                </button>
+                <button class="btn-pill btn-outline" onclick="closeModuleModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
     TOAST CONTAINER
-    ============================================================ -->
+    ================================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ============================================================
+    <!-- ================================================================
     FOOTER
-    ============================================================ -->
+    ================================================================ -->
     <footer class="footer">
         <p>© 2024 Madangan Trade Club · Built with discipline & risk management.</p>
     </footer>
 
-    <!-- ============================================================
+    <!-- ================================================================
     SCRIPTS
-    ============================================================ -->
+    ================================================================ -->
     <script>
-        // ============================================================
-        // AI SIGNALS DATA ENGINE
-        // ============================================================
-
-        // ===== CONFIGURATION =====
-        const SIGNAL_CONFIG = {
-            symbols: ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'US30', 'NAS100'],
-            refreshInterval: 30000, // 30 seconds
-            wsUrl: 'wss://stream.tradingview.com/socket.io/websocket', // Example WebSocket
-            apiUrl: '/api/ai/signals' // Your backend API endpoint
+        // =============================================================
+        // 1. DATA ZODIAK
+        // =============================================================
+        const zodiacData = {
+            'aries': {
+                name: 'Aries (21 Mar - 19 Apr)',
+                element: 'Api',
+                character: 'Berani, antusias, dan penuh semangat. Kamu adalah pemimpin alami yang tidak takut mengambil risiko.',
+                strengths: 'Berani, percaya diri, optimis, memiliki jiwa kepemimpinan kuat, dan sangat mandiri.',
+                weaknesses: 'Impulsif, mudah bosan, terkadang terlalu agresif, dan kurang sabar.',
+                career: 'Pemimpin, wirausahawan, atlet, politisi, atau profesi yang membutuhkan keberanian dan inisiatif.',
+                tips: 'Belajar untuk lebih sabar dan tidak terburu-buru. Dengarkan pendapat orang lain sebelum bertindak.',
+                tradingStyle: 'Scalper / Day Trader',
+                tradingBadges: ['Agresif', 'Cepat', 'Berani'],
+                personalityModules: [1, 2, 3, 6, 7, 10, 13, 15, 19, 20]
+            },
+            'taurus': {
+                name: 'Taurus (20 Apr - 20 Mei)',
+                element: 'Tanah',
+                character: 'Praktis, sabar, dan dapat diandalkan. Kamu menghargai stabilitas dan kenyamanan dalam hidup.',
+                strengths: 'Sabat, handal, praktis, memiliki ketekunan tinggi, dan sangat loyal.',
+                weaknesses: 'Keras kepala, materialistik, terkadang terlalu konservatif, dan sulit beradaptasi.',
+                career: 'Bankir, akuntan, manajer keuangan, arsitek, atau profesi yang membutuhkan ketelitian dan konsistensi.',
+                tips: 'Terbuka terhadap perubahan dan jangan terlalu terpaku pada kenyamanan. Keluar dari zona nyaman sesekali.',
+                tradingStyle: 'Position Trader / Investor',
+                tradingBadges: ['Sabat', 'Konsisten', 'Terukur'],
+                personalityModules: [1, 4, 5, 9, 12, 14, 16, 17, 18, 21, 22, 26]
+            },
+            'gemini': {
+                name: 'Gemini (21 Mei - 20 Jun)',
+                element: 'Udara',
+                character: 'Cerdas, komunikatif, dan serba ingin tahu. Kamu memiliki kemampuan adaptasi yang luar biasa.',
+                strengths: 'Cerdas, komunikatif, serba bisa, adaptif, dan memiliki kemampuan analisis yang tajam.',
+                weaknesses: 'Mudah berubah pikiran, sulit fokus, terkadang terlalu banyak bicara, dan mudah bosan.',
+                career: 'Jurnalis, penulis, guru, marketing, atau profesi yang membutuhkan komunikasi dan fleksibilitas.',
+                tips: 'Fokus pada satu hal dalam satu waktu. Belajar untuk menyelesaikan apa yang sudah dimulai.',
+                tradingStyle: 'Swing Trader',
+                tradingBadges: ['Adaptif', 'Analitis', 'Fleksibel'],
+                personalityModules: [1, 2, 4, 5, 6, 8, 9, 11, 14, 18, 19]
+            },
+            'cancer': {
+                name: 'Cancer (21 Jun - 22 Jul)',
+                element: 'Air',
+                character: 'Emosional, intuitif, dan sangat peduli. Kamu memiliki naluri melindungi yang kuat.',
+                strengths: 'Intuitif, penyayang, loyal, memiliki empati tinggi, dan sangat protektif.',
+                weaknesses: 'Terlalu sensitif, moody, mudah tersinggung, dan cenderung menyimpan perasaan.',
+                career: 'Psikolog, guru, perawat, konselor, atau profesi yang membutuhkan empati dan kepedulian.',
+                tips: 'Belajar untuk tidak terlalu sensitif dan jangan membawa pekerjaan ke dalam kehidupan pribadi.',
+                tradingStyle: 'Conservative Trader',
+                tradingBadges: ['Hati-hati', 'Intuitif', 'Protektif'],
+                personalityModules: [1, 2, 3, 4, 5, 6, 7, 13, 14, 16, 17]
+            },
+            'leo': {
+                name: 'Leo (23 Jul - 22 Agu)',
+                element: 'Api',
+                character: 'Karismatik, percaya diri, dan suka menjadi pusat perhatian. Kamu memiliki jiwa kepemimpinan yang kuat.',
+                strengths: 'Karismatik, percaya diri, kreatif, memiliki jiwa kepemimpinan, dan sangat murah hati.',
+                weaknesses: 'Egois, dominan, terkadang terlalu dramatis, dan suka menjadi pusat perhatian.',
+                career: 'Aktor, pemimpin, motivator, desainer, atau profesi yang membutuhkan kreativitas dan karisma.',
+                tips: 'Belajar untuk mendengarkan dan tidak selalu menjadi pusat perhatian. Hargai kontribusi orang lain.',
+                tradingStyle: 'Day Trader / Scalper',
+                tradingBadges: ['Berani', 'Karismatik', 'Dominan'],
+                personalityModules: [1, 2, 3, 6, 7, 10, 13, 15, 19, 20]
+            },
+            'virgo': {
+                name: 'Virgo (23 Agu - 22 Sep)',
+                element: 'Tanah',
+                character: 'Analitis, detail-oriented, dan perfeksionis. Kamu memiliki standar tinggi dalam segala hal.',
+                strengths: 'Analitis, teratur, praktis, memiliki perhatian pada detail, dan sangat bertanggung jawab.',
+                weaknesses: 'Terlalu perfeksionis, kritis, terkadang terlalu analitis, dan sulit bersantai.',
+                career: 'Akuntan, analis, dokter, editor, atau profesi yang membutuhkan ketelitian dan analisis.',
+                tips: 'Belajar untuk menerima ketidaksempurnaan dan jangan terlalu keras pada diri sendiri.',
+                tradingStyle: 'Swing Trader / Position Trader',
+                tradingBadges: ['Analitis', 'Terencana', 'Disiplin'],
+                personalityModules: [1, 2, 4, 5, 6, 8, 9, 11, 14, 18, 19, 22, 23, 24]
+            },
+            'libra': {
+                name: 'Libra (23 Sep - 22 Okt)',
+                element: 'Udara',
+                character: 'Diplomatis, harmonis, dan suka keadilan. Kamu adalah penengah alami dalam konflik.',
+                strengths: 'Diplomatis, harmonis, adil, memiliki kemampuan sosial tinggi, dan sangat menyukai keindahan.',
+                weaknesses: 'Indecisive, terlalu bergantung pada orang lain, dan terkadang menghindari konflik.',
+                career: 'Diplomat, pengacara, konsultan, desainer, atau profesi yang membutuhkan keadilan dan harmoni.',
+                tips: 'Belajar untuk lebih tegas dan tidak selalu menghindari konflik. Keputusan yang jelas lebih baik.',
+                tradingStyle: 'Balanced Trader',
+                tradingBadges: ['Seimbang', 'Diplomatis', 'Harmonis'],
+                personalityModules: [1, 2, 4, 5, 6, 8, 9, 11, 14, 16, 17, 18]
+            },
+            'scorpio': {
+                name: 'Scorpio (23 Okt - 21 Nov)',
+                element: 'Air',
+                character: 'Intens, penuh semangat, dan misterius. Kamu memiliki determinasi yang kuat dan tidak mudah menyerah.',
+                strengths: 'Intens, bertekad, intuitif, memiliki kemampuan investigasi, dan sangat setia.',
+                weaknesses: 'Cemburu, posesif, terlalu misterius, dan terkadang manipulatif.',
+                career: 'Detektif, psikolog, peneliti, dokter bedah, atau profesi yang membutuhkan investigasi dan determinasi.',
+                tips: 'Belajar untuk lebih terbuka dan tidak terlalu misterius. Percaya pada orang lain dan jangan terlalu curiga.',
+                tradingStyle: 'Aggressive Trader',
+                tradingBadges: ['Intens', 'Determinasi', 'Investigatif'],
+                personalityModules: [1, 2, 3, 6, 7, 10, 13, 15, 19, 20, 21, 22]
+            },
+            'sagittarius': {
+                name: 'Sagittarius (22 Nov - 21 Des)',
+                element: 'Api',
+                character: 'Optimis, petualang, dan filosofis. Kamu memiliki semangat kebebasan yang tinggi.',
+                strengths: 'Optimis, petualang, filosofis, memiliki semangat tinggi, dan sangat jujur.',
+                weaknesses: 'Impulsif, terlalu blak-blakan, mudah bosan, dan terkadang terlalu optimis.',
+                career: 'Travel writer, guru, filosof, atlet, atau profesi yang membutuhkan kebebasan dan petualangan.',
+                tips: 'Belajar untuk lebih sabar dan tidak terburu-buru. Rencanakan perjalanan dengan lebih matang.',
+                tradingStyle: 'Scalper / Swing Trader',
+                tradingBadges: ['Optimis', 'Petualang', 'Filosofis'],
+                personalityModules: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+            },
+            'capricorn': {
+                name: 'Capricorn (22 Des - 19 Jan)',
+                element: 'Tanah',
+                character: 'Disiplin, bertanggung jawab, dan ambisius. Kamu memiliki tekad yang kuat untuk mencapai kesuksesan.',
+                strengths: 'Disiplin, bertanggung jawab, ambisius, memiliki etos kerja tinggi, dan sangat sabar.',
+                weaknesses: 'Terlalu serius, keras kepala, pesimis, dan terkadang terlalu fokus pada karir.',
+                career: 'Manajer, pengusaha, akuntan, insinyur, atau profesi yang membutuhkan disiplin dan ambisi.',
+                tips: 'Belajar untuk santai dan menikmati hidup. Jangan hanya fokus pada karir, hargai juga hubungan dan kesehatan.',
+                tradingStyle: 'Position Trader / Investor',
+                tradingBadges: ['Disiplin', 'Ambisius', 'Sabar'],
+                personalityModules: [1, 4, 5, 9, 12, 14, 16, 17, 18, 21, 22, 26, 27, 28]
+            },
+            'aquarius': {
+                name: 'Aquarius (20 Jan - 18 Feb)',
+                element: 'Udara',
+                character: 'Inovatif, independen, dan humanis. Kamu memiliki visi yang unik dan tidak konvensional.',
+                strengths: 'Inovatif, independen, humanis, memiliki visi unik, dan sangat idealis.',
+                weaknesses: 'Eksentrik, keras kepala, terlalu intelektual, dan terkadang tidak praktis.',
+                career: 'Ilmuwan, inovator, aktivis sosial, desainer futuristik, atau profesi yang membutuhkan inovasi.',
+                tips: 'Belajar untuk lebih praktis dan tidak terlalu idealis. Terapkan ide-ide inovatif dengan langkah nyata.',
+                tradingStyle: 'AI Trader / Systematic',
+                tradingBadges: ['Inovatif', 'Idealis', 'Unik'],
+                personalityModules: [1, 4, 5, 9, 12, 14, 16, 17, 18, 21, 22, 23, 24, 25, 26]
+            },
+            'pisces': {
+                name: 'Pisces (19 Feb - 20 Mar)',
+                element: 'Air',
+                character: 'Empatik, artistik, dan intuitif. Kamu memiliki kepekaan yang tinggi terhadap perasaan orang lain.',
+                strengths: 'Empatik, artistik, intuitif, memiliki imajinasi tinggi, dan sangat penyayang.',
+                weaknesses: 'Terlalu emosional, mudah dipengaruhi, terkadang terlalu idealis, dan sulit menghadapi kenyataan.',
+                career: 'Seniman, musisi, psikolog, perawat, atau profesi yang membutuhkan empati dan kreativitas.',
+                tips: 'Belajar untuk lebih grounded dan tidak terlalu terbawa perasaan. Jaga keseimbangan antara imajinasi dan realitas.',
+                tradingStyle: 'Intuitive Trader',
+                tradingBadges: ['Intuitif', 'Artistik', 'Empatik'],
+                personalityModules: [1, 2, 3, 4, 5, 6, 7, 13, 14, 16, 17, 18, 19, 20]
+            }
         };
 
-        // ===== SIGNAL DATA STORE =====
+        // =============================================================
+        // 2. DATA MODUL (28 Hari - Ringkas)
+        // =============================================================
+        const moduleData = [];
+        const titles = [
+            'Pengenalan Trading & Pasar Keuangan', 'Memahami Price Action', 'Formasi Candlestick Dasar',
+            'Support & Resistance Level', 'Trend Analysis', 'Moving Average (MA/EMA)',
+            'RSI & Stochastic', 'MACD Indicator', 'Fibonacci Retracement',
+            'Breakout Strategy', 'Reversal Pattern', 'Continuation Pattern',
+            'Manajemen Risiko Dasar', 'Risk-to-Reward Ratio', 'Stop Loss & Take Profit',
+            'Psikologi Trading - Bagian 1', 'Psikologi Trading - Bagian 2', 'Membuat Trading Plan',
+            'Swing Trading Strategy', 'Scalping Strategy', 'Position Trading',
+            'Analisis Fundamental', 'Analisis Multi-Timeframe', 'Trading Journal',
+            'Evaluasi & Analisis Kinerja', 'Strategi Manajemen Modal', 'Membangun Konsistensi',
+            'Final Review & Next Steps'
+        ];
+        const descs = [
+            'Memahami dasar-dasar pasar keuangan, jenis-jenis instrumen, dan konsep dasar trading.',
+            'Belajar membaca pergerakan harga tanpa indikator, memahami candlestick patterns dasar.',
+            'Mengenal pola-pola candlestick dasar seperti Doji, Hammer, Shooting Star, dan Engulfing.',
+            'Cara mengidentifikasi level support dan resistance yang kuat untuk entry point.',
+            'Mengenal uptrend, downtrend, dan sideways. Cara menggunakan trendline.',
+            'Penggunaan moving average sebagai indikator trend dan support/resistance dinamis.',
+            'Indikator momentum untuk mengidentifikasi kondisi overbought dan oversold.',
+            'Menggunakan MACD untuk mengidentifikasi perubahan trend dan momentum.',
+            'Menggunakan level Fibonacci untuk menemukan support/resistance potensial.',
+            'Strategi trading breakout dan cara mengidentifikasi breakout yang valid.',
+            'Mengenal pola reversal seperti Head & Shoulders, Double Top/Bottom.',
+            'Pola continuation seperti Flag, Pennant, dan Wedge.',
+            'Konsep dasar manajemen risiko, position sizing, dan risk-to-reward ratio.',
+            'Menghitung dan menerapkan risk-to-reward ratio dalam setiap trade.',
+            'Cara menentukan SL dan TP yang optimal untuk setiap strategi trading.',
+            'Mengenal emosi dalam trading: fear, greed, dan FOMO.',
+            'Membangun mental trading yang disiplin dan konsisten.',
+            'Langkah-langkah membuat trading plan yang efektif dan terstruktur.',
+            'Strategi swing trading untuk posisi 2 hari hingga beberapa minggu.',
+            'Strategi scalping untuk transaksi cepat dalam hitungan menit.',
+            'Strategi posisi jangka panjang untuk trend makro.',
+            'Dasar-dasar analisis fundamental untuk trading.',
+            'Menggunakan multiple timeframe untuk konfirmasi sinyal trading.',
+            'Cara membuat dan menggunakan trading journal untuk evaluasi.',
+            'Menganalisis performa trading dan mencari area improvement.',
+            'Teknik manajemen modal untuk pertumbuhan portofolio berkelanjutan.',
+            'Tips dan trik untuk menjadi trader yang konsisten dan profitable.',
+            'Review seluruh materi dan langkah selanjutnya untuk pengembangan.'
+        ];
+        const categories = ['Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula',
+            'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah',
+            'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan',
+            'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir'
+        ];
+        for (let i = 1; i <= 28; i++) {
+            moduleData.push({
+                day: i,
+                title: titles[i - 1] || `Modul ${i}`,
+                desc: descs[i - 1] || `Materi pembelajaran hari ke-${i}`,
+                duration: `${15 + (i * 2) % 15} menit`,
+                type: i % 3 === 0 ? 'article' : 'video',
+                videoId: 'dQw4w9WgXcQ',
+                content: `Ini adalah materi pembelajaran untuk hari ke-${i}. Pelajari dengan seksama dan praktikkan.`,
+                topics: ['Konsep dasar', 'Aplikasi praktis', 'Studi kasus'],
+                category: categories[i - 1] || 'Menengah'
+            });
+        }
+
+        // =============================================================
+        // 3. STATE
+        // =============================================================
+        let state = {
+            completedModules: JSON.parse(localStorage.getItem('mtc_completed') || '[]'),
+            currentModule: null,
+            quizAnswers: [],
+            quizCurrentStep: 0,
+            quizCompleted: JSON.parse(localStorage.getItem('mtc_quiz_completed') || 'false'),
+            quizResult: localStorage.getItem('mtc_quiz_result') || null,
+            recommendedModules: JSON.parse(localStorage.getItem('mtc_recommended_modules') || '[]'),
+            personalityModules: [],
+            isSubscribed: JSON.parse(localStorage.getItem('mtc_subscribed') || 'false'),
+            subscriptionPlan: localStorage.getItem('mtc_plan') || null,
+            personalityData: JSON.parse(localStorage.getItem('mtc_personality') || 'null')
+        };
+
+        // Signal Store
         let signalStore = [];
         let signalFilter = 'all';
-        let wsConnection = null;
         let refreshTimer = null;
-        let isConnected = false;
 
-        // ===== GENERATE REALISTIC SIGNAL DATA =====
-        function generateSignal(symbol) {
-            const signals = ['BUY', 'SELL', 'HOLD'];
-            const weights = [40, 40, 20]; // Probability weights
-            const totalWeight = weights.reduce((a, b) => a + b, 0);
-            let rand = Math.random() * totalWeight;
-            let signal = 'HOLD';
-            for (let i = 0; i < weights.length; i++) {
-                rand -= weights[i];
-                if (rand <= 0) {
-                    signal = signals[i];
-                    break;
-                }
-            }
-
-            // Generate realistic price
-            const basePrice = getBasePrice(symbol);
-            const volatility = getVolatility(symbol);
-            const price = basePrice + (Math.random() - 0.5) * volatility;
-
-            // Generate confidence
-            const confidence = Math.round(50 + Math.random() * 45);
-
-            // Generate SL and TP based on signal
-            let sl, tp;
-            if (signal === 'BUY') {
-                sl = price * (1 - (0.5 + Math.random() * 0.5) / 100);
-                tp = price * (1 + (1 + Math.random() * 1.5) / 100);
-            } else if (signal === 'SELL') {
-                sl = price * (1 + (0.5 + Math.random() * 0.5) / 100);
-                tp = price * (1 - (1 + Math.random() * 1.5) / 100);
-            } else {
-                sl = price * (1 + (Math.random() - 0.5) * 0.5 / 100);
-                tp = price * (1 + (Math.random() - 0.5) * 0.5 / 100);
-            }
-
-            // Get asset type
-            const type = getAssetType(symbol);
-
-            // Generate reasoning
-            const reasoning = generateReasoning(signal, symbol);
-
-            // Generate indicators
-            const indicators = generateIndicators(signal);
-
-            return {
-                symbol: symbol,
-                signal: signal,
-                price: price,
-                confidence: confidence,
-                sl: sl,
-                tp: tp,
-                type: type,
-                time: new Date().toISOString(),
-                reasoning: reasoning,
-                indicators: indicators,
-                isNew: true
-            };
-        }
-
-        function getBasePrice(symbol) {
-            const prices = {
-                'XAUUSD': 2345.50,
-                'EURUSD': 1.08500,
-                'GBPUSD': 1.26500,
-                'USDJPY': 148.50,
-                'BTCUSDT': 67200,
-                'ETHUSDT': 3450,
-                'SOLUSDT': 145,
-                'US30': 38200,
-                'NAS100': 18200
-            };
-            return prices[symbol] || 100;
-        }
-
-        function getVolatility(symbol) {
-            const vols = {
-                'XAUUSD': 15,
-                'EURUSD': 0.005,
-                'GBPUSD': 0.008,
-                'USDJPY': 0.5,
-                'BTCUSDT': 1500,
-                'ETHUSDT': 80,
-                'SOLUSDT': 5,
-                'US30': 200,
-                'NAS100': 150
-            };
-            return vols[symbol] || 10;
-        }
-
-        function getAssetType(symbol) {
-            const forex = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'];
-            const crypto = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'];
-            if (forex.includes(symbol)) return 'forex';
-            if (crypto.includes(symbol)) return 'crypto';
-            return 'index';
-        }
-
-        function generateReasoning(signal, symbol) {
-            const reasons = {
-                'BUY': [
-                    'Bullish breakout with strong volume confirmation.',
-                    'RSI above 50 with MACD bullish crossover.',
-                    'Price bounced off key support level with bullish engulfing pattern.',
-                    'Positive divergence on RSI with increasing buying pressure.',
-                    'Breakout above resistance with high momentum.',
-                    'Bullish flag pattern formation with target at next resistance.'
-                ],
-                'SELL': [
-                    'Bearish breakdown with increasing selling pressure.',
-                    'RSI below 50 with MACD bearish crossover.',
-                    'Price rejected from key resistance level with bearish engulfing pattern.',
-                    'Negative divergence on RSI with increasing selling pressure.',
-                    'Breakdown below support with high momentum.',
-                    'Bearish flag pattern formation with target at next support.'
-                ],
-                'HOLD': [
-                    'Consolidation phase with no clear direction.',
-                    'Price trading within range, waiting for breakout.',
-                    'Low volatility with indecision in the market.',
-                    'Waiting for confirmation of support/resistance levels.',
-                    'Market in accumulation phase, monitor for breakout.'
-                ]
-            };
-
-            const reasonList = reasons[signal] || reasons['HOLD'];
-            return reasonList[Math.floor(Math.random() * reasonList.length)];
-        }
-
-        function generateIndicators(signal) {
-            const rsi = Math.round(30 + Math.random() * 40);
-            const macd = signal === 'BUY' ? 'Bullish Crossover' :
-                signal === 'SELL' ? 'Bearish Crossover' : 'Flat';
-            const ma = Math.round(1950 + Math.random() * 50);
-
-            return `RSI: ${rsi} ${rsi > 70 ? '(Overbought)' : rsi < 30 ? '(Oversold)' : '(Neutral)')} | MACD: ${macd} | MA50: ${ma.toFixed(2)}`;
-        }
-
-        // ===== GENERATE SIGNALS DATA =====
-        function generateSignalsData() {
-            const newSignals = SIGNAL_CONFIG.symbols.map(symbol => generateSignal(symbol));
-
-            // Preserve "isNew" status for existing signals
-            const existingMap = {};
-            signalStore.forEach(s => existingMap[s.symbol] = s.isNew);
-
-            newSignals.forEach(s => {
-                s.isNew = existingMap[s.symbol] === true ? false : true;
-            });
-
-            // Update store
-            signalStore = newSignals;
-            return signalStore;
-        }
-
-        // ===== RENDER SIGNALS =====
-        function renderSignals() {
-            const container = document.getElementById('signalsContainer');
-            const footer = document.getElementById('signalFooter');
-
-            let filtered = signalStore;
-            if (signalFilter !== 'all') {
-                if (signalFilter === 'buy') {
-                    filtered = signalStore.filter(s => s.signal === 'BUY');
-                } else if (signalFilter === 'sell') {
-                    filtered = signalStore.filter(s => s.signal === 'SELL');
-                } else {
-                    filtered = signalStore.filter(s => s.type === signalFilter);
-                }
-            }
-
-            // Update footer
-            document.getElementById('signalCount').textContent = `${filtered.length} sinyal`;
-            document.getElementById('signalLastUpdate').textContent = new Date().toLocaleTimeString();
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align:center;padding:40px;color:var(--text-muted);">
-                        <div style="font-size:2rem;margin-bottom:12px;">🔍</div>
-                        <p>Tidak ada sinyal untuk filter ini</p>
-                        <button class="btn-pill btn-outline btn-sm" style="margin-top:8px;" onclick="filterSignals('all', document.querySelector('.filter-btn[data-filter=\\"all\\"]'))">
-                            Tampilkan Semua
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            let html = '<div class="signals-grid">';
-            filtered.forEach((signal, index) => {
-                const signalClass = signal.signal.toLowerCase();
-                const color = signal.signal === 'BUY' ? 'var(--primary)' :
-                    signal.signal === 'SELL' ? 'var(--danger)' : 'var(--warning)';
-                const arrow = signal.signal === 'BUY' ? '▲' :
-                    signal.signal === 'SELL' ? '▼' : '●';
-                const typeLabel = signal.type.charAt(0).toUpperCase() + signal.type.slice(1);
-
-                html += `
-                    <div class="signal-card" onclick="showSignalDetail(${index})" style="animation: fadeSlideIn 0.4s ease ${index * 0.05}s both;">
-                        ${signal.isNew ? '<span class="signal-badge-new">NEW</span>' : ''}
-                        <div class="signal-top">
-                            <span class="signal-symbol">${signal.symbol}</span>
-                            <span class="signal-type ${signal.type}">${typeLabel}</span>
-                        </div>
-                        <div class="signal-direction ${signalClass}" style="color:${color};">
-                            <span>${arrow}</span>
-                            <span class="signal-label">${signal.signal}</span>
-                        </div>
-                        <div class="signal-price">$${signal.price.toFixed(2)}</div>
-                        <div class="signal-confidence">
-                            <div class="conf-label">
-                                <span>Confidence</span>
-                                <span>${signal.confidence}%</span>
-                            </div>
-                            <div class="conf-bar">
-                                <div class="conf-fill" style="width:${signal.confidence}%;background:${color};"></div>
-                            </div>
-                        </div>
-                        <div class="signal-meta">
-                            <span class="signal-time"><i class="fas fa-clock"></i> ${new Date(signal.time).toLocaleTimeString()}</span>
-                            <span class="signal-entries">
-                                <span>SL: $${signal.sl.toFixed(2)}</span>
-                                <span>TP: $${signal.tp.toFixed(2)}</span>
-                            </span>
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-
-            container.innerHTML = html;
-        }
-
-        // ===== FILTER SIGNALS =====
-        function filterSignals(filter, btn) {
-            signalFilter = filter;
-            document.querySelectorAll('.signals-filters .filter-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            renderSignals();
-        }
-
-        // ===== REFRESH SIGNALS =====
-        function refreshSignals() {
-            const dot = document.getElementById('signalStatusDot');
-            const text = document.getElementById('signalStatusText');
-            dot.className = 'dot loading';
-            text.textContent = 'Loading...';
-
-            setTimeout(() => {
-                generateSignalsData();
-                renderSignals();
-                dot.className = 'dot online';
-                text.textContent = 'Connected';
-                showToast('🔄 Sinyal diperbarui!', 'success');
-
-                // Check for new signals
-                const newSignals = signalStore.filter(s => s.isNew);
-                if (newSignals.length > 0) {
-                    document.getElementById('signalDot').style.display = 'inline-block';
-                    showToast(`🔔 ${newSignals.length} sinyal baru!`, 'info');
-                    setTimeout(() => {
-                        document.getElementById('signalDot').style.display = 'none';
-                    }, 5000);
-                }
-            }, 800);
-        }
-
-        // ===== SHOW SIGNAL DETAIL =====
-        function showSignalDetail(index) {
-            const signal = signalStore[index];
-            if (!signal) return;
-
-            document.getElementById('modalSignalTitle').textContent = `Signal: ${signal.symbol}`;
-            document.getElementById('detailSignal').textContent = signal.signal;
-            document.getElementById('detailSignal').className = `detail-value ${signal.signal.toLowerCase()}`;
-            document.getElementById('detailConfidence').textContent = `${signal.confidence}%`;
-            document.getElementById('detailEntry').textContent = `$${signal.price.toFixed(2)}`;
-            document.getElementById('detailSL').textContent = `$${signal.sl.toFixed(2)}`;
-            document.getElementById('detailTP').textContent = `$${signal.tp.toFixed(2)}`;
-            document.getElementById('detailTime').textContent = new Date(signal.time).toLocaleString();
-            document.getElementById('detailReasoning').textContent = signal.reasoning;
-            document.getElementById('detailIndicators').textContent = signal.indicators;
-
-            document.getElementById('signalModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // ===== CLOSE SIGNAL MODAL =====
-        function closeSignalModal() {
-            document.getElementById('signalModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // ===== EXECUTE SIGNAL =====
-        function executeSignal() {
-            const signal = document.getElementById('detailSignal').textContent;
-            const symbol = document.getElementById('modalSignalTitle').textContent.replace('Signal: ', '');
-            showToast(`🚀 Signal ${signal} untuk ${symbol} dieksekusi!`, 'success');
-            closeSignalModal();
-        }
-
-        // ===== CALCULATOR =====
-        function calculateRisk() {
-            const balance = parseFloat(document.getElementById('calcBalance').value) || 0;
-            const riskPercent = parseFloat(document.getElementById('calcRiskPercent').value) || 0;
-            const entry = parseFloat(document.getElementById('calcEntry').value) || 0;
-            const sl = parseFloat(document.getElementById('calcSL').value) || 0;
-            const tp = parseFloat(document.getElementById('calcTP').value) || 0;
-
-            const riskAmount = (balance * riskPercent) / 100;
-            const slDistance = Math.abs(entry - sl);
-            const tpDistance = Math.abs(tp - entry);
-            const lotSize = slDistance > 0 ? (riskAmount / slDistance) : 0;
-            const rrRatio = slDistance > 0 ? (tpDistance / slDistance) : 0;
-            const potentialProfit = lotSize * tpDistance;
-
-            document.getElementById('resultRisk').textContent = `$${riskAmount.toFixed(2)}`;
-            document.getElementById('resultRR').textContent = `1:${rrRatio.toFixed(2)}`;
-            document.getElementById('resultLot').textContent = lotSize.toFixed(2);
-            document.getElementById('resultProfit').textContent = `$${potentialProfit.toFixed(2)}`;
-        }
-
-        // ===== TOAST =====
+        // =============================================================
+        // 4. TOAST
+        // =============================================================
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -1429,7 +2186,9 @@
             }, 4000);
         }
 
-        // ===== TABS =====
+        // =============================================================
+        // 5. TABS
+        // =============================================================
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             const target = document.getElementById(`tab-${tab}`);
@@ -1441,77 +2200,715 @@
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            if (tab === 'signals') {
-                refreshSignals();
+            if (tab === 'signals') refreshSignals();
+            if (tab === 'modules') renderModules();
+            if (tab === 'personality') {
+                document.getElementById('personalityBirthday').addEventListener('change', function() {
+                    detectZodiac(this.value);
+                });
             }
         }
 
-        // ===== INIT =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Generate initial signals
-            generateSignalsData();
+        // =============================================================
+        // 6. PERSONALITY
+        // =============================================================
+        function detectZodiac(dateStr) {
+            if (!dateStr) return;
+            const date = new Date(dateStr);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            let zodiac = '';
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) zodiac = 'aries';
+            else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) zodiac = 'taurus';
+            else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) zodiac = 'gemini';
+            else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) zodiac = 'cancer';
+            else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) zodiac = 'leo';
+            else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) zodiac = 'virgo';
+            else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) zodiac = 'libra';
+            else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) zodiac = 'scorpio';
+            else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) zodiac = 'sagittarius';
+            else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) zodiac = 'capricorn';
+            else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) zodiac = 'aquarius';
+            else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) zodiac = 'pisces';
+            const name = zodiacData[zodiac]?.name || 'Tidak terdeteksi';
+            document.getElementById('personalityZodiac').value = name;
+            return zodiac;
+        }
 
-            // Show loading then render
-            const container = document.getElementById('signalsContainer');
-            container.innerHTML = `
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p>Memuat sinyal AI terbaru...</p>
-                </div>
+        function analyzePersonality(event) {
+            event.preventDefault();
+            const name = document.getElementById('personalityName').value.trim();
+            const birthDate = document.getElementById('personalityBirthday').value;
+            const gender = document.getElementById('personalityGender').value;
+            if (!name || !birthDate || !gender) {
+                showToast('Mohon isi semua data dengan lengkap!', 'warning');
+                return;
+            }
+            const zodiacKey = detectZodiac(birthDate);
+            if (!zodiacKey || !zodiacData[zodiacKey]) {
+                showToast('Tanggal lahir tidak valid. Silakan cek kembali.', 'error');
+                return;
+            }
+            const data = zodiacData[zodiacKey];
+            const genderLabel = gender === 'male' ? 'Laki-laki' : 'Perempuan';
+
+            document.getElementById('resultPersonalityName').textContent = `Halo, ${name}! 👋`;
+            document.getElementById('resultPersonalitySub').textContent =
+                `${genderLabel} · Tanggal Lahir: ${new Date(birthDate).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}`;
+
+            document.getElementById('resultZodiac').textContent = data.name;
+            document.getElementById('resultElement').textContent = `🔥 ${data.element}`;
+            document.getElementById('resultCharacter').textContent = data.character;
+            document.getElementById('resultStrengths').textContent = data.strengths;
+            document.getElementById('resultWeaknesses').textContent = data.weaknesses;
+            document.getElementById('resultCareer').textContent = data.career;
+            document.getElementById('resultTips').textContent = data.tips;
+            document.getElementById('resultTradingStyle').textContent = `🎯 ${data.tradingStyle}`;
+
+            const badgesContainer = document.getElementById('resultTradingBadges');
+            badgesContainer.innerHTML = '';
+            data.tradingBadges.forEach(badge => {
+                const span = document.createElement('span');
+                span.style.cssText = 'padding:2px 12px;border-radius:12px;font-size:0.7rem;font-weight:600;background:var(--secondary-light);color:var(--secondary);';
+                span.textContent = badge;
+                badgesContainer.appendChild(span);
+            });
+
+            document.getElementById('personalityResult').classList.add('show');
+            document.getElementById('personalityStatus').textContent = '✅ Selesai';
+            document.getElementById('personalityDot').style.display = 'inline-block';
+
+            state.personalityData = { name, birthDate, gender, zodiac: zodiacKey, data };
+            state.personalityModules = data.personalityModules || [];
+            localStorage.setItem('mtc_personality', JSON.stringify(state.personalityData));
+
+            document.getElementById('personalityBanner').classList.add('show');
+            document.getElementById('personalityBannerText').textContent =
+                `Berdasarkan karakter ${data.name}, kamu cocok dengan gaya trading ${data.tradingStyle}. Kami sarankan memulai dari ${data.personalityModules.length} modul yang direkomendasikan.`;
+
+            showToast(`🌟 Analisis karakter untuk ${name} selesai!`, 'success');
+            renderModules();
+        }
+
+        function goToModulesFromPersonality() {
+            switchTab('modules');
+            setTimeout(() => {
+                const banner = document.getElementById('personalityBanner');
+                if (banner) {
+                    banner.scrollIntoView({ behavior: 'smooth' });
+                    banner.style.borderColor = 'var(--primary)';
+                    setTimeout(() => { banner.style.borderColor = 'var(--secondary)'; }, 2000);
+                }
+            }, 500);
+        }
+
+        // =============================================================
+        // 7. QUIZ
+        // =============================================================
+        function selectQuizOption(element, step, value) {
+            const parent = element.closest('.quiz-question');
+            parent.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            state.quizAnswers[step] = value;
+            document.getElementById('quizNext').disabled = false;
+            const allAnswered = state.quizAnswers.length === 4 && state.quizAnswers.every(a => a !== undefined);
+            if (allAnswered && step === 3) setTimeout(() => quizNext(), 600);
+        }
+
+        function quizPrev() {
+            if (state.quizCurrentStep > 0) {
+                state.quizCurrentStep--;
+                showQuizStep(state.quizCurrentStep);
+            }
+        }
+
+        function quizNext() {
+            const currentStep = state.quizCurrentStep;
+            if (!state.quizAnswers[currentStep]) {
+                showToast('Silakan pilih jawaban terlebih dahulu!', 'warning');
+                return;
+            }
+            if (currentStep < 3) {
+                state.quizCurrentStep++;
+                showQuizStep(state.quizCurrentStep);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function showQuizStep(step) {
+            document.querySelectorAll('.quiz-question').forEach((q, i) => q.classList.toggle('active', i === step));
+            document.querySelectorAll('.progress-quiz .dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === step);
+                dot.classList.toggle('completed', i < step);
+            });
+            document.getElementById('quizPrev').disabled = step === 0;
+            const nextBtn = document.getElementById('quizNext');
+            nextBtn.innerHTML = step === 3 ? '<i class="fas fa-check"></i> Lihat Hasil' :
+                'Selanjutnya <i class="fas fa-arrow-right"></i>';
+            nextBtn.disabled = !state.quizAnswers[step];
+            const progress = Math.round(((step) / 4) * 100);
+            document.getElementById('quizScoreBadge').textContent = `${progress}%`;
+        }
+
+        function finishQuiz() {
+            if (state.quizAnswers.length < 4 || state.quizAnswers.some(a => a === undefined)) {
+                showToast('Silakan jawab semua pertanyaan!', 'warning');
+                return;
+            }
+            const time = state.quizAnswers[0],
+                risk = state.quizAnswers[1],
+                goal = state.quizAnswers[2],
+                exp = state.quizAnswers[3];
+            let persona = "",
+                recommended = [];
+            if (time === 'full' || goal === 'daily') {
+                persona = "Scalper / Day Trader";
+                recommended = [1, 2, 3, 6, 7, 10, 13, 15, 19, 20];
+                if (exp === 'beginner') recommended = [1, 2, 3, 4, 5, 6, 7];
+            } else if (time === 'medium' || goal === 'weekly') {
+                persona = "Swing Trader";
+                recommended = [1, 2, 4, 5, 6, 8, 9, 11, 14, 18, 19];
+                if (exp === 'beginner') recommended = [1, 2, 3, 4, 5, 6, 8];
+            } else {
+                persona = "Position Trader / Investor";
+                recommended = [1, 4, 5, 9, 12, 14, 16, 17, 18, 21, 22, 26];
+                if (exp === 'beginner') recommended = [1, 2, 3, 4, 5, 9, 14];
+            }
+            if (exp === 'advanced') {
+                recommended = recommended.filter(d => d >= 10);
+                if (recommended.length < 5) recommended = Array.from({ length: 19 }, (_, i) => i + 10);
+            }
+            // Merge with personality
+            if (state.personalityModules.length > 0) {
+                recommended = [...new Set([...recommended, ...state.personalityModules])];
+            }
+
+            state.quizCompleted = true;
+            state.quizResult = JSON.stringify({ persona, recommended, answers: state.quizAnswers });
+            state.recommendedModules = recommended;
+            localStorage.setItem('mtc_quiz_completed', 'true');
+            localStorage.setItem('mtc_quiz_result', state.quizResult);
+            localStorage.setItem('mtc_recommended_modules', JSON.stringify(recommended));
+
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResult').classList.add('show');
+            document.getElementById('quizStatus').textContent = '✅ Selesai';
+            document.getElementById('quizScoreBadge').textContent = '100%';
+            document.getElementById('quizDot').style.display = 'inline-block';
+
+            const body = document.getElementById('quizResultBody');
+            body.innerHTML = `
+                <p><span class="highlight-text">🎯 Gaya Trading: ${persona}</span></p>
+                <p>Kami merekomendasikan <span class="highlight-text">${recommended.length} modul</span> yang sesuai dengan profil tradingmu.</p>
+                ${state.personalityModules.length > 0 ? `<p style="margin-top:8px;color:var(--secondary);font-size:0.85rem;">🌟 Juga berdasarkan karakter, ada tambahan rekomendasi personal.</p>` : ''}
+                <p style="margin-top:8px;color:var(--text-muted);font-size:0.85rem;">💡 <em>Mulai dari modul dasar dan tingkatkan secara bertahap.</em></p>
             `;
 
-            setTimeout(() => {
-                renderSignals();
-                document.getElementById('signalStatusText').textContent = 'Connected';
-                document.getElementById('signalStatusDot').className = 'dot online';
-                calculateRisk();
+            document.getElementById('recommendedBanner').classList.add('show');
+            document.getElementById('recommendedText').textContent =
+                `Berdasarkan hasil kuis, kamu adalah ${persona}. ${state.personalityModules.length > 0 ? 'Juga berdasarkan karakter, ' : ''}Kami sarankan memulai dari ${recommended.length} modul rekomendasi.`;
 
-                // Check for new signals
-                const newSignals = signalStore.filter(s => s.isNew);
-                if (newSignals.length > 0) {
-                    document.getElementById('signalDot').style.display = 'inline-block';
-                    setTimeout(() => {
-                        document.getElementById('signalDot').style.display = 'none';
-                    }, 5000);
+            showToast(`🎉 Kuis selesai! Gaya trading: ${persona}`, 'success');
+            renderModules();
+        }
+
+        function resetQuiz() {
+            if (confirm('Yakin ingin mengulangi kuis? Data sebelumnya akan dihapus.')) {
+                state.quizAnswers = [];
+                state.quizCurrentStep = 0;
+                state.quizCompleted = false;
+                state.quizResult = null;
+                state.recommendedModules = [];
+                localStorage.removeItem('mtc_quiz_completed');
+                localStorage.removeItem('mtc_quiz_result');
+                localStorage.removeItem('mtc_recommended_modules');
+                document.getElementById('quizContainer').style.display = 'block';
+                document.getElementById('quizResult').classList.remove('show');
+                document.getElementById('quizStatus').textContent = 'Belum dikerjakan';
+                document.getElementById('quizScoreBadge').textContent = '0%';
+                document.getElementById('recommendedBanner').classList.remove('show');
+                document.getElementById('quizDot').style.display = 'none';
+                document.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
+                document.getElementById('quizNext').disabled = true;
+                showQuizStep(0);
+                renderModules();
+                showToast('Kuis direset. Silakan ikuti lagi!', 'info');
+            }
+        }
+
+        // =============================================================
+        // 8. AI SIGNALS
+        // =============================================================
+        function generateSignalsData() {
+            const symbols = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'US30', 'NAS100'];
+            const newSignals = symbols.map(symbol => {
+                const signals = ['BUY', 'SELL', 'HOLD'];
+                const weights = [40, 40, 20];
+                const totalWeight = weights.reduce((a, b) => a + b, 0);
+                let rand = Math.random() * totalWeight,
+                    signal = 'HOLD';
+                for (let i = 0; i < weights.length; i++) {
+                    rand -= weights[i];
+                    if (rand <= 0) { signal = signals[i]; break; }
                 }
-            }, 1000);
+                const basePrice = { XAUUSD: 2345.5, EURUSD: 1.085, GBPUSD: 1.265, USDJPY: 148.5, BTCUSDT: 67200,
+                    ETHUSDT: 3450, SOLUSDT: 145, US30: 38200, NAS100: 18200 } [symbol] || 100;
+                const vol = { XAUUSD: 15, EURUSD: 0.005, GBPUSD: 0.008, USDJPY: 0.5, BTCUSDT: 1500, ETHUSDT: 80,
+                    SOLUSDT: 5, US30: 200, NAS100: 150 } [symbol] || 10;
+                const price = basePrice + (Math.random() - 0.5) * vol;
+                const confidence = Math.round(50 + Math.random() * 45);
+                let sl, tp;
+                if (signal === 'BUY') { sl = price * (1 - (0.5 + Math.random() * 0.5) / 100);
+                    tp = price * (1 + (1 + Math.random() * 1.5) / 100); } else if (signal === 'SELL') { sl = price *
+                        (1 + (0.5 + Math.random() * 0.5) / 100);
+                    tp = price * (1 - (1 + Math.random() * 1.5) / 100); } else { sl = price * (1 + (Math.random() - 0.5) *
+                        0.5 / 100);
+                    tp = price * (1 + (Math.random() - 0.5) * 0.5 / 100); }
+                const type = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'].includes(symbol) ? 'forex' :
+                    ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'].includes(symbol) ? 'crypto' : 'index';
+                const reasons = {
+                    'BUY': ['Bullish breakout with strong volume.', 'RSI above 50 with MACD bullish crossover.',
+                        'Price bounced off key support.'
+                    ],
+                    'SELL': ['Bearish breakdown with increasing volume.', 'RSI below 50 with MACD bearish crossover.',
+                        'Price rejected from key resistance.'
+                    ],
+                    'HOLD': ['Consolidation phase, no clear direction.', 'Trading within range, waiting for breakout.',
+                        'Low volatility, monitor for confirmation.'
+                    ]
+                };
+                const ind = `RSI: ${Math.round(30 + Math.random() * 40)} | MACD: ${signal === 'BUY' ? 'Bullish' : signal === 'SELL' ? 'Bearish' : 'Flat'} | MA50: ${Math.round(1950 + Math.random() * 50)}`;
+                return {
+                    symbol,
+                    signal,
+                    price,
+                    confidence,
+                    sl,
+                    tp,
+                    type,
+                    time: new Date().toISOString(),
+                    reasoning: (reasons[signal] || reasons['HOLD'])[Math.floor(Math.random() * 3)],
+                    indicators: ind,
+                    isNew: true
+                };
+            });
+            const existingMap = {};
+            signalStore.forEach(s => existingMap[s.symbol] = s.isNew);
+            newSignals.forEach(s => s.isNew = existingMap[s.symbol] === true ? false : true);
+            signalStore = newSignals;
+            return signalStore;
+        }
 
-            // Auto refresh every 30 seconds
-            refreshTimer = setInterval(() => {
+        function renderSignals() {
+            const container = document.getElementById('signalsContainer');
+            const footer = document.getElementById('signalFooter');
+            let filtered = signalStore;
+            if (signalFilter !== 'all') {
+                if (signalFilter === 'buy') filtered = signalStore.filter(s => s.signal === 'BUY');
+                else if (signalFilter === 'sell') filtered = signalStore.filter(s => s.signal === 'SELL');
+                else filtered = signalStore.filter(s => s.type === signalFilter);
+            }
+            document.getElementById('signalCount').textContent = `${filtered.length} sinyal`;
+            document.getElementById('signalLastUpdate').textContent = new Date().toLocaleTimeString();
+
+            if (filtered.length === 0) {
+                container.innerHTML =
+                    `<div style="text-align:center;padding:40px;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:12px;">🔍</div><p>Tidak ada sinyal untuk filter ini</p></div>`;
+                return;
+            }
+            let html = '<div class="signals-grid">';
+            filtered.forEach((s, i) => {
+                const cls = s.signal.toLowerCase();
+                const color = s.signal === 'BUY' ? 'var(--primary)' : s.signal === 'SELL' ? 'var(--danger)' :
+                    'var(--warning)';
+                const arrow = s.signal === 'BUY' ? '▲' : s.signal === 'SELL' ? '▼' : '●';
+                const typeLabel = s.type.charAt(0).toUpperCase() + s.type.slice(1);
+                html += `
+                    <div class="signal-card" onclick="showSignalDetail(${i})" style="animation: fadeSlideIn 0.4s ease ${i * 0.05}s both;">
+                        ${s.isNew ? '<span class="signal-badge-new">NEW</span>' : ''}
+                        <div class="signal-top">
+                            <span class="signal-symbol">${s.symbol}</span>
+                            <span class="signal-type ${s.type}">${typeLabel}</span>
+                        </div>
+                        <div class="signal-direction ${cls}" style="color:${color};">
+                            <span>${arrow}</span>
+                            <span class="signal-label">${s.signal}</span>
+                        </div>
+                        <div class="signal-price">$${s.price.toFixed(2)}</div>
+                        <div class="signal-confidence">
+                            <div class="conf-label"><span>Confidence</span><span>${s.confidence}%</span></div>
+                            <div class="conf-bar"><div class="conf-fill" style="width:${s.confidence}%;background:${color};"></div></div>
+                        </div>
+                        <div class="signal-meta">
+                            <span class="signal-time"><i class="fas fa-clock"></i> ${new Date(s.time).toLocaleTimeString()}</span>
+                            <span class="signal-entries">SL: $${s.sl.toFixed(2)} TP: $${s.tp.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function filterSignals(filter, btn) {
+            signalFilter = filter;
+            document.querySelectorAll('.signals-filters .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderSignals();
+        }
+
+        function refreshSignals() {
+            const dot = document.getElementById('signalStatusDot');
+            const text = document.getElementById('signalStatusText');
+            dot.className = 'dot loading';
+            text.textContent = 'Loading...';
+            setTimeout(() => {
                 generateSignalsData();
                 renderSignals();
-
-                // Check for new signals
+                dot.className = 'dot online';
+                text.textContent = 'Connected';
                 const newSignals = signalStore.filter(s => s.isNew);
                 if (newSignals.length > 0) {
                     document.getElementById('signalDot').style.display = 'inline-block';
                     showToast(`🔔 ${newSignals.length} sinyal baru!`, 'info');
-                    setTimeout(() => {
-                        document.getElementById('signalDot').style.display = 'none';
-                    }, 5000);
+                    setTimeout(() => { document.getElementById('signalDot').style.display = 'none'; }, 5000);
                 }
-            }, SIGNAL_CONFIG.refreshInterval);
+            }, 800);
+        }
 
-            console.log('🚀 AI Signals Pro loaded!');
-            console.log(`📊 ${signalStore.length} signals generated`);
-            console.log('🔄 Auto-refresh every 30 seconds');
+        function showSignalDetail(index) {
+            const s = signalStore[index];
+            if (!s) return;
+            document.getElementById('modalSignalTitle').textContent = `Signal: ${s.symbol}`;
+            document.getElementById('detailSignal').textContent = s.signal;
+            document.getElementById('detailSignal').className = `detail-value ${s.signal.toLowerCase()}`;
+            document.getElementById('detailConfidence').textContent = `${s.confidence}%`;
+            document.getElementById('detailEntry').textContent = `$${s.price.toFixed(2)}`;
+            document.getElementById('detailSL').textContent = `$${s.sl.toFixed(2)}`;
+            document.getElementById('detailTP').textContent = `$${s.tp.toFixed(2)}`;
+            document.getElementById('detailTime').textContent = new Date(s.time).toLocaleString();
+            document.getElementById('detailReasoning').textContent = s.reasoning;
+            document.getElementById('detailIndicators').textContent = s.indicators;
+            document.getElementById('signalModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSignalModal() {
+            document.getElementById('signalModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function executeSignal() {
+            const signal = document.getElementById('detailSignal').textContent;
+            const symbol = document.getElementById('modalSignalTitle').textContent.replace('Signal: ', '');
+            showToast(`🚀 Signal ${signal} untuk ${symbol} dieksekusi!`, 'success');
+            closeSignalModal();
+        }
+
+        // =============================================================
+        // 9. MODULES
+        // =============================================================
+        function renderModules() {
+            const grid = document.getElementById('modulesGrid');
+            grid.innerHTML = '';
+            let completed = state.completedModules.length;
+            let allRecommended = [...state.recommendedModules];
+            if (state.personalityModules.length > 0) {
+                allRecommended = [...new Set([...allRecommended, ...state.personalityModules])];
+            }
+
+            moduleData.forEach((mod, index) => {
+                const day = index + 1;
+                const isCompleted = state.completedModules.includes(day);
+                const isLocked = day > 1 && !state.completedModules.includes(day - 1) && day > state
+                    .completedModules.length + 1;
+                const isQuizRec = state.recommendedModules.includes(day);
+                const isPerRec = state.personalityModules.includes(day);
+                const isRecommended = isQuizRec || isPerRec;
+
+                let status = 'locked',
+                    statusLabel = '🔒 Terkunci',
+                    statusClass = 'status-locked';
+                if (isCompleted) { status = 'completed';
+                    statusLabel = '✅ Selesai';
+                    statusClass = 'status-completed'; } else if (isPerRec && !isLocked) { status = 'progress';
+                    statusLabel = '🌟 Karakter';
+                    statusClass = 'status-personality'; } else if (isQuizRec && !isLocked) { status = 'progress';
+                    statusLabel = '⭐ Rekomendasi';
+                    statusClass = 'status-recommended'; } else if (!isLocked) { status = 'progress';
+                    statusLabel = '▶️ Belum Selesai';
+                    statusClass = 'status-progress'; }
+
+                const card = document.createElement('div');
+                card.className = 'module-card';
+                if (isPerRec && !isCompleted) { card.style.borderColor = 'var(--secondary)';
+                    card.style.borderWidth = '2px'; } else if (isQuizRec && !isCompleted) { card.style.borderColor =
+                        'var(--warning)';
+                    card.style.borderWidth = '2px'; }
+
+                let btnClass = 'btn-module-play',
+                    btnText = '<i class="fas fa-play"></i> Mulai Belajar',
+                    btnAction = `onclick="openModule(${day})"`;
+                if (isCompleted) { btnText = '<i class="fas fa-redo"></i> Review'; } else if (isLocked) { btnClass =
+                        'btn-module-locked';
+                    btnText = '<i class="fas fa-lock"></i> Terkunci';
+                    btnAction = 'disabled'; } else if (isPerRec) { btnClass = 'btn-module-personality';
+                    btnText = '<i class="fas fa-user-astronaut"></i> Mulai'; } else if (isQuizRec) { btnText =
+                        '<i class="fas fa-star"></i> Mulai'; }
+
+                card.innerHTML = `
+                    <span class="module-status ${statusClass}">${statusLabel}</span>
+                    <div class="module-day">Hari ${day} ${isPerRec ? '🌟' : ''} ${isQuizRec && !isPerRec ? '⭐' : ''}</div>
+                    <div class="module-title">${mod.title}</div>
+                    <div class="module-desc">${mod.desc}</div>
+                    <div class="module-meta">
+                        <span><i class="fas fa-clock"></i> ${mod.duration}</span>
+                        <span><i class="fas ${mod.type === 'video' ? 'fa-play-circle' : 'fa-file-alt'}"></i> ${mod.type === 'video' ? 'Video' : 'Artikel'}</span>
+                        <span><i class="fas fa-tag"></i> ${mod.category}</span>
+                        ${isPerRec ? '<span style="color:var(--secondary);"><i class="fas fa-user-astronaut"></i> Karakter</span>' : ''}
+                        ${isQuizRec && !isPerRec ? '<span style="color:var(--warning);"><i class="fas fa-star"></i> Kuis</span>' : ''}
+                    </div>
+                    <button class="btn-module ${btnClass}" ${btnAction}>${btnText}</button>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.getElementById('completedCount').textContent = completed;
+            document.getElementById('remainingCount').textContent = 28 - completed;
+        }
+
+        function scrollToRecommended() {
+            const first = document.querySelector(
+                '.module-card .module-status.status-recommended, .module-card .module-status.status-personality');
+            if (first) {
+                const card = first.closest('.module-card');
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.style.borderColor = 'var(--primary)';
+                    card.style.boxShadow = '0 0 30px rgba(0,230,118,0.2)';
+                    setTimeout(() => {
+                        card.style.borderColor = card.querySelector('.status-personality') ? 'var(--secondary)' :
+                            'var(--warning)';
+                        card.style.boxShadow = 'none';
+                    }, 3000);
+                }
+            } else {
+                showToast('Belum ada modul rekomendasi. Ikuti kuis atau analisis karakter terlebih dahulu!', 'warning');
+                switchTab('quiz');
+            }
+        }
+
+        // =============================================================
+        // 10. MODULE OPEN / COMPLETE
+        // =============================================================
+        function openModule(day) {
+            if (day > 1 && !state.isSubscribed) {
+                showToast('🔒 Silakan berlangganan untuk mengakses semua modul!', 'warning');
+                document.getElementById('plansSection').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            const mod = moduleData[day - 1];
+            state.currentModule = day;
+            document.getElementById('moduleModalTitle').textContent = `Hari ${day}: ${mod.title}`;
+            const video = document.getElementById('moduleVideo');
+            if (mod.type === 'video' && mod.videoId) {
+                video.src = `https://www.youtube.com/embed/${mod.videoId}`;
+                video.parentElement.style.display = 'block';
+            } else {
+                video.src = '';
+                video.parentElement.style.display = 'none';
+            }
+            document.getElementById('moduleContentTitle').textContent = mod.title;
+            document.getElementById('moduleContentDesc').textContent = mod.content;
+            const list = document.getElementById('moduleContentList');
+            list.innerHTML = '';
+            mod.topics.forEach(t => { const li = document.createElement('li');
+                li.textContent = t;
+                list.appendChild(li); });
+            document.getElementById('moduleModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function markModuleComplete() {
+            const day = state.currentModule;
+            if (!day) return;
+            if (!state.completedModules.includes(day)) {
+                state.completedModules.push(day);
+                localStorage.setItem('mtc_completed', JSON.stringify(state.completedModules));
+                const isPer = state.personalityModules.includes(day);
+                const isQuiz = state.recommendedModules.includes(day);
+                if (isPer) showToast(`🌟 Modul karakter Hari ${day} selesai!`, 'success');
+                else if (isQuiz) showToast(`⭐ Modul rekomendasi Hari ${day} selesai!`, 'success');
+                else showToast(`✅ Modul Hari ${day} selesai!`, 'success');
+                renderModules();
+                if (state.completedModules.length === 28) showToast('🎉 Selamat! Semua modul selesai!', 'success');
+            }
+            closeModuleModal();
+        }
+
+        function closeModuleModal() {
+            document.getElementById('moduleModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // =============================================================
+        // 11. SUBSCRIPTION
+        // =============================================================
+        function subscribePlan(plan, price) {
+            if (confirm(`Apakah Anda ingin berlangganan paket ${plan} seharga $${price}/bulan?`)) {
+                state.isSubscribed = true;
+                state.subscriptionPlan = plan;
+                localStorage.setItem('mtc_subscribed', 'true');
+                localStorage.setItem('mtc_plan', plan);
+                localStorage.setItem('mtc_subscription_date', new Date().toISOString());
+                showToast(`✅ Berhasil berlangganan ${plan}! Akses semua modul dibuka.`, 'success');
+                renderModules();
+            }
+        }
+
+        // =============================================================
+        // 12. CALCULATOR
+        // =============================================================
+        function calculateRisk() {
+            const balance = parseFloat(document.getElementById('calcBalance').value) || 0;
+            const riskPercent = parseFloat(document.getElementById('calcRiskPercent').value) || 0;
+            const entry = parseFloat(document.getElementById('calcEntry').value) || 0;
+            const sl = parseFloat(document.getElementById('calcSL').value) || 0;
+            const tp = parseFloat(document.getElementById('calcTP').value) || 0;
+            const riskAmount = (balance * riskPercent) / 100;
+            const slDist = Math.abs(entry - sl);
+            const tpDist = Math.abs(tp - entry);
+            const lotSize = slDist > 0 ? (riskAmount / slDist) : 0;
+            const rrRatio = slDist > 0 ? (tpDist / slDist) : 0;
+            const profit = lotSize * tpDist;
+            document.getElementById('resultRisk').textContent = `$${riskAmount.toFixed(2)}`;
+            document.getElementById('resultSLDistance').textContent = slDist.toFixed(2);
+            document.getElementById('resultTPDistance').textContent = tpDist.toFixed(2);
+            document.getElementById('resultRR').textContent = `1:${rrRatio.toFixed(2)}`;
+            document.getElementById('resultLot').textContent = lotSize.toFixed(2);
+            document.getElementById('resultProfit').textContent = `$${profit.toFixed(2)}`;
+        }
+
+        // =============================================================
+        // 13. INIT
+        // =============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Restore personality
+            if (state.personalityData) {
+                const d = state.personalityData;
+                document.getElementById('personalityName').value = d.name || '';
+                document.getElementById('personalityBirthday').value = d.birthDate || '';
+                document.getElementById('personalityGender').value = d.gender || '';
+                if (d.zodiac && zodiacData[d.zodiac]) {
+                    document.getElementById('personalityZodiac').value = zodiacData[d.zodiac].name;
+                    state.personalityModules = zodiacData[d.zodiac].personalityModules || [];
+                }
+                document.getElementById('personalityStatus').textContent = '✅ Selesai';
+                document.getElementById('personalityDot').style.display = 'inline-block';
+                if (d.zodiac && zodiacData[d.zodiac]) {
+                    const zi = zodiacData[d.zodiac];
+                    document.getElementById('personalityBanner').classList.add('show');
+                    document.getElementById('personalityBannerText').textContent =
+                        `Berdasarkan karakter ${zi.name}, kamu cocok dengan gaya trading ${zi.tradingStyle}.`;
+                    document.getElementById('resultPersonalityName').textContent = `Halo, ${d.name}! 👋`;
+                    document.getElementById('resultPersonalitySub').textContent =
+                        `${d.gender === 'male' ? 'Laki-laki' : 'Perempuan'} · Tanggal Lahir: ${new Date(d.birthDate).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}`;
+                    document.getElementById('resultZodiac').textContent = zi.name;
+                    document.getElementById('resultElement').textContent = `🔥 ${zi.element}`;
+                    document.getElementById('resultCharacter').textContent = zi.character;
+                    document.getElementById('resultStrengths').textContent = zi.strengths;
+                    document.getElementById('resultWeaknesses').textContent = zi.weaknesses;
+                    document.getElementById('resultCareer').textContent = zi.career;
+                    document.getElementById('resultTips').textContent = zi.tips;
+                    document.getElementById('resultTradingStyle').textContent = `🎯 ${zi.tradingStyle}`;
+                    const bc = document.getElementById('resultTradingBadges');
+                    bc.innerHTML = '';
+                    zi.tradingBadges.forEach(b => {
+                        const sp = document.createElement('span');
+                        sp.style.cssText =
+                            'padding:2px 12px;border-radius:12px;font-size:0.7rem;font-weight:600;background:var(--secondary-light);color:var(--secondary);';
+                        sp.textContent = b;
+                        bc.appendChild(sp);
+                    });
+                    document.getElementById('personalityResult').classList.add('show');
+                }
+            }
+
+            // Restore quiz
+            if (state.quizCompleted && state.quizResult) {
+                document.getElementById('quizContainer').style.display = 'none';
+                document.getElementById('quizResult').classList.add('show');
+                document.getElementById('quizStatus').textContent = '✅ Selesai';
+                document.getElementById('quizScoreBadge').textContent = '100%';
+                document.getElementById('quizDot').style.display = 'inline-block';
+                try {
+                    const r = JSON.parse(state.quizResult);
+                    state.recommendedModules = r.recommended || [];
+                    document.getElementById('recommendedBanner').classList.add('show');
+                    document.getElementById('recommendedText').textContent =
+                        `Berdasarkan hasil kuis, kamu adalah ${r.persona || 'Trader'}. ${state.personalityModules.length > 0 ? 'Juga berdasarkan karakter, ' : ''}Kami sarankan memulai dari ${r.recommended ? r.recommended.length : 0} modul rekomendasi.`;
+                    const body = document.getElementById('quizResultBody');
+                    body.innerHTML = `
+                        <p><span class="highlight-text">🎯 Gaya Trading: ${r.persona || 'Trader'}</span></p>
+                        <p>Kami merekomendasikan <span class="highlight-text">${r.recommended ? r.recommended.length : 0} modul</span> yang sesuai dengan profil tradingmu.</p>
+                        ${state.personalityModules.length > 0 ? '<p style="margin-top:8px;color:var(--secondary);font-size:0.85rem;">🌟 Juga berdasarkan karakter, ada tambahan rekomendasi personal.</p>' : ''}
+                    `;
+                } catch (e) {}
+            }
+
+            // Restore recommended modules
+            const savedRec = localStorage.getItem('mtc_recommended_modules');
+            if (savedRec) {
+                try {
+                    const rec = JSON.parse(savedRec);
+                    if (rec.length > 0 && state.recommendedModules.length === 0) state.recommendedModules = rec;
+                } catch (e) {}
+            }
+
+            // Init signals
+            generateSignalsData();
+            setTimeout(() => {
+                renderSignals();
+                document.getElementById('signalStatusText').textContent = 'Connected';
+                document.getElementById('signalStatusDot').className = 'dot online';
+            }, 1000);
+            refreshTimer = setInterval(() => {
+                generateSignalsData();
+                renderSignals();
+                const newSignals = signalStore.filter(s => s.isNew);
+                if (newSignals.length > 0) {
+                    document.getElementById('signalDot').style.display = 'inline-block';
+                    showToast(`🔔 ${newSignals.length} sinyal baru!`, 'info');
+                    setTimeout(() => { document.getElementById('signalDot').style.display = 'none'; }, 5000);
+                }
+            }, 30000);
+
+            renderModules();
+            calculateRisk();
+
+            // Set active tab
+            const activeTab = localStorage.getItem('mtc_active_tab') || 'dashboard';
+            switchTab(activeTab);
+
+            console.log('🚀 Madangan Trade Club loaded!');
+            console.log('📊 Modules:', state.completedModules.length);
+            console.log('📝 Quiz:', state.quizCompleted);
+            console.log('🌟 Personality:', state.personalityData ? '✅' : '❌');
+            console.log('📡 Signals:', signalStore.length);
         });
 
-        // ===== CLEANUP =====
+        // Cleanup
         window.addEventListener('beforeunload', function() {
             if (refreshTimer) clearInterval(refreshTimer);
-            if (wsConnection) wsConnection.close();
         });
 
-        // ===== KEYBOARD SHORTCUTS =====
+        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeSignalModal();
-            }
-            if (e.key === 'r' && (e.ctrlKey || e.metaKey)) {
-                e.preventDefault();
-                refreshSignals();
-            }
+            if (e.key === 'Escape') { closeSignalModal();
+                closeModuleModal(); }
+            if (e.key === 'r' && (e.ctrlKey || e.metaKey)) { e.preventDefault();
+                refreshSignals(); }
         });
     </script>
 </body>
