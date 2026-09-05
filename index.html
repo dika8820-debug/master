@@ -1160,6 +1160,77 @@
         }
 
         /* ================================================================
+           VIDEO CONTAINER
+           ================================================================ */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            margin: 16px 0;
+            background: #000;
+            transition: opacity 0.3s ease;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .video-container .video-fallback {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .video-container .video-fallback-content {
+            text-align: center;
+            max-width: 400px;
+        }
+        .video-container .video-fallback-content .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+        .video-container .video-fallback-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .video-container .video-fallback-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .video-container .video-fallback-content .btn-youtube {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background: #FF0000;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .video-container .video-fallback-content .btn-youtube:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        /* ================================================================
            TOAST
            ================================================================ */
         .toast-container {
@@ -1197,25 +1268,21 @@
         .toast.warning { border-left: 4px solid var(--warning); }
 
         /* ================================================================
-           VIDEO / MODULE MODAL
+           TAB CONTENT
            ================================================================ */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius-sm);
-            margin: 16px 0;
-            background: #000;
+        .tab-content {
+            display: none;
+            animation: fadeSlideIn 0.4s ease;
         }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+        .tab-content.active { display: block; }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ================================================================
+           MODULE MODAL CONTENT
+           ================================================================ */
         .module-content h3 {
             color: var(--text-primary);
             font-size: 1rem;
@@ -1243,19 +1310,6 @@
             content: '✓';
             color: var(--primary);
             font-weight: 700;
-        }
-
-        /* ================================================================
-           TAB CONTENT
-           ================================================================ */
-        .tab-content {
-            display: none;
-            animation: fadeSlideIn 0.4s ease;
-        }
-        .tab-content.active { display: block; }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ================================================================
@@ -1670,7 +1724,7 @@
         </div>
 
         <!-- ============================================================
-        TAB: MODUL BELAJAR (DENGAN VIDEO REFERENSI VALID)
+        TAB: MODUL BELAJAR
         ============================================================ -->
         <div class="tab-content" id="tab-modules">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
@@ -1884,7 +1938,7 @@
         </div>
     </div>
 
-    <!-- Module Detail Modal -->
+    <!-- Module Detail Modal (Dengan Video Fallback) -->
     <div class="modal" id="moduleModal">
         <div class="modal-overlay" onclick="closeModuleModal()"></div>
         <div class="modal-content" style="max-width:800px;">
@@ -1893,8 +1947,21 @@
                 <button class="modal-close" onclick="closeModuleModal()">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="video-container">
+                <div class="video-container" id="videoContainer">
                     <iframe id="moduleVideo" src="" allowfullscreen></iframe>
+                    <div class="video-fallback" id="videoFallback" style="display:none;">
+                        <div class="video-fallback-content">
+                            <div class="icon">🎓</div>
+                            <h4>Video Tidak Dapat Diputar</h4>
+                            <p>Klik tombol di bawah untuk membuka video di YouTube.</p>
+                            <a href="#" target="_blank" id="fallbackYouTubeLink" class="btn-youtube">
+                                <i class="fab fa-youtube"></i> Buka di YouTube
+                            </a>
+                            <p style="color:var(--text-muted);font-size:0.7rem;margin-top:12px;">
+                                📺 Channel: <span id="fallbackChannel">YouTube</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="module-content">
                     <h3 id="moduleContentTitle">Apa itu Trading?</h3>
@@ -2087,7 +2154,7 @@
         const moduleData = [];
 
         // Video ID yang valid dari YouTube (Channel edukasi trading terpercaya)
-        // Menggunakan video dari channel: TradingView, Rayner Teo, Trading 212, dll
+        // Menggunakan video dari channel: Trading 212, Rayner Teo, TradingView, dll
         const videoIds = [
             'qPjz4w1qkSw', // 1 - Pengenalan Trading (Trading 212)
             '7JpY1tI8kLw', // 2 - Price Action (Rayner Teo)
@@ -2705,7 +2772,7 @@
         }
 
         // =============================================================
-        // 9. MODULES DENGAN VIDEO REFERENSI VALID
+        // 9. MODULES DENGAN VIDEO FALLBACK
         // =============================================================
         function renderModules() {
             const grid = document.getElementById('modulesGrid');
@@ -2803,7 +2870,7 @@
         }
 
         // =============================================================
-        // 10. MODULE OPEN / COMPLETE (DENGAN VIDEO VALID)
+        // 10. MODULE OPEN / COMPLETE (DENGAN VIDEO FALLBACK)
         // =============================================================
         function openModule(day) {
             if (day > 1 && !state.isSubscribed) {
@@ -2816,38 +2883,88 @@
             document.getElementById('moduleModalTitle').textContent = `Hari ${day}: ${mod.title}`;
 
             const video = document.getElementById('moduleVideo');
+            const fallback = document.getElementById('videoFallback');
+            const container = document.getElementById('videoContainer');
+            const link = document.getElementById('fallbackYouTubeLink');
+
             if (mod.type === 'video' && mod.videoId) {
-                // Gunakan video referensi yang valid dari YouTube
-                video.src = `https://www.youtube.com/embed/${mod.videoId}?rel=0&modestbranding=1`;
-                video.parentElement.style.display = 'block';
-                // Tambahkan info channel
-                document.querySelector('.video-container').setAttribute('data-channel', `📺 ${mod.channel || 'YouTube'}`);
+                // Reset state
+                video.style.display = 'block';
+                fallback.style.display = 'none';
+                container.style.opacity = '0.6';
+
+                // Set video source
+                const embedUrl = `https://www.youtube.com/embed/${mod.videoId}?rel=0&modestbranding=1&autoplay=0&enablejsapi=1`;
+                video.src = embedUrl;
+
+                // Set fallback link
+                link.href = `https://www.youtube.com/watch?v=${mod.videoId}`;
+                document.getElementById('fallbackChannel').textContent = mod.channel || 'YouTube';
+
+                // Handle video load success
+                video.onload = function() {
+                    container.style.opacity = '1';
+                };
+
+                // Handle video error (fallback)
+                video.onerror = function() {
+                    console.warn('⚠️ YouTube video failed to load, showing fallback');
+                    showVideoFallback(mod);
+                };
+
+                // Timeout fallback after 8 seconds
+                clearTimeout(window.videoTimeout);
+                window.videoTimeout = setTimeout(() => {
+                    if (video.src && !video.loaded) {
+                        showVideoFallback(mod);
+                    }
+                }, 8000);
+
+                // Add channel info
+                container.setAttribute('data-channel', `📺 ${mod.channel || 'YouTube'}`);
+
             } else {
+                // Article mode
                 video.src = '';
-                video.parentElement.style.display = 'none';
+                video.style.display = 'none';
+                fallback.style.display = 'none';
+                container.style.opacity = '1';
             }
 
+            // Update content
             document.getElementById('moduleContentTitle').textContent = mod.title;
             document.getElementById('moduleContentDesc').textContent = mod.content;
 
             const list = document.getElementById('moduleContentList');
             list.innerHTML = '';
-            mod.topics.forEach(t => { const li = document.createElement('li');
+            mod.topics.forEach(t => {
+                const li = document.createElement('li');
                 li.textContent = t;
-                list.appendChild(li); });
-
-            // Tambahkan info sumber video
-            const footerInfo = document.querySelector('.modal-footer');
-            if (mod.type === 'video' && mod.channel) {
-                const infoSpan = document.createElement('span');
-                infoSpan.style.cssText =
-                    'color:var(--text-muted);font-size:0.7rem;margin-left:auto;display:flex;align-items:center;gap:6px;';
-                infoSpan.innerHTML = `<i class="fas fa-video"></i> Sumber: ${mod.channel}`;
-                footerInfo.prepend(infoSpan);
-            }
+                list.appendChild(li);
+            });
 
             document.getElementById('moduleModal').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function showVideoFallback(mod) {
+            const video = document.getElementById('moduleVideo');
+            const fallback = document.getElementById('videoFallback');
+            const container = document.getElementById('videoContainer');
+
+            // Hide video iframe
+            if (video) {
+                video.style.display = 'none';
+            }
+
+            // Show fallback
+            if (fallback) {
+                fallback.style.display = 'flex';
+                document.getElementById('fallbackYouTubeLink').href = `https://www.youtube.com/watch?v=${mod.videoId}`;
+                document.getElementById('fallbackChannel').textContent = mod.channel || 'YouTube';
+            }
+
+            container.style.opacity = '1';
         }
 
         function markModuleComplete() {
@@ -2873,6 +2990,9 @@
             // Reset video
             const video = document.getElementById('moduleVideo');
             if (video) video.src = '';
+            // Hide fallback
+            const fallback = document.getElementById('videoFallback');
+            if (fallback) fallback.style.display = 'none';
         }
 
         // =============================================================
@@ -3015,7 +3135,7 @@
             switchTab(activeTab);
 
             console.log('🚀 Madangan Trade Club loaded!');
-            console.log('📚 28 Modules with valid video references');
+            console.log('📚 28 Modules with valid video references & fallback');
             console.log('📊 Modules completed:', state.completedModules.length);
             console.log('📝 Quiz:', state.quizCompleted);
             console.log('🌟 Personality:', state.personalityData ? '✅' : '❌');
