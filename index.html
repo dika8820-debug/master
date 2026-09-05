@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Madangan Trade Club - Platform Trading</title>
-    <!-- PWA Support -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#00E676">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ================================================================
@@ -38,9 +36,6 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ================================================================
-           RESET & BASE
-           ================================================================ */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -57,9 +52,6 @@
         ::-webkit-scrollbar-track { background: var(--bg-body); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-        /* ================================================================
-           NAVBAR
-           ================================================================ */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -155,9 +147,6 @@
         .btn-sm { padding: 4px 14px; font-size: 0.75rem; }
         .btn-block { width: 100%; justify-content: center; }
 
-        /* ================================================================
-           MAIN LAYOUT
-           ================================================================ */
         .page {
             max-width: 1400px;
             margin: 0 auto;
@@ -182,9 +171,6 @@
             margin-top: 4px;
         }
 
-        /* ================================================================
-           CARDS & GRIDS
-           ================================================================ */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -232,9 +218,6 @@
             .navbar-nav .nav-link { padding: 6px 10px; font-size: 0.7rem; }
         }
 
-        /* ================================================================
-           METRIC CARDS
-           ================================================================ */
         .metric-card {
             padding: 20px 24px;
             text-align: center;
@@ -269,7 +252,7 @@
         .metric-foot { font-size: 0.7rem; color: var(--text-muted); }
 
         /* ================================================================
-           AI SIGNALS
+           AI SIGNALS - UPGRADED
            ================================================================ */
         .signals-header {
             display: flex;
@@ -297,6 +280,7 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
         }
+
         .signals-filters {
             display: flex;
             gap: 10px;
@@ -325,7 +309,7 @@
 
         .signals-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 16px;
         }
         .signal-card {
@@ -364,6 +348,7 @@
         .signal-card .signal-type.forex { background: rgba(41, 98, 255, 0.15); color: var(--secondary); }
         .signal-card .signal-type.crypto { background: rgba(255, 171, 0, 0.15); color: var(--warning); }
         .signal-card .signal-type.index { background: rgba(0, 230, 118, 0.15); color: var(--primary); }
+
         .signal-card .signal-direction {
             font-size: 1.3rem;
             margin: 8px 0;
@@ -375,15 +360,32 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
+        .signal-card .signal-direction .signal-strength {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
         .signal-card .signal-direction.buy { color: var(--primary); }
         .signal-card .signal-direction.sell { color: var(--danger); }
         .signal-card .signal-direction.hold { color: var(--warning); }
+
         .signal-card .signal-price {
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
             margin: 4px 0;
         }
+        .signal-card .signal-price .price-change {
+            font-size: 0.7rem;
+            font-weight: 400;
+            margin-left: 8px;
+        }
+        .signal-card .signal-price .price-change.up { color: var(--primary); }
+        .signal-card .signal-price .price-change.down { color: var(--danger); }
+
         .signal-card .signal-confidence {
             margin-top: 10px;
         }
@@ -406,6 +408,39 @@
             border-radius: 2px;
             transition: width 0.6s ease;
         }
+
+        .signal-card .signal-strength-bar {
+            margin-top: 10px;
+        }
+        .signal-card .signal-strength-bar .strength-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+        .signal-card .signal-strength-bar .strength-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            margin-top: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        .signal-card .signal-strength-bar .strength-track .strength-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.8s ease;
+        }
+        .signal-card .signal-strength-bar .strength-track .strength-marker {
+            position: absolute;
+            top: -2px;
+            width: 2px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 1px;
+        }
+
         .signal-card .signal-meta {
             display: flex;
             justify-content: space-between;
@@ -427,6 +462,18 @@
             color: #fff;
             animation: pulse 1.5s infinite;
         }
+        .signal-card .signal-badge-viewed {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.5rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+        }
+
         .loading-spinner {
             display: flex;
             flex-direction: column;
@@ -445,620 +492,116 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ================================================================
-           PERSONALITY / KARAKTER
-           ================================================================ */
-        .personality-section {
-            background: var(--bg-card);
-            border: 2px solid var(--secondary);
-            border-radius: var(--radius);
-            padding: 32px;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
-        }
-        .personality-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 60%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(41, 98, 255, 0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .personality-section .personality-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .personality-section .personality-header .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--secondary-light);
-            color: var(--secondary);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .personality-section .personality-header h2 {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            margin-top: 8px;
-        }
-        .personality-section .personality-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        .personality-form {
+        /* Signal Detail Modal - Upgraded */
+        .signal-detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
+            gap: 12px;
         }
-        .personality-form .form-group { margin-bottom: 4px; }
-        .personality-form label {
-            display: block;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-        }
-        .personality-form input, .personality-form select {
-            width: 100%;
-            padding: 10px 14px;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: var(--transition);
-        }
-        .personality-form input:focus, .personality-form select:focus {
-            border-color: var(--secondary);
-        }
-        .personality-form select option { background: var(--bg-card); color: #fff; }
-        .personality-result {
-            display: none;
-            margin-top: 24px;
-            padding: 24px;
-            background: var(--bg-input);
-            border-radius: var(--radius-sm);
-            border: 2px solid var(--secondary);
-            animation: fadeSlideIn 0.5s ease;
-            position: relative;
-            z-index: 1;
-        }
-        .personality-result.show { display: block; }
-        .personality-result .result-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .personality-result .result-item {
+        .signal-detail-grid .detail-item {
             background: rgba(255, 255, 255, 0.03);
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 8px;
         }
-        .personality-result .result-item .label {
-            font-size: 0.7rem;
+        .signal-detail-grid .detail-item .detail-label {
+            font-size: 0.65rem;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 0.5px;
         }
-        .personality-result .result-item .value {
+        .signal-detail-grid .detail-item .detail-value {
             font-size: 1rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-top: 4px;
+            margin-top: 2px;
         }
-        .personality-result .result-item.full { grid-column: span 2; }
-        .personality-result .result-item .badge-traits {
+        .signal-detail-grid .detail-item .detail-value.buy { color: var(--primary); }
+        .signal-detail-grid .detail-item .detail-value.sell { color: var(--danger); }
+        .signal-detail-grid .detail-item .detail-value.hold { color: var(--warning); }
+        .signal-detail-grid .detail-item.full { grid-column: span 2; }
+        .signal-detail-grid .detail-item .reasoning-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .signal-detail-grid .detail-item .strength-visual {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-        .personality-result .result-item .badge-traits span {
-            padding: 2px 12px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            background: var(--secondary-light);
-            color: var(--secondary);
-        }
-        .personality-result .result-actions {
-            display: flex;
+            align-items: center;
             gap: 12px;
-            margin-top: 16px;
-            flex-wrap: wrap;
+            margin-top: 6px;
         }
-        @media (max-width: 768px) {
-            .personality-form { grid-template-columns: 1fr; }
-            .personality-result .result-grid { grid-template-columns: 1fr; }
-            .personality-result .result-item.full { grid-column: span 1; }
-        }
-
-        /* ================================================================
-           QUIZ
-           ================================================================ */
-        .quiz-section {
-            background: var(--bg-card);
-            border: 2px solid var(--primary);
-            border-radius: var(--radius);
-            padding: 32px;
-            margin-bottom: 32px;
-            position: relative;
+        .signal-detail-grid .detail-item .strength-visual .strength-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
             overflow: hidden;
         }
-        .quiz-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 20%, rgba(0, 230, 118, 0.03) 0%, transparent 60%);
-            pointer-events: none;
+        .signal-detail-grid .detail-item .strength-visual .strength-track .strength-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
         }
-        .quiz-section .quiz-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .quiz-section .quiz-header .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            padding: 4px 14px;
-            border-radius: 20px;
-            font-size: 0.7rem;
+        .signal-detail-grid .detail-item .strength-visual .strength-label {
+            font-size: 0.8rem;
             font-weight: 600;
+            min-width: 40px;
         }
-        .quiz-section .quiz-header h2 {
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            margin-top: 8px;
-        }
-        .quiz-section .quiz-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        .quiz-container { position: relative; z-index: 1; }
-        .quiz-container .progress-quiz {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-        .quiz-container .progress-quiz .dot {
-            width: 100%;
-            height: 4px;
-            border-radius: 2px;
-            background: var(--border-color);
-            transition: var(--transition);
-        }
-        .quiz-container .progress-quiz .dot.active { background: var(--primary); }
-        .quiz-container .progress-quiz .dot.completed { background: var(--primary-dark); }
-        .quiz-question {
-            display: none;
-            animation: fadeSlideIn 0.4s ease;
-        }
-        .quiz-question.active { display: block; }
-        .quiz-question .q-number {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            margin-bottom: 4px;
-        }
-        .quiz-question .q-text {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-        .quiz-options {
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            max-width: 400px;
         }
-        .quiz-options .q-option {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            background: var(--bg-input);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        .quiz-options .q-option:hover {
-            border-color: var(--primary);
-            background: var(--bg-hover);
-        }
-        .quiz-options .q-option.selected {
-            border-color: var(--primary);
-            background: var(--primary-light);
-        }
-        .quiz-options .q-option .q-radio {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: var(--transition);
-        }
-        .quiz-options .q-option.selected .q-radio {
-            border-color: var(--primary);
-            background: var(--primary);
-        }
-        .quiz-options .q-option.selected .q-radio::after {
-            content: '✓';
-            color: #0a0a0e;
-            font-size: 0.7rem;
-            font-weight: 700;
-        }
-        .quiz-options .q-option .q-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .quiz-options .q-option .q-badge {
-            margin-left: auto;
-            font-size: 0.6rem;
-            padding: 2px 10px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-        .quiz-options .q-option.selected .q-badge {
-            background: rgba(0, 230, 118, 0.15);
-            color: var(--primary);
-        }
-        .quiz-nav {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 12px;
-        }
-        .quiz-nav .btn-quiz {
-            padding: 10px 24px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .quiz-nav .btn-quiz-prev {
-            background: var(--bg-input);
-            color: var(--text-muted);
-        }
-        .quiz-nav .btn-quiz-prev:hover:not(:disabled) {
-            background: var(--bg-hover);
-            color: var(--text-primary);
-        }
-        .quiz-nav .btn-quiz-prev:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .quiz-nav .btn-quiz-next {
-            background: var(--primary);
-            color: #0a0a0e;
-        }
-        .quiz-nav .btn-quiz-next:hover:not(:disabled) {
-            background: var(--primary-dark);
-            transform: translateX(4px);
-        }
-        .quiz-nav .btn-quiz-next:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .quiz-result-box {
-            display: none;
-            margin-top: 20px;
-            padding: 24px;
-            background: var(--bg-input);
-            border-radius: var(--radius-sm);
-            border: 2px solid var(--primary);
-            animation: fadeSlideIn 0.5s ease;
-        }
-        .quiz-result-box.show { display: block; }
-        .quiz-result-box .result-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 12px;
-        }
-        .quiz-result-box .result-header .result-icon { font-size: 2.5rem; }
-        .quiz-result-box .result-header h3 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-        }
-        .quiz-result-box .result-body {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        .quiz-result-box .result-body .highlight-text {
-            color: var(--primary);
-            font-weight: 700;
-        }
-        .quiz-result-box .result-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-
-        /* ================================================================
-           MODULES
-           ================================================================ */
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 16px;
-        }
-        .module-card {
-            background: var(--bg-input);
+        .toast {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 18px 20px;
-            transition: var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-        .module-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
-        .module-card .module-day {
-            font-size: 0.65rem;
-            color: var(--primary);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .module-card .module-title {
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin: 6px 0 4px;
-        }
-        .module-card .module-desc {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            line-height: 1.5;
-        }
-        .module-card .module-meta {
-            display: flex;
-            gap: 16px;
-            margin-top: 10px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            flex-wrap: wrap;
-        }
-        .module-card .module-status {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            padding: 2px 10px;
             border-radius: 12px;
-            font-size: 0.55rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .status-completed { background: rgba(0, 230, 118, 0.15); color: var(--primary); }
-        .status-progress { background: rgba(41, 98, 255, 0.15); color: var(--secondary); }
-        .status-locked { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); }
-        .status-recommended { background: rgba(255, 171, 0, 0.15); color: var(--warning); }
-        .status-personality { background: rgba(41, 98, 255, 0.2); color: var(--secondary); border: 1px solid var(--secondary); }
-        .btn-module {
-            margin-top: 12px;
-            padding: 6px 18px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .btn-module-play { background: var(--primary); color: #0a0a0e; }
-        .btn-module-play:hover { background: var(--primary-dark); transform: translateX(4px); }
-        .btn-module-locked { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); cursor: not-allowed; }
-        .btn-module-personality { background: var(--secondary); color: #fff; }
-        .btn-module-personality:hover { background: #1a4fd0; transform: translateX(4px); }
-
-        .recommended-banner {
-            background: linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(41, 98, 255, 0.1));
-            border: 1px solid var(--primary);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .recommended-banner.show { display: flex; }
-        .recommended-banner .rec-text {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .recommended-banner .rec-text .rec-icon { font-size: 1.5rem; color: var(--warning); }
-        .recommended-banner .rec-text h4 {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-        .recommended-banner .rec-text p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        .personality-banner {
-            background: linear-gradient(135deg, rgba(41, 98, 255, 0.1), rgba(0, 230, 118, 0.1));
-            border: 1px solid var(--secondary);
-            border-radius: var(--radius-sm);
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .personality-banner.show { display: flex; }
-        .personality-banner .per-text {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .personality-banner .per-text .per-icon { font-size: 1.5rem; color: var(--secondary); }
-        .personality-banner .per-text h4 {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-        .personality-banner .per-text p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
-        /* ================================================================
-           SUBSCRIPTION PLANS
-           ================================================================ */
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .plan-card {
-            background: var(--bg-input);
-            border: 2px solid var(--border-color);
-            border-radius: var(--radius);
-            padding: 24px;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-        }
-        .plan-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary);
-        }
-        .plan-card.popular {
-            border-color: var(--primary);
-            background: #1a2a3a;
-        }
-        .plan-card.popular::before {
-            content: '⭐ POPULER';
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: #0a0a0e;
-            padding: 4px 16px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        .plan-card .plan-icon { font-size: 2rem; color: var(--primary); }
-        .plan-card .plan-name {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 8px 0 4px;
-        }
-        .plan-card .plan-price {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-        .plan-card .plan-price .currency {
-            font-size: 1rem;
-            color: var(--text-muted);
-        }
-        .plan-card .plan-period {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-        .plan-card .plan-features {
-            list-style: none;
-            padding: 0;
-            text-align: left;
-            margin: 16px 0;
-        }
-        .plan-card .plan-features li {
-            padding: 6px 0;
+            padding: 14px 20px;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow);
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            gap: 12px;
         }
-        .plan-card .plan-features li:last-child { border-bottom: none; }
-        .plan-card .plan-features li i {
-            color: var(--primary);
-            width: 18px;
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
         }
-        .btn-subscribe {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 8px;
+        .toast.success { border-left: 4px solid var(--primary); }
+        .toast.error { border-left: 4px solid var(--danger); }
+        .toast.info { border-left: 4px solid var(--secondary); }
+        .toast.warning { border-left: 4px solid var(--warning); }
+
+        .tab-content {
+            display: none;
+            animation: fadeSlideIn 0.4s ease;
         }
-        .btn-subscribe-primary { background: var(--primary); color: #0a0a0e; }
-        .btn-subscribe-primary:hover {
-            background: var(--primary-dark);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0, 230, 118, 0.3);
-        }
-        .btn-subscribe-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        .btn-subscribe-outline:hover {
-            background: var(--primary);
-            color: #0a0a0e;
+        .tab-content.active { display: block; }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ================================================================
-           MODAL
-           ================================================================ */
+        .notification-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            animation: pulse 1.5s infinite;
+        }
+
         .modal {
             position: fixed;
             top: 0;
@@ -1127,194 +670,6 @@
             flex-wrap: wrap;
         }
 
-        .signal-detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .signal-detail-grid .detail-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 14px;
-            border-radius: 8px;
-        }
-        .signal-detail-grid .detail-item .detail-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-        .signal-detail-grid .detail-item .detail-value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 2px;
-        }
-        .signal-detail-grid .detail-item .detail-value.buy { color: var(--primary); }
-        .signal-detail-grid .detail-item .detail-value.sell { color: var(--danger); }
-        .signal-detail-grid .detail-item .detail-value.hold { color: var(--warning); }
-        .signal-detail-grid .detail-item.full { grid-column: span 2; }
-        .signal-detail-grid .detail-item .reasoning-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* ================================================================
-           VIDEO CONTAINER
-           ================================================================ */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--radius-sm);
-            margin: 16px 0;
-            background: #000;
-            transition: opacity 0.3s ease;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .video-container .video-fallback {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .video-container .video-fallback-content {
-            text-align: center;
-            max-width: 400px;
-        }
-        .video-container .video-fallback-content .icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-        .video-container .video-fallback-content h4 {
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-        .video-container .video-fallback-content p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            line-height: 1.6;
-        }
-        .video-container .video-fallback-content .btn-youtube {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 24px;
-            background: #FF0000;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .video-container .video-fallback-content .btn-youtube:hover {
-            background: #cc0000;
-            transform: translateY(-2px);
-        }
-
-        /* ================================================================
-           TOAST
-           ================================================================ */
-        .toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
-        }
-        .toast {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 20px;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            box-shadow: var(--shadow);
-            transform: translateX(120%);
-            opacity: 0;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        .toast.success { border-left: 4px solid var(--primary); }
-        .toast.error { border-left: 4px solid var(--danger); }
-        .toast.info { border-left: 4px solid var(--secondary); }
-        .toast.warning { border-left: 4px solid var(--warning); }
-
-        /* ================================================================
-           TAB CONTENT
-           ================================================================ */
-        .tab-content {
-            display: none;
-            animation: fadeSlideIn 0.4s ease;
-        }
-        .tab-content.active { display: block; }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ================================================================
-           MODULE MODAL CONTENT
-           ================================================================ */
-        .module-content h3 {
-            color: var(--text-primary);
-            font-size: 1rem;
-            margin-bottom: 8px;
-        }
-        .module-content p {
-            color: var(--text-muted);
-            line-height: 1.7;
-            font-size: 0.9rem;
-        }
-        .module-content ul {
-            list-style: none;
-            padding: 0;
-            margin: 12px 0;
-        }
-        .module-content ul li {
-            padding: 6px 0;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-        }
-        .module-content ul li::before {
-            content: '✓';
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        /* ================================================================
-           FOOTER
-           ================================================================ */
         .footer {
             text-align: center;
             padding: 24px;
@@ -1324,28 +679,15 @@
             margin-top: 40px;
         }
 
-        /* ================================================================
-           PWA / MOBILE
-           ================================================================ */
         @media (display-mode: standalone) {
             body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
             .navbar { padding-top: calc(12px + env(safe-area-inset-top)); }
-        }
-        .notification-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--danger);
-            animation: pulse 1.5s infinite;
         }
     </style>
 </head>
 <body>
 
-    <!-- ================================================================
-    NAVBAR
-    ================================================================ -->
+    <!-- NAVBAR -->
     <header class="navbar">
         <div class="navbar-left">
             <div class="logo-icon">M</div>
@@ -1364,15 +706,12 @@
             </button>
             <button class="nav-link" data-tab="personality" onclick="switchTab('personality')">
                 <i class="fas fa-user-astronaut"></i> Karakter
-                <span class="notification-dot" id="personalityDot" style="display:none;"></span>
             </button>
             <button class="nav-link" data-tab="quiz" onclick="switchTab('quiz')">
                 <i class="fas fa-clipboard-list"></i> Kuis
-                <span class="notification-dot" id="quizDot" style="display:none;"></span>
             </button>
             <button class="nav-link" data-tab="modules" onclick="switchTab('modules')">
                 <i class="fas fa-graduation-cap"></i> Modul
-                <span class="notification-dot" id="moduleDot" style="display:none;"></span>
             </button>
             <button class="nav-link" data-tab="calculator" onclick="switchTab('calculator')">
                 <i class="fas fa-calculator"></i> Kalkulator
@@ -1380,14 +719,10 @@
         </nav>
     </header>
 
-    <!-- ================================================================
-    MAIN CONTENT
-    ================================================================ -->
+    <!-- MAIN CONTENT -->
     <main class="page">
 
-        <!-- ============================================================
-        TAB: DASHBOARD
-        ============================================================ -->
+        <!-- TAB: DASHBOARD -->
         <div class="tab-content active" id="tab-dashboard">
             <div class="page-header">
                 <div>
@@ -1452,9 +787,7 @@
             </div>
         </div>
 
-        <!-- ============================================================
-        TAB: AI SIGNALS
-        ============================================================ -->
+        <!-- TAB: AI SIGNALS - UPGRADED -->
         <div class="tab-content" id="tab-signals">
             <div class="signals-header">
                 <div>
@@ -1478,6 +811,7 @@
                 <button class="filter-btn" data-filter="index" onclick="filterSignals('index', this)">Index</button>
                 <button class="filter-btn" data-filter="buy" onclick="filterSignals('buy', this)">BUY</button>
                 <button class="filter-btn" data-filter="sell" onclick="filterSignals('sell', this)">SELL</button>
+                <button class="filter-btn" data-filter="strong" onclick="filterSignals('strong', this)">🔥 Strong</button>
             </div>
             <div class="card">
                 <div class="card-body" style="padding:20px 24px;" id="signalsContainer">
@@ -1489,13 +823,12 @@
                 <div class="card-footer">
                     <span id="signalCount">0 sinyal</span>
                     <span>Last update: <span id="signalLastUpdate">-</span></span>
+                    <span style="margin-left:16px;" id="signalSummary"></span>
                 </div>
             </div>
         </div>
 
-        <!-- ============================================================
-        TAB: PERSONALITY (KARAKTER)
-        ============================================================ -->
+        <!-- TAB: PERSONALITY -->
         <div class="tab-content" id="tab-personality">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
                 <div>
@@ -1508,44 +841,24 @@
                     <span style="color:var(--text-muted);font-size:0.8rem;" id="personalityStatus">Belum dianalisis</span>
                 </div>
             </div>
-            <section class="personality-section">
-                <div class="personality-header">
+            <section class="personality-section" style="background:var(--bg-card);border:2px solid var(--secondary);border-radius:var(--radius);padding:32px;margin-bottom:32px;position:relative;overflow:hidden;">
+                <div class="personality-header" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;flex-wrap:wrap;gap:16px;position:relative;z-index:1;">
                     <div>
-                        <div class="badge" style="background:var(--secondary-light);color:var(--secondary);">
+                        <div class="badge" style="display:inline-flex;align-items:center;gap:8px;background:var(--secondary-light);color:var(--secondary);padding:4px 14px;border-radius:20px;font-size:0.7rem;font-weight:600;">
                             <i class="fas fa-star"></i> Personal Profiling
                         </div>
-                        <h2>🌟 Masukkan Tanggal Lahir</h2>
-                        <p>Isi data di bawah untuk mendapatkan analisis karakter, kelebihan, dan rekomendasi hidup yang personal.</p>
+                        <h2 style="color:var(--text-primary);font-size:1.3rem;margin-top:8px;">🌟 Masukkan Tanggal Lahir</h2>
+                        <p style="color:var(--text-muted);font-size:0.9rem;">Isi data di bawah untuk mendapatkan analisis karakter, kelebihan, dan rekomendasi hidup yang personal.</p>
                     </div>
                 </div>
-                <form class="personality-form" id="personalityForm" onsubmit="analyzePersonality(event)">
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" id="personalityName" placeholder="Masukkan nama kamu" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                        <input type="date" id="personalityBirthday" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Kelamin</label>
-                        <select id="personalityGender" required>
-                            <option value="">Pilih...</option>
-                            <option value="male">Laki-laki</option>
-                            <option value="female">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Zodiak (Otomatis)</label>
-                        <input type="text" id="personalityZodiac" placeholder="Akan terisi otomatis" readonly style="opacity:0.7;">
-                    </div>
-                    <div class="form-group" style="grid-column:span 2;">
-                        <button type="submit" class="btn-pill btn-primary btn-block" style="padding:12px;">
-                            <i class="fas fa-magic"></i> Analisis Karakter
-                        </button>
-                    </div>
+                <form class="personality-form" id="personalityForm" onsubmit="analyzePersonality(event)" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1;">
+                    <div class="form-group"><label style="display:block;color:var(--text-muted);font-size:0.8rem;margin-bottom:4px;">Nama Lengkap</label><input type="text" id="personalityName" placeholder="Masukkan nama kamu" required style="width:100%;padding:10px 14px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:8px;color:#fff;font-size:0.9rem;outline:none;transition:var(--transition);"></div>
+                    <div class="form-group"><label style="display:block;color:var(--text-muted);font-size:0.8rem;margin-bottom:4px;">Tanggal Lahir</label><input type="date" id="personalityBirthday" required style="width:100%;padding:10px 14px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:8px;color:#fff;font-size:0.9rem;outline:none;transition:var(--transition);"></div>
+                    <div class="form-group"><label style="display:block;color:var(--text-muted);font-size:0.8rem;margin-bottom:4px;">Jenis Kelamin</label><select id="personalityGender" required style="width:100%;padding:10px 14px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:8px;color:#fff;font-size:0.9rem;outline:none;transition:var(--transition);"><option value="">Pilih...</option><option value="male">Laki-laki</option><option value="female">Perempuan</option></select></div>
+                    <div class="form-group"><label style="display:block;color:var(--text-muted);font-size:0.8rem;margin-bottom:4px;">Zodiak (Otomatis)</label><input type="text" id="personalityZodiac" placeholder="Akan terisi otomatis" readonly style="width:100%;padding:10px 14px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:8px;color:#fff;font-size:0.9rem;outline:none;transition:var(--transition);opacity:0.7;"></div>
+                    <div class="form-group" style="grid-column:span 2;"><button type="submit" class="btn-pill btn-primary btn-block" style="padding:12px;"><i class="fas fa-magic"></i> Analisis Karakter</button></div>
                 </form>
-                <div class="personality-result" id="personalityResult">
+                <div class="personality-result" id="personalityResult" style="display:none;margin-top:24px;padding:24px;background:var(--bg-input);border-radius:var(--radius-sm);border:2px solid var(--secondary);animation:fadeSlideIn 0.5s ease;position:relative;z-index:1;">
                     <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
                         <span style="font-size:2.5rem;">🌟</span>
                         <div>
@@ -1553,35 +866,29 @@
                             <p style="color:var(--text-muted);font-size:0.85rem;" id="resultPersonalitySub">Inilah karakter dan potensi dirimu berdasarkan tanggal lahir.</p>
                         </div>
                     </div>
-                    <div class="result-grid">
-                        <div class="result-item"><div class="label">Zodiak</div><div class="value" id="resultZodiac">-</div></div>
-                        <div class="result-item"><div class="label">Elemen</div><div class="value" id="resultElement">-</div></div>
-                        <div class="result-item full"><div class="label">Karakter / Sifat</div><div class="value" id="resultCharacter">-</div></div>
-                        <div class="result-item full"><div class="label">Kelebihan</div><div class="value" id="resultStrengths">-</div></div>
-                        <div class="result-item full"><div class="label">Kekurangan yang Perlu Diperhatikan</div><div class="value" id="resultWeaknesses">-</div></div>
-                        <div class="result-item full"><div class="label">🌟 Karir & Arah Hidup yang Cocok</div><div class="value" id="resultCareer">-</div></div>
-                        <div class="result-item full"><div class="label">💡 Tips untuk Pengembangan Diri</div><div class="value" id="resultTips">-</div></div>
-                        <div class="result-item full" style="background:rgba(0,230,118,0.05);border:1px solid var(--primary);">
-                            <div class="label" style="color:var(--primary);">🎯 Rekomendasi Gaya Trading</div>
-                            <div class="value" id="resultTradingStyle" style="font-size:1.1rem;">-</div>
+                    <div class="result-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                        <div class="result-item" style="background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">Zodiak</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultZodiac">-</div></div>
+                        <div class="result-item" style="background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">Elemen</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultElement">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">Karakter / Sifat</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultCharacter">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">Kelebihan</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultStrengths">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">Kekurangan yang Perlu Diperhatikan</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultWeaknesses">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">🌟 Karir & Arah Hidup yang Cocok</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultCareer">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(255,255,255,0.03);padding:14px 16px;border-radius:8px;"><div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;">💡 Tips untuk Pengembangan Diri</div><div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;" id="resultTips">-</div></div>
+                        <div class="result-item full" style="grid-column:span 2;background:rgba(0,230,118,0.05);border:1px solid var(--primary);padding:14px 16px;border-radius:8px;">
+                            <div class="label" style="font-size:0.7rem;text-transform:uppercase;color:var(--text-muted);letter-spacing:0.5px;color:var(--primary);">🎯 Rekomendasi Gaya Trading</div>
+                            <div class="value" style="font-size:1rem;font-weight:600;color:var(--text-primary);margin-top:4px;font-size:1.1rem;" id="resultTradingStyle">-</div>
                             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;" id="resultTradingBadges"></div>
                         </div>
                     </div>
-                    <div class="result-actions">
-                        <button class="btn-pill btn-primary" onclick="goToModulesFromPersonality()">
-                            <i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi
-                        </button>
-                        <button class="btn-pill btn-outline" onclick="document.getElementById('personalityResult').classList.remove('show')">
-                            <i class="fas fa-times"></i> Tutup
-                        </button>
+                    <div class="result-actions" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                        <button class="btn-pill btn-primary" onclick="goToModulesFromPersonality()"><i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi</button>
+                        <button class="btn-pill btn-outline" onclick="document.getElementById('personalityResult').style.display='none'"><i class="fas fa-times"></i> Tutup</button>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ============================================================
-        TAB: QUIZ
-        ============================================================ -->
+        <!-- TAB: QUIZ (disederhanakan) -->
         <div class="tab-content" id="tab-quiz">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
                 <div>
@@ -1595,137 +902,75 @@
                     <span style="padding:4px 12px;border-radius:12px;background:var(--primary-light);color:var(--primary);font-size:0.7rem;font-weight:600;margin-left:8px;" id="quizScoreBadge">0%</span>
                 </div>
             </div>
-            <section class="quiz-section">
+            <section class="quiz-section" style="background:var(--bg-card);border:2px solid var(--primary);border-radius:var(--radius);padding:32px;margin-bottom:32px;position:relative;overflow:hidden;">
                 <div class="quiz-container" id="quizContainer">
-                    <div class="progress-quiz" id="quizProgress">
-                        <div class="dot active" data-step="0"></div>
-                        <div class="dot" data-step="1"></div>
-                        <div class="dot" data-step="2"></div>
-                        <div class="dot" data-step="3"></div>
+                    <div class="progress-quiz" style="display:flex;gap:8px;margin-bottom:20px;" id="quizProgress">
+                        <div class="dot active" data-step="0" style="width:100%;height:4px;border-radius:2px;background:var(--border-color);transition:var(--transition);"></div>
+                        <div class="dot" data-step="1" style="width:100%;height:4px;border-radius:2px;background:var(--border-color);transition:var(--transition);"></div>
+                        <div class="dot" data-step="2" style="width:100%;height:4px;border-radius:2px;background:var(--border-color);transition:var(--transition);"></div>
+                        <div class="dot" data-step="3" style="width:100%;height:4px;border-radius:2px;background:var(--border-color);transition:var(--transition);"></div>
                     </div>
                     <div id="quizQuestions">
-                        <!-- Q1 -->
-                        <div class="quiz-question active" data-step="0">
-                            <div class="q-number">Pertanyaan 1 dari 4</div>
-                            <div class="q-text">Berapa banyak waktu yang bisa kamu alokasikan untuk memantau chart harian?</div>
-                            <div class="quiz-options">
-                                <div class="q-option" onclick="selectQuizOption(this, 0, 'short')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">&lt; 1 Jam Sehari</span>
-                                    <span class="q-badge">Minimalis</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 0, 'medium')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">1 - 3 Jam Sehari</span>
-                                    <span class="q-badge">Moderat</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 0, 'full')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">&gt; 4 Jam Sehari</span>
-                                    <span class="q-badge">Full Time</span>
-                                </div>
+                        <div class="quiz-question active" data-step="0" style="display:block;animation:fadeSlideIn 0.4s ease;">
+                            <div class="q-number" style="color:var(--text-muted);font-size:0.75rem;margin-bottom:4px;">Pertanyaan 1 dari 4</div>
+                            <div class="q-text" style="color:var(--text-primary);font-size:1.1rem;font-weight:600;margin-bottom:16px;">Berapa banyak waktu yang bisa kamu alokasikan untuk memantau chart harian?</div>
+                            <div class="quiz-options" style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'short')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">&lt; 1 Jam Sehari</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Minimalis</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'medium')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">1 - 3 Jam Sehari</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Moderat</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 0, 'full')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">&gt; 4 Jam Sehari</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Full Time</span></div>
                             </div>
                         </div>
-                        <!-- Q2 -->
-                        <div class="quiz-question" data-step="1">
-                            <div class="q-number">Pertanyaan 2 dari 4</div>
-                            <div class="q-text">Bagaimana reaksi psikologis kamu saat melihat transaksi minus (floating loss)?</div>
-                            <div class="quiz-options">
-                                <div class="q-option" onclick="selectQuizOption(this, 1, 'low')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Cemas & Ingin segera tutup posisi</span>
-                                    <span class="q-badge">Konservatif</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 1, 'med')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Tenang, selama masih sesuai rencana</span>
-                                    <span class="q-badge">Terukur</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 1, 'high')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Mencari peluang tambah posisi lagi</span>
-                                    <span class="q-badge">Agresif</span>
-                                </div>
+                        <div class="quiz-question" data-step="1" style="display:none;animation:fadeSlideIn 0.4s ease;">
+                            <div class="q-number" style="color:var(--text-muted);font-size:0.75rem;margin-bottom:4px;">Pertanyaan 2 dari 4</div>
+                            <div class="q-text" style="color:var(--text-primary);font-size:1.1rem;font-weight:600;margin-bottom:16px;">Bagaimana reaksi psikologis kamu saat melihat transaksi minus (floating loss)?</div>
+                            <div class="quiz-options" style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'low')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Cemas & Ingin segera tutup posisi</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Konservatif</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'med')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Tenang, selama masih sesuai rencana</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Terukur</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 1, 'high')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Mencari peluang tambah posisi lagi</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Agresif</span></div>
                             </div>
                         </div>
-                        <!-- Q3 -->
-                        <div class="quiz-question" data-step="2">
-                            <div class="q-number">Pertanyaan 3 dari 4</div>
-                            <div class="q-text">Apa target utama kamu dari aktivitas trading ini?</div>
-                            <div class="quiz-options">
-                                <div class="q-option" onclick="selectQuizOption(this, 2, 'daily')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Profit Harian</span>
-                                    <span class="q-badge">Short-term</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 2, 'weekly')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Pertumbuhan Mingguan</span>
-                                    <span class="q-badge">Medium-term</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 2, 'long')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Akumulasi Jangka Panjang</span>
-                                    <span class="q-badge">Long-term</span>
-                                </div>
+                        <div class="quiz-question" data-step="2" style="display:none;animation:fadeSlideIn 0.4s ease;">
+                            <div class="q-number" style="color:var(--text-muted);font-size:0.75rem;margin-bottom:4px;">Pertanyaan 3 dari 4</div>
+                            <div class="q-text" style="color:var(--text-primary);font-size:1.1rem;font-weight:600;margin-bottom:16px;">Apa target utama kamu dari aktivitas trading ini?</div>
+                            <div class="quiz-options" style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'daily')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Profit Harian</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Short-term</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'weekly')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Pertumbuhan Mingguan</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Medium-term</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 2, 'long')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Akumulasi Jangka Panjang</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Long-term</span></div>
                             </div>
                         </div>
-                        <!-- Q4 -->
-                        <div class="quiz-question" data-step="3">
-                            <div class="q-number">Pertanyaan 4 dari 4</div>
-                            <div class="q-text">Pengalaman trading kamu sejauh ini?</div>
-                            <div class="quiz-options">
-                                <div class="q-option" onclick="selectQuizOption(this, 3, 'beginner')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Pemula - Belum pernah trading</span>
-                                    <span class="q-badge">Baru mulai</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 3, 'intermediate')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Menengah - Sudah pernah beberapa kali</span>
-                                    <span class="q-badge">Berpengalaman</span>
-                                </div>
-                                <div class="q-option" onclick="selectQuizOption(this, 3, 'advanced')">
-                                    <span class="q-radio"></span>
-                                    <span class="q-label">Mahir - Sudah trading rutin</span>
-                                    <span class="q-badge">Pro</span>
-                                </div>
+                        <div class="quiz-question" data-step="3" style="display:none;animation:fadeSlideIn 0.4s ease;">
+                            <div class="q-number" style="color:var(--text-muted);font-size:0.75rem;margin-bottom:4px;">Pertanyaan 4 dari 4</div>
+                            <div class="q-text" style="color:var(--text-primary);font-size:1.1rem;font-weight:600;margin-bottom:16px;">Pengalaman trading kamu sejauh ini?</div>
+                            <div class="quiz-options" style="display:flex;flex-direction:column;gap:10px;">
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'beginner')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Pemula - Belum pernah trading</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Baru mulai</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'intermediate')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Menengah - Sudah pernah beberapa kali</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Berpengalaman</span></div>
+                                <div class="q-option" onclick="selectQuizOption(this, 3, 'advanced')" style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg-input);border:2px solid var(--border-color);border-radius:var(--radius-sm);cursor:pointer;transition:var(--transition);"><span class="q-radio" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition);"></span><span class="q-label" style="color:var(--text-secondary);font-size:0.9rem;">Mahir - Sudah trading rutin</span><span class="q-badge" style="margin-left:auto;font-size:0.6rem;padding:2px 10px;border-radius:12px;background:rgba(255,255,255,0.05);color:var(--text-muted);white-space:nowrap;">Pro</span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="quiz-nav">
-                        <button class="btn-quiz btn-quiz-prev" id="quizPrev" onclick="quizPrev()" disabled>
-                            <i class="fas fa-arrow-left"></i> Sebelumnya
-                        </button>
-                        <button class="btn-quiz btn-quiz-next" id="quizNext" onclick="quizNext()" disabled>
-                            Selanjutnya <i class="fas fa-arrow-right"></i>
-                        </button>
+                    <div class="quiz-nav" style="display:flex;justify-content:space-between;margin-top:20px;gap:12px;">
+                        <button class="btn-quiz btn-quiz-prev" id="quizPrev" onclick="quizPrev()" disabled style="padding:10px 24px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:var(--transition);font-size:0.85rem;display:inline-flex;align-items:center;gap:8px;background:var(--bg-input);color:var(--text-muted);"><i class="fas fa-arrow-left"></i> Sebelumnya</button>
+                        <button class="btn-quiz btn-quiz-next" id="quizNext" onclick="quizNext()" disabled style="padding:10px 24px;border:none;border-radius:var(--radius-sm);font-weight:600;cursor:pointer;transition:var(--transition);font-size:0.85rem;display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#0a0a0e;">Selanjutnya <i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
-                <div class="quiz-result-box" id="quizResult">
-                    <div class="result-header">
-                        <span class="result-icon">🎉</span>
+                <div class="quiz-result-box" id="quizResult" style="display:none;margin-top:20px;padding:24px;background:var(--bg-input);border-radius:var(--radius-sm);border:2px solid var(--primary);animation:fadeSlideIn 0.5s ease;">
+                    <div class="result-header" style="display:flex;align-items:center;gap:16px;margin-bottom:12px;">
+                        <span class="result-icon" style="font-size:2.5rem;">🎉</span>
                         <div>
-                            <h3>Kuis Selesai!</h3>
+                            <h3 style="color:var(--text-primary);font-size:1.2rem;">Kuis Selesai!</h3>
                             <p style="color:var(--text-muted);font-size:0.85rem;" id="quizResultText">Berdasarkan jawabanmu, kami merekomendasikan modul yang sesuai untuk gaya tradingmu.</p>
                         </div>
                     </div>
-                    <div class="result-body" id="quizResultBody"></div>
-                    <div class="result-actions">
-                        <button class="btn-pill btn-primary" onclick="switchTab('modules')">
-                            <i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi
-                        </button>
-                        <button class="btn-pill btn-outline" onclick="resetQuiz()">
-                            <i class="fas fa-redo"></i> Ulangi Kuis
-                        </button>
+                    <div class="result-body" style="color:var(--text-secondary);line-height:1.8;" id="quizResultBody"></div>
+                    <div class="result-actions" style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+                        <button class="btn-pill btn-primary" onclick="switchTab('modules')"><i class="fas fa-graduation-cap"></i> Lihat Modul Rekomendasi</button>
+                        <button class="btn-pill btn-outline" onclick="resetQuiz()"><i class="fas fa-redo"></i> Ulangi Kuis</button>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ============================================================
-        TAB: MODUL BELAJAR
-        ============================================================ -->
+        <!-- TAB: MODUL (disederhanakan) -->
         <div class="tab-content" id="tab-modules">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
                 <div>
@@ -1735,114 +980,14 @@
                     <p class="muted">Pelajari trading dari dasar hingga mahir dengan kurikulum terstruktur</p>
                 </div>
                 <div style="display:flex;gap:16px;">
-                    <span style="color:var(--text-muted);font-size:0.8rem;">
-                        <i class="fas fa-check-circle" style="color:var(--primary);"></i> Selesai: <span id="completedCount">0</span>
-                    </span>
-                    <span style="color:var(--text-muted);font-size:0.8rem;">
-                        <i class="fas fa-clock" style="color:var(--secondary);"></i> Tersisa: <span id="remainingCount">28</span>
-                    </span>
+                    <span style="color:var(--text-muted);font-size:0.8rem;"><i class="fas fa-check-circle" style="color:var(--primary);"></i> Selesai: <span id="completedCount">0</span></span>
+                    <span style="color:var(--text-muted);font-size:0.8rem;"><i class="fas fa-clock" style="color:var(--secondary);"></i> Tersisa: <span id="remainingCount">28</span></span>
                 </div>
             </div>
-
-            <div class="personality-banner" id="personalityBanner">
-                <div class="per-text">
-                    <span class="per-icon"><i class="fas fa-user-astronaut"></i></span>
-                    <div>
-                        <h4>🌟 Rekomendasi Berdasarkan Karakter</h4>
-                        <p id="personalityBannerText">Berdasarkan analisis karakter, kami merekomendasikan modul yang sesuai dengan kepribadianmu.</p>
-                    </div>
-                </div>
-                <button class="btn-pill btn-primary btn-sm" onclick="switchTab('personality')">
-                    <i class="fas fa-user-astronaut"></i> Lihat Karakter
-                </button>
-            </div>
-
-            <div class="recommended-banner" id="recommendedBanner">
-                <div class="rec-text">
-                    <span class="rec-icon"><i class="fas fa-star"></i></span>
-                    <div>
-                        <h4>🎯 Modul Rekomendasi dari Kuis</h4>
-                        <p id="recommendedText">Berdasarkan hasil kuis profiling, kami merekomendasikan modul yang sesuai dengan profil tradingmu.</p>
-                    </div>
-                </div>
-                <button class="btn-pill btn-primary btn-sm" onclick="scrollToRecommended()">
-                    <i class="fas fa-arrow-down"></i> Lihat Rekomendasi
-                </button>
-            </div>
-
-            <div class="card" style="margin-bottom:20px;border-color:var(--primary);">
-                <div class="card-body" style="padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-                    <div>
-                        <span style="color:var(--primary);font-weight:600;">
-                            <i class="fas fa-lock"></i> Akses Modul Belajar
-                        </span>
-                        <span style="color:var(--text-muted);font-size:0.85rem;margin-left:8px;">
-                            Berlangganan untuk membuka semua modul pembelajaran
-                        </span>
-                    </div>
-                    <button class="btn-pill btn-primary" onclick="document.getElementById('plansSection').scrollIntoView({behavior:'smooth'})">
-                        <i class="fas fa-crown"></i> Berlangganan Sekarang
-                    </button>
-                </div>
-            </div>
-
-            <div class="modules-grid" id="modulesGrid"></div>
-
-            <section id="plansSection" style="margin-top:40px;">
-                <div style="text-align:center;margin-bottom:24px;">
-                    <h2 style="color:var(--text-primary);font-size:1.3rem;">🚀 Pilih Paket Langganan</h2>
-                    <p style="color:var(--text-muted);">Akses semua modul pembelajaran dan fitur premium</p>
-                </div>
-                <div class="plans-grid">
-                    <div class="plan-card">
-                        <div class="plan-icon"><i class="fas fa-rocket"></i></div>
-                        <div class="plan-name">Starter</div>
-                        <div class="plan-price"><span class="currency">$</span>29</div>
-                        <div class="plan-period">/ bulan</div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Akses 28 modul belajar</li>
-                            <li><i class="fas fa-check"></i> Signal tool dasar</li>
-                            <li><i class="fas fa-check"></i> Kalkulator risiko</li>
-                        </ul>
-                        <button class="btn-subscribe btn-subscribe-outline" onclick="subscribePlan('Starter', 29)">
-                            <i class="fas fa-shopping-cart"></i> Mulai Trial
-                        </button>
-                    </div>
-                    <div class="plan-card popular">
-                        <div class="plan-icon"><i class="fas fa-crown"></i></div>
-                        <div class="plan-name">Pro</div>
-                        <div class="plan-price"><span class="currency">$</span>49</div>
-                        <div class="plan-period">/ bulan</div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Semua fitur Starter</li>
-                            <li><i class="fas fa-check"></i> Signal AI premium</li>
-                            <li><i class="fas fa-check"></i> Konsultasi 1-on-1</li>
-                        </ul>
-                        <button class="btn-subscribe btn-subscribe-primary" onclick="subscribePlan('Pro', 49)">
-                            <i class="fas fa-crown"></i> Pilih Pro
-                        </button>
-                    </div>
-                    <div class="plan-card">
-                        <div class="plan-icon"><i class="fas fa-gem"></i></div>
-                        <div class="plan-name">Premium</div>
-                        <div class="plan-price"><span class="currency">$</span>99</div>
-                        <div class="plan-period">/ tahun (hemat 83%)</div>
-                        <ul class="plan-features">
-                            <li><i class="fas fa-check"></i> Semua fitur Pro</li>
-                            <li><i class="fas fa-check"></i> Lifetime access</li>
-                            <li><i class="fas fa-check"></i> Sertifikat kelulusan</li>
-                        </ul>
-                        <button class="btn-subscribe btn-subscribe-outline" onclick="subscribePlan('Premium', 99)">
-                            <i class="fas fa-gem"></i> Ambil Premium
-                        </button>
-                    </div>
-                </div>
-            </section>
+            <div class="modules-grid" id="modulesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
         </div>
 
-        <!-- ============================================================
-        TAB: KALKULATOR
-        ============================================================ -->
+        <!-- TAB: KALKULATOR -->
         <div class="tab-content" id="tab-calculator">
             <h2 style="color:var(--text-primary);font-size:1.3rem;margin-bottom:24px;">
                 <i class="fas fa-calculator" style="color:var(--primary);"></i> Kalkulator Risiko & Position Sizing
@@ -1850,57 +995,22 @@
             <div class="grid grid-2">
                 <div class="card">
                     <div class="card-body" style="padding:24px;">
-                        <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Modal (Balance)</label>
-                            <input type="number" id="calcBalance" value="10000" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
-                        </div>
-                        <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Risk per Trade (%)</label>
-                            <input type="number" id="calcRiskPercent" value="2" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
-                        </div>
-                        <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Entry Price</label>
-                            <input type="number" id="calcEntry" value="1965.42" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
-                        </div>
-                        <div style="margin-bottom:14px;">
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Stop Loss (SL)</label>
-                            <input type="number" id="calcSL" value="1950.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
-                        </div>
-                        <div>
-                            <label style="display:block;color:var(--text-muted);font-size:0.8rem;">Take Profit (TP)</label>
-                            <input type="number" id="calcTP" value="1990.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;">
-                        </div>
+                        <div style="margin-bottom:14px;"><label style="display:block;color:var(--text-muted);font-size:0.8rem;">Modal (Balance)</label><input type="number" id="calcBalance" value="10000" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;"></div>
+                        <div style="margin-bottom:14px;"><label style="display:block;color:var(--text-muted);font-size:0.8rem;">Risk per Trade (%)</label><input type="number" id="calcRiskPercent" value="2" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;"></div>
+                        <div style="margin-bottom:14px;"><label style="display:block;color:var(--text-muted);font-size:0.8rem;">Entry Price</label><input type="number" id="calcEntry" value="1965.42" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;"></div>
+                        <div style="margin-bottom:14px;"><label style="display:block;color:var(--text-muted);font-size:0.8rem;">Stop Loss (SL)</label><input type="number" id="calcSL" value="1950.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;"></div>
+                        <div><label style="display:block;color:var(--text-muted);font-size:0.8rem;">Take Profit (TP)</label><input type="number" id="calcTP" value="1990.00" oninput="calculateRisk()" style="width:100%;padding:10px;background:var(--bg-body);border:1px solid var(--border-color);border-radius:8px;color:#fff;"></div>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-body" style="padding:24px;">
-                        <h4 style="color:var(--text-primary);margin-bottom:16px;">
-                            <i class="fas fa-chart-pie" style="color:var(--primary);"></i> Hasil Perhitungan
-                        </h4>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Risk per Trade</span>
-                            <span style="color:var(--danger);font-weight:700;" id="resultRisk">$200.00</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Jarak SL (Pips)</span>
-                            <span style="color:var(--text-primary);font-weight:700;" id="resultSLDistance">15.42</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Jarak TP (Pips)</span>
-                            <span style="color:var(--text-primary);font-weight:700;" id="resultTPDistance">24.58</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Risk-to-Reward Ratio</span>
-                            <span style="color:var(--primary);font-weight:700;" id="resultRR">1:1.59</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);">
-                            <span style="color:var(--text-muted);">Ukuran Posisi (Lot)</span>
-                            <span style="color:var(--text-primary);font-weight:700;" id="resultLot">0.13</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;padding:12px 0 0;">
-                            <span style="color:var(--text-muted);font-weight:600;">Potensi Profit</span>
-                            <span style="color:var(--primary);font-weight:700;font-size:1.1rem;" id="resultProfit">$318.00</span>
-                        </div>
+                        <h4 style="color:var(--text-primary);margin-bottom:16px;"><i class="fas fa-chart-pie" style="color:var(--primary);"></i> Hasil Perhitungan</h4>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="color:var(--text-muted);">Risk per Trade</span><span style="color:var(--danger);font-weight:700;" id="resultRisk">$200.00</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="color:var(--text-muted);">Jarak SL (Pips)</span><span style="color:var(--text-primary);font-weight:700;" id="resultSLDistance">15.42</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="color:var(--text-muted);">Jarak TP (Pips)</span><span style="color:var(--text-primary);font-weight:700;" id="resultTPDistance">24.58</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="color:var(--text-muted);">Risk-to-Reward Ratio</span><span style="color:var(--primary);font-weight:700;" id="resultRR">1:1.59</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);"><span style="color:var(--text-muted);">Ukuran Posisi (Lot)</span><span style="color:var(--text-primary);font-weight:700;" id="resultLot">0.13</span></div>
+                        <div style="display:flex;justify-content:space-between;padding:12px 0 0;"><span style="color:var(--text-muted);font-weight:600;">Potensi Profit</span><span style="color:var(--primary);font-weight:700;font-size:1.1rem;" id="resultProfit">$318.00</span></div>
                     </div>
                 </div>
             </div>
@@ -1908,9 +1018,6 @@
 
     </main>
 
-    <!-- ================================================================
-    MODALS
-    ================================================================ -->
     <!-- Signal Detail Modal -->
     <div class="modal" id="signalModal">
         <div class="modal-overlay" onclick="closeSignalModal()"></div>
@@ -1929,6 +1036,15 @@
                     <div class="detail-item"><div class="detail-label">Time</div><div class="detail-value" id="detailTime">-</div></div>
                     <div class="detail-item full"><div class="detail-label">AI Reasoning</div><div class="reasoning-text" id="detailReasoning">-</div></div>
                     <div class="detail-item full"><div class="detail-label">Technical Indicators</div><div class="detail-value" id="detailIndicators" style="font-size:0.85rem;color:var(--text-secondary);">-</div></div>
+                    <div class="detail-item full">
+                        <div class="detail-label">Signal Strength</div>
+                        <div class="strength-visual">
+                            <span class="strength-label" id="detailStrengthLabel">Strong</span>
+                            <div class="strength-track">
+                                <div class="strength-fill" id="detailStrengthFill" style="width:70%;background:var(--primary);"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1938,68 +1054,390 @@
         </div>
     </div>
 
-    <!-- Module Detail Modal (Dengan Video Fallback) -->
-    <div class="modal" id="moduleModal">
-        <div class="modal-overlay" onclick="closeModuleModal()"></div>
-        <div class="modal-content" style="max-width:800px;">
-            <div class="modal-header">
-                <h2 id="moduleModalTitle">Modul 1: Pengenalan Trading</h2>
-                <button class="modal-close" onclick="closeModuleModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="video-container" id="videoContainer">
-                    <iframe id="moduleVideo" src="" allowfullscreen></iframe>
-                    <div class="video-fallback" id="videoFallback" style="display:none;">
-                        <div class="video-fallback-content">
-                            <div class="icon">🎓</div>
-                            <h4>Video Tidak Dapat Diputar</h4>
-                            <p>Klik tombol di bawah untuk membuka video di YouTube.</p>
-                            <a href="#" target="_blank" id="fallbackYouTubeLink" class="btn-youtube">
-                                <i class="fab fa-youtube"></i> Buka di YouTube
-                            </a>
-                            <p style="color:var(--text-muted);font-size:0.7rem;margin-top:12px;">
-                                📺 Channel: <span id="fallbackChannel">YouTube</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="module-content">
-                    <h3 id="moduleContentTitle">Apa itu Trading?</h3>
-                    <p id="moduleContentDesc">Trading adalah aktivitas jual beli aset keuangan dengan tujuan menghasilkan profit dari selisih harga.</p>
-                    <ul id="moduleContentList">
-                        <li>Memahami konsep dasar trading</li>
-                        <li>Jenis-jenis instrumen trading</li>
-                        <li>Risiko dan reward dalam trading</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn-pill btn-primary" onclick="markModuleComplete()">
-                    <i class="fas fa-check"></i> Tandai Selesai
-                </button>
-                <button class="btn-pill btn-outline" onclick="closeModuleModal()">Tutup</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================================================================
-    TOAST CONTAINER
-    ================================================================ -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- ================================================================
-    FOOTER
-    ================================================================ -->
     <footer class="footer">
         <p>© 2024 Madangan Trade Club · Built with discipline & risk management.</p>
     </footer>
 
-    <!-- ================================================================
-    SCRIPTS
-    ================================================================ -->
     <script>
         // =============================================================
-        // 1. DATA ZODIAK
+        // STATE
+        // =============================================================
+        let state = {
+            completedModules: JSON.parse(localStorage.getItem('mtc_completed') || '[]'),
+            currentModule: null,
+            quizAnswers: [],
+            quizCurrentStep: 0,
+            quizCompleted: JSON.parse(localStorage.getItem('mtc_quiz_completed') || 'false'),
+            quizResult: localStorage.getItem('mtc_quiz_result') || null,
+            recommendedModules: JSON.parse(localStorage.getItem('mtc_recommended_modules') || '[]'),
+            personalityModules: [],
+            isSubscribed: JSON.parse(localStorage.getItem('mtc_subscribed') || 'false'),
+            subscriptionPlan: localStorage.getItem('mtc_plan') || null,
+            personalityData: JSON.parse(localStorage.getItem('mtc_personality') || 'null'),
+            viewedSignals: JSON.parse(localStorage.getItem('mtc_viewed_signals') || '[]')
+        };
+
+        let signalStore = [];
+        let signalFilter = 'all';
+        let refreshTimer = null;
+        let signalHistory = [];
+
+        // =============================================================
+        // TOAST
+        // =============================================================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle',
+                warning: 'fa-exclamation-triangle' };
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span><i class="fas ${icons[type] || icons.info}"></i></span><span>${message}</span>`;
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400);
+            }, 4000);
+        }
+
+        // =============================================================
+        // TABS
+        // =============================================================
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(`tab-${tab}`);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(el => el.classList.remove('active'));
+            const navLink = document.querySelector(`.navbar-nav .nav-link[data-tab="${tab}"]`);
+            if (navLink) navLink.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (tab === 'signals') {
+                refreshSignals();
+                // Hide dot when signals tab is opened
+                document.getElementById('signalDot').style.display = 'none';
+                // Mark all signals as viewed
+                signalStore.forEach(s => {
+                    if (!state.viewedSignals.includes(s.symbol + s.time)) {
+                        state.viewedSignals.push(s.symbol + s.time);
+                    }
+                });
+                localStorage.setItem('mtc_viewed_signals', JSON.stringify(state.viewedSignals));
+                updateSignalDot();
+            }
+            if (tab === 'modules') renderModules();
+            if (tab === 'personality') {
+                document.getElementById('personalityBirthday').addEventListener('change', function() {
+                    detectZodiac(this.value);
+                });
+            }
+        }
+
+        // =============================================================
+        // SIGNAL DOT
+        // =============================================================
+        function updateSignalDot() {
+            const unviewed = signalStore.filter(s => !state.viewedSignals.includes(s.symbol + s.time));
+            const dot = document.getElementById('signalDot');
+            if (unviewed.length > 0 && document.getElementById('tab-signals') &&
+                !document.getElementById('tab-signals').classList.contains('active')) {
+                dot.style.display = 'inline-block';
+            } else {
+                dot.style.display = 'none';
+            }
+        }
+
+        // =============================================================
+        // AI SIGNALS - UPGRADED
+        // =============================================================
+        function generateSignalsData() {
+            const symbols = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'US30', 'NAS100'];
+            const newSignals = symbols.map(symbol => {
+                // More nuanced signal generation with strength
+                const baseSignal = Math.random();
+                let signal, strength;
+                if (baseSignal > 0.6) {
+                    signal = 'BUY';
+                    strength = 0.5 + Math.random() * 0.5; // 50-100%
+                } else if (baseSignal > 0.2) {
+                    signal = 'SELL';
+                    strength = 0.5 + Math.random() * 0.5;
+                } else {
+                    signal = 'HOLD';
+                    strength = 0.2 + Math.random() * 0.3; // 20-50%
+                }
+
+                const basePrice = { XAUUSD: 2345.5, EURUSD: 1.085, GBPUSD: 1.265, USDJPY: 148.5, BTCUSDT: 67200,
+                    ETHUSDT: 3450, SOLUSDT: 145, US30: 38200, NAS100: 18200 } [symbol] || 100;
+                const vol = { XAUUSD: 15, EURUSD: 0.005, GBPUSD: 0.008, USDJPY: 0.5, BTCUSDT: 1500, ETHUSDT: 80,
+                    SOLUSDT: 5, US30: 200, NAS100: 150 } [symbol] || 10;
+
+                // Simulate price movement based on signal
+                const move = (signal === 'BUY' ? 1 : signal === 'SELL' ? -1 : (Math.random() - 0.5) * 0.5) * vol *
+                    0.3;
+                const price = basePrice + move + (Math.random() - 0.5) * vol * 0.2;
+
+                const confidence = Math.round(50 + Math.random() * 45);
+                let sl, tp;
+                if (signal === 'BUY') {
+                    sl = price * (1 - (0.5 + Math.random() * 0.5) / 100);
+                    tp = price * (1 + (1 + Math.random() * 1.5) / 100);
+                } else if (signal === 'SELL') {
+                    sl = price * (1 + (0.5 + Math.random() * 0.5) / 100);
+                    tp = price * (1 - (1 + Math.random() * 1.5) / 100);
+                } else {
+                    sl = price * (1 + (Math.random() - 0.5) * 0.5 / 100);
+                    tp = price * (1 + (Math.random() - 0.5) * 0.5 / 100);
+                }
+
+                const type = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'].includes(symbol) ? 'forex' :
+                    ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'].includes(symbol) ? 'crypto' : 'index';
+
+                const reasons = {
+                    'BUY': [
+                        'Bullish breakout with strong volume above resistance.',
+                        'RSI above 50 with MACD bullish crossover on 4H.',
+                        'Price bounced off key support with bullish engulfing pattern.',
+                        'Positive divergence on RSI with price making higher lows.',
+                        'Strong buying pressure with institutional volume increasing.'
+                    ],
+                    'SELL': [
+                        'Bearish breakdown with increasing volume below support.',
+                        'RSI below 50 with MACD bearish crossover on 4H.',
+                        'Price rejected from key resistance with bearish engulfing pattern.',
+                        'Negative divergence on RSI with price making lower highs.',
+                        'Strong selling pressure with institutional volume increasing.'
+                    ],
+                    'HOLD': [
+                        'Consolidation phase, no clear direction yet.',
+                        'Trading within range, waiting for breakout confirmation.',
+                        'Low volatility, monitor for confirmation signal.',
+                        'Indecision in market, waiting for catalyst.',
+                        'Neutral sentiment, best to wait for clearer signal.'
+                    ]
+                };
+
+                const ind = `RSI: ${Math.round(30 + Math.random() * 40)} | MACD: ${signal === 'BUY' ? 'Bullish' : signal === 'SELL' ? 'Bearish' : 'Flat'} | MA50: ${Math.round(1950 + Math.random() * 50)} | Volume: ${Math.round(70 + Math.random() * 30)}%`;
+
+                const priceChange = ((price - basePrice) / basePrice * 100);
+                const priceChangeLabel = priceChange > 0 ? 'up' : 'down';
+
+                return {
+                    symbol,
+                    signal,
+                    strength: Math.round(strength * 100),
+                    price,
+                    confidence,
+                    sl,
+                    tp,
+                    type,
+                    time: new Date().toISOString(),
+                    reasoning: (reasons[signal] || reasons['HOLD'])[Math.floor(Math.random() * 5)],
+                    indicators: ind,
+                    priceChange: priceChange,
+                    priceChangeLabel,
+                    isNew: true,
+                    momentum: signal === 'BUY' ? 'Bullish' : signal === 'SELL' ? 'Bearish' : 'Neutral',
+                    volatility: Math.round(30 + Math.random() * 70)
+                };
+            });
+
+            // Preserve "new" status for existing signals
+            const existingMap = {};
+            signalStore.forEach(s => {
+                const key = s.symbol + s.time;
+                existingMap[key] = s.isNew;
+            });
+
+            newSignals.forEach(s => {
+                const key = s.symbol + s.time;
+                s.isNew = existingMap[key] === true ? false : true;
+            });
+
+            signalStore = newSignals;
+            return signalStore;
+        }
+
+        function getStrengthColor(strength) {
+            if (strength >= 80) return 'var(--primary)';
+            if (strength >= 60) return 'var(--secondary)';
+            if (strength >= 40) return 'var(--warning)';
+            return 'var(--text-muted)';
+        }
+
+        function getStrengthLabel(strength) {
+            if (strength >= 80) return '🔥 Very Strong';
+            if (strength >= 65) return '💪 Strong';
+            if (strength >= 50) return '⚡ Moderate';
+            if (strength >= 35) return '🤔 Weak';
+            return '⚠️ Very Weak';
+        }
+
+        function renderSignals() {
+            const container = document.getElementById('signalsContainer');
+            let filtered = signalStore;
+            if (signalFilter !== 'all') {
+                if (signalFilter === 'buy') filtered = signalStore.filter(s => s.signal === 'BUY');
+                else if (signalFilter === 'sell') filtered = signalStore.filter(s => s.signal === 'SELL');
+                else if (signalFilter === 'strong') filtered = signalStore.filter(s => s.strength >= 65);
+                else filtered = signalStore.filter(s => s.type === signalFilter);
+            }
+
+            document.getElementById('signalCount').textContent = `${filtered.length} sinyal`;
+            document.getElementById('signalLastUpdate').textContent = new Date().toLocaleTimeString();
+
+            // Summary stats
+            const buyCount = signalStore.filter(s => s.signal === 'BUY').length;
+            const sellCount = signalStore.filter(s => s.signal === 'SELL').length;
+            const avgStrength = Math.round(signalStore.reduce((acc, s) => acc + s.strength, 0) / signalStore.length);
+            document.getElementById('signalSummary').textContent =
+                `📈 BUY: ${buyCount} | 📉 SELL: ${sellCount} | 💪 Avg Strength: ${avgStrength}%`;
+
+            if (filtered.length === 0) {
+                container.innerHTML =
+                    `<div style="text-align:center;padding:40px;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:12px;">🔍</div><p>Tidak ada sinyal untuk filter ini</p></div>`;
+                return;
+            }
+
+            let html = '<div class="signals-grid">';
+            filtered.forEach((s, i) => {
+                const cls = s.signal.toLowerCase();
+                const color = s.signal === 'BUY' ? 'var(--primary)' : s.signal === 'SELL' ? 'var(--danger)' :
+                    'var(--warning)';
+                const arrow = s.signal === 'BUY' ? '▲' : s.signal === 'SELL' ? '▼' : '●';
+                const typeLabel = s.type.charAt(0).toUpperCase() + s.type.slice(1);
+                const strengthColor = getStrengthColor(s.strength);
+                const isViewed = state.viewedSignals.includes(s.symbol + s.time);
+
+                const priceChangeDisplay = s.priceChange !== 0 ?
+                    `<span class="price-change ${s.priceChangeLabel}">${s.priceChange > 0 ? '+' : ''}${s.priceChange.toFixed(2)}%</span>` :
+                    '';
+
+                html += `
+                    <div class="signal-card" onclick="showSignalDetail(${i})" style="animation: fadeSlideIn 0.4s ease ${i * 0.05}s both;">
+                        ${s.isNew && !isViewed ? '<span class="signal-badge-new">NEW</span>' : isViewed ? '<span class="signal-badge-viewed">✓ Viewed</span>' : ''}
+                        <div class="signal-top">
+                            <span class="signal-symbol">${s.symbol}</span>
+                            <span class="signal-type ${s.type}">${typeLabel}</span>
+                        </div>
+                        <div class="signal-direction ${cls}" style="color:${color};">
+                            <span>${arrow}</span>
+                            <span class="signal-label">${s.signal}</span>
+                            <span class="signal-strength" style="background:${strengthColor}33;color:${strengthColor};">
+                                ${s.strength}%
+                            </span>
+                        </div>
+                        <div class="signal-price">
+                            $${s.price.toFixed(2)}
+                            ${priceChangeDisplay}
+                        </div>
+                        <div class="signal-confidence">
+                            <div class="conf-label"><span>Confidence</span><span>${s.confidence}%</span></div>
+                            <div class="conf-bar"><div class="conf-fill" style="width:${s.confidence}%;background:${color};"></div></div>
+                        </div>
+                        <div class="signal-strength-bar">
+                            <div class="strength-label">
+                                <span>Signal Strength</span>
+                                <span>${getStrengthLabel(s.strength)}</span>
+                            </div>
+                            <div class="strength-track">
+                                <div class="strength-fill" style="width:${s.strength}%;background:${strengthColor};"></div>
+                                <div class="strength-marker" style="left:${s.strength}%;"></div>
+                            </div>
+                        </div>
+                        <div class="signal-meta">
+                            <span><i class="fas fa-clock"></i> ${new Date(s.time).toLocaleTimeString()}</span>
+                            <span>${s.momentum}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+
+            updateSignalDot();
+        }
+
+        function filterSignals(filter, btn) {
+            signalFilter = filter;
+            document.querySelectorAll('.signals-filters .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderSignals();
+        }
+
+        function refreshSignals() {
+            const dot = document.getElementById('signalStatusDot');
+            const text = document.getElementById('signalStatusText');
+            dot.className = 'dot loading';
+            text.textContent = 'Loading...';
+            document.getElementById('signalSummary').textContent = '⏳ Updating...';
+
+            setTimeout(() => {
+                generateSignalsData();
+                renderSignals();
+                dot.className = 'dot online';
+                text.textContent = 'Connected';
+
+                const newSignals = signalStore.filter(s => s.isNew && !state.viewedSignals.includes(s.symbol + s
+                .time));
+                if (newSignals.length > 0) {
+                    document.getElementById('signalDot').style.display = 'inline-block';
+                    showToast(`🔔 ${newSignals.length} sinyal baru dengan kekuatan rata-rata ${Math.round(newSignals.reduce((a,s) => a + s.strength, 0) / newSignals.length)}%!`, 'info');
+                }
+            }, 800);
+        }
+
+        function showSignalDetail(index) {
+            const s = signalStore[index];
+            if (!s) return;
+
+            // Mark as viewed
+            if (!state.viewedSignals.includes(s.symbol + s.time)) {
+                state.viewedSignals.push(s.symbol + s.time);
+                localStorage.setItem('mtc_viewed_signals', JSON.stringify(state.viewedSignals));
+                updateSignalDot();
+                renderSignals();
+            }
+
+            document.getElementById('modalSignalTitle').textContent = `Signal: ${s.symbol}`;
+            document.getElementById('detailSignal').textContent = s.signal;
+            document.getElementById('detailSignal').className = `detail-value ${s.signal.toLowerCase()}`;
+            document.getElementById('detailConfidence').textContent = `${s.confidence}%`;
+            document.getElementById('detailEntry').textContent = `$${s.price.toFixed(2)}`;
+            document.getElementById('detailSL').textContent = `$${s.sl.toFixed(2)}`;
+            document.getElementById('detailTP').textContent = `$${s.tp.toFixed(2)}`;
+            document.getElementById('detailTime').textContent = new Date(s.time).toLocaleString();
+            document.getElementById('detailReasoning').textContent = s.reasoning;
+            document.getElementById('detailIndicators').textContent = s.indicators;
+
+            // Strength visual
+            const strengthColor = getStrengthColor(s.strength);
+            document.getElementById('detailStrengthLabel').textContent = `${getStrengthLabel(s.strength)} (${s.strength}%)`;
+            document.getElementById('detailStrengthFill').style.width = `${s.strength}%`;
+            document.getElementById('detailStrengthFill').style.background = strengthColor;
+
+            document.getElementById('signalModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSignalModal() {
+            document.getElementById('signalModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function executeSignal() {
+            const signal = document.getElementById('detailSignal').textContent;
+            const symbol = document.getElementById('modalSignalTitle').textContent.replace('Signal: ', '');
+            showToast(`🚀 Signal ${signal} untuk ${symbol} dieksekusi!`, 'success');
+            closeSignalModal();
+        }
+
+        // =============================================================
+        // PERSONALITY
         // =============================================================
         const zodiacData = {
             'aries': {
@@ -2148,235 +1586,6 @@
             }
         };
 
-        // =============================================================
-        // 2. DATA MODUL (28 Hari) DENGAN VIDEO REFERENSI VALID
-        // =============================================================
-        const moduleData = [];
-
-        // Video ID yang valid dari YouTube (Channel edukasi trading terpercaya)
-        // Menggunakan video dari channel: Trading 212, Rayner Teo, TradingView, dll
-        const videoIds = [
-            'qPjz4w1qkSw', // 1 - Pengenalan Trading (Trading 212)
-            '7JpY1tI8kLw', // 2 - Price Action (Rayner Teo)
-            '1t8r0wNtPqQ', // 3 - Candlestick (TradingView)
-            '2pXUJkY9P3A', // 4 - Support Resistance (Rayner Teo)
-            '3yL5kXpR1wE', // 5 - Trend Analysis (Trading 212)
-            '4qM1nZtL8wO', // 6 - Moving Average (Rayner Teo)
-            '5rN2oLwX9pQ', // 7 - RSI (TradingView)
-            '6sO3mLwX8qR', // 8 - MACD (Rayner Teo)
-            '7tP4nLwX9sS', // 9 - Fibonacci (Trading 212)
-            '8uQ5oLwX0tT', // 10 - Breakout (Rayner Teo)
-            '9vR6pLwX1uU', // 11 - Reversal Pattern (TradingView)
-            '0wS7qLwX2vV', // 12 - Continuation Pattern (Rayner Teo)
-            '1xT8rLwX3wW', // 13 - Risk Management (Trading 212)
-            '2yU9sLwX4xX', // 14 - Risk Reward (Rayner Teo)
-            '3zV0tLwX5yY', // 15 - Stop Loss TP (TradingView)
-            '4aW1uLwX6zZ', // 16 - Trading Psychology 1 (Rayner Teo)
-            '5bX2vLwX7aA', // 17 - Trading Psychology 2 (Trading 212)
-            '6cY3wLwX8bB', // 18 - Trading Plan (Rayner Teo)
-            '7dZ4xLwX9cC', // 19 - Swing Trading (TradingView)
-            '8eA5yLwX0dD', // 20 - Scalping (Rayner Teo)
-            '9fB6zLwX1eE', // 21 - Position Trading (Trading 212)
-            '0gC7aLwX2fF', // 22 - Fundamental Analysis (Rayner Teo)
-            '1hD8bLwX3gG', // 23 - Multi Timeframe (TradingView)
-            '2iE9cLwX4hH', // 24 - Trading Journal (Rayner Teo)
-            '3jF0dLwX5iI', // 25 - Performance Analysis (Trading 212)
-            '4kG1eLwX6jJ', // 26 - Capital Management (Rayner Teo)
-            '5lH2fLwX7kK', // 27 - Consistency (TradingView)
-            '6mI3gLwX8lL' // 28 - Final Review (Rayner Teo)
-        ];
-
-        const titles = [
-            'Pengenalan Trading & Pasar Keuangan',
-            'Memahami Price Action',
-            'Formasi Candlestick Dasar',
-            'Support & Resistance Level',
-            'Trend Analysis',
-            'Moving Average (MA/EMA)',
-            'RSI & Stochastic',
-            'MACD Indicator',
-            'Fibonacci Retracement',
-            'Breakout Strategy',
-            'Reversal Pattern',
-            'Continuation Pattern',
-            'Manajemen Risiko Dasar',
-            'Risk-to-Reward Ratio',
-            'Stop Loss & Take Profit',
-            'Psikologi Trading - Bagian 1',
-            'Psikologi Trading - Bagian 2',
-            'Membuat Trading Plan',
-            'Swing Trading Strategy',
-            'Scalping Strategy',
-            'Position Trading',
-            'Analisis Fundamental',
-            'Analisis Multi-Timeframe',
-            'Trading Journal',
-            'Evaluasi & Analisis Kinerja',
-            'Strategi Manajemen Modal',
-            'Membangun Konsistensi',
-            'Final Review & Next Steps'
-        ];
-
-        const descs = [
-            'Memahami dasar-dasar pasar keuangan, jenis-jenis instrumen, dan konsep dasar trading. Pelajari apa itu trading, bagaimana pasar bekerja, dan istilah-istilah penting yang wajib diketahui.',
-            'Belajar membaca pergerakan harga tanpa indikator, memahami candlestick patterns dasar, dan bagaimana mengidentifikasi sinyal dari price action murni.',
-            'Mengenal pola-pola candlestick dasar seperti Doji, Hammer, Shooting Star, Engulfing, dan berbagai formasi penting lainnya untuk analisis teknikal.',
-            'Cara mengidentifikasi level support dan resistance yang kuat untuk entry point, serta bagaimana menggunakannya dalam strategi trading.',
-            'Mengenal uptrend, downtrend, dan sideways. Cara menggunakan trendline dan mengidentifikasi perubahan trend dengan tepat.',
-            'Penggunaan moving average sebagai indikator trend dan support/resistance dinamis. Perbedaan SMA dan EMA serta cara menggunakannya.',
-            'Indikator momentum untuk mengidentifikasi kondisi overbought dan oversold. Cara membaca sinyal RSI dan Stochastic untuk entry timing.',
-            'Menggunakan MACD untuk mengidentifikasi perubahan trend dan momentum. Cara membaca histogram, signal line, dan divergensi MACD.',
-            'Menggunakan level Fibonacci untuk menemukan support/resistance potensial. Cara menggambar retracement dan extension dengan benar.',
-            'Strategi trading breakout dan cara mengidentifikasi breakout yang valid. Membedakan breakout asli dan false breakout.',
-            'Mengenal pola reversal seperti Head & Shoulders, Double Top/Bottom, dan Rounding Bottom/Top untuk mengidentifikasi pembalikan trend.',
-            'Pola continuation seperti Flag, Pennant, dan Wedge untuk mengidentifikasi kelanjutan trend yang sedang berlangsung.',
-            'Konsep dasar manajemen risiko, position sizing, dan risk-to-reward ratio. Cara melindungi modal dan bertahan dalam jangka panjang.',
-            'Menghitung dan menerapkan risk-to-reward ratio dalam setiap trade. Cara menentukan apakah sebuah trade layak diambil.',
-            'Cara menentukan SL dan TP yang optimal untuk setiap strategi trading. Teknik trailing stop dan manajemen posisi.',
-            'Mengenal emosi dalam trading: fear, greed, dan FOMO. Cara mengendalikan emosi dan membuat keputusan rasional.',
-            'Membangun mental trading yang disiplin dan konsisten. Teknik mindfulness dan pengendalian diri dalam trading.',
-            'Langkah-langkah membuat trading plan yang efektif dan terstruktur. Komponen penting dalam trading plan yang sukses.',
-            'Strategi swing trading untuk posisi 2 hari hingga beberapa minggu. Cara mengidentifikasi swing high dan swing low.',
-            'Strategi scalping untuk transaksi cepat dalam hitungan menit. Teknik entry dan exit cepat dengan risk management ketat.',
-            'Strategi posisi jangka panjang untuk trend makro. Cara mengidentifikasi tren besar dan memanfaatkannya.',
-            'Dasar-dasar analisis fundamental untuk trading. Memahami berita ekonomi, suku bunga, dan sentimen pasar.',
-            'Menggunakan multiple timeframe untuk konfirmasi sinyal trading. Cara membaca trend dari berbagai perspektif waktu.',
-            'Cara membuat dan menggunakan trading journal untuk evaluasi. Mencatat dan menganalisis setiap transaksi dengan detail.',
-            'Menganalisis performa trading dan mencari area improvement. Mengukur win rate, profit factor, dan metrik penting lainnya.',
-            'Teknik manajemen modal untuk pertumbuhan portofolio berkelanjutan. Diversifikasi dan alokasi aset yang tepat.',
-            'Tips dan trik untuk menjadi trader yang konsisten dan profitable. Membangun kebiasaan baik dalam trading.',
-            'Review seluruh materi dan langkah selanjutnya untuk pengembangan. Persiapan untuk menjadi trader profesional.'
-        ];
-
-        const categories = ['Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula',
-            'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah',
-            'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan',
-            'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir'
-        ];
-
-        const topicsList = [
-            ['Apa itu trading?', 'Jenis pasar keuangan', 'Instrumen trading', 'Istilah penting'],
-            ['Candlestick dasar', 'Support & Resistance', 'Trend identification', 'Price action signals'],
-            ['Single candlestick', 'Double candlestick', 'Triple candlestick', 'Reversal signals'],
-            ['Support levels', 'Resistance levels', 'Breakout strategies', 'Entry points'],
-            ['Uptrend', 'Downtrend', 'Sideways', 'Trendline drawing'],
-            ['SMA vs EMA', 'MA crossover', 'Dynamic support', 'Dynamic resistance'],
-            ['RSI calculation', 'Stochastic oscillator', 'Divergence', 'Overbought/oversold'],
-            ['MACD components', 'Signal line', 'Histogram', 'Divergence'],
-            ['Fibonacci ratios', 'Retracement', 'Extensions', 'Entry levels'],
-            ['Breakout', 'Volume confirmation', 'False breakout', 'Retest strategy'],
-            ['Head & Shoulders', 'Double Top/Bottom', 'Rounding patterns', 'Reversal trading'],
-            ['Flag', 'Pennant', 'Wedge', 'Continuation trading'],
-            ['Risk management', 'Position sizing', 'RR ratio', 'Capital protection'],
-            ['RRR calculation', 'Optimal RRR', 'Trade evaluation', 'Risk assessment'],
-            ['SL placement', 'TP placement', 'Trailing stop', 'Position management'],
-            ['Fear control', 'Greed management', 'FOMO avoidance', 'Emotional discipline'],
-            ['Trading discipline', 'Consistency building', 'Mental resilience', 'Mindfulness'],
-            ['Trading plan', 'Goal setting', 'Execution', 'Plan evaluation'],
-            ['Swing trading', 'Entry criteria', 'Exit strategy', 'Swing analysis'],
-            ['Scalping', 'Tick chart', 'Quick entry/exit', 'Scalping risk'],
-            ['Position trading', 'Macro trends', 'Long-term holding', 'Trend following'],
-            ['Economic indicators', 'Central bank', 'Market sentiment', 'Fundamental analysis'],
-            ['Timeframe hierarchy', 'Confirmation', 'Entry/exit timing', 'Multi-TF analysis'],
-            ['Journal format', 'Trade recording', 'Performance analysis', 'Journal review'],
-            ['Performance metrics', 'Strengths', 'Improvement plan', 'Self-evaluation'],
-            ['Capital allocation', 'Risk diversification', 'Portfolio growth', 'Asset management'],
-            ['Consistency tips', 'Trading habits', 'Long-term success', 'Routine building'],
-            ['Material review', 'Next steps', 'Professional path', 'Continuous learning']
-        ];
-
-        const channels = [
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo',
-            'Trading 212', 'Rayner Teo', 'TradingView', 'Rayner Teo'
-        ];
-
-        for (let i = 1; i <= 28; i++) {
-            const idx = i - 1;
-            moduleData.push({
-                day: i,
-                title: titles[idx] || `Modul ${i}`,
-                desc: descs[idx] || `Materi pembelajaran hari ke-${i}`,
-                duration: `${15 + (i * 2) % 15} menit`,
-                type: i % 3 === 0 ? 'article' : 'video',
-                videoId: videoIds[idx] || 'dQw4w9WgXcQ',
-                channel: channels[idx] || 'TradingView',
-                content: descs[idx] || `Ini adalah materi pembelajaran untuk hari ke-${i}. Pelajari dengan seksama dan praktikkan.`,
-                topics: topicsList[idx] || ['Konsep dasar', 'Aplikasi praktis', 'Studi kasus'],
-                category: categories[idx] || 'Menengah'
-            });
-        }
-
-        // =============================================================
-        // 3. STATE
-        // =============================================================
-        let state = {
-            completedModules: JSON.parse(localStorage.getItem('mtc_completed') || '[]'),
-            currentModule: null,
-            quizAnswers: [],
-            quizCurrentStep: 0,
-            quizCompleted: JSON.parse(localStorage.getItem('mtc_quiz_completed') || 'false'),
-            quizResult: localStorage.getItem('mtc_quiz_result') || null,
-            recommendedModules: JSON.parse(localStorage.getItem('mtc_recommended_modules') || '[]'),
-            personalityModules: [],
-            isSubscribed: JSON.parse(localStorage.getItem('mtc_subscribed') || 'false'),
-            subscriptionPlan: localStorage.getItem('mtc_plan') || null,
-            personalityData: JSON.parse(localStorage.getItem('mtc_personality') || 'null')
-        };
-
-        // Signal Store
-        let signalStore = [];
-        let signalFilter = 'all';
-        let refreshTimer = null;
-
-        // =============================================================
-        // 4. TOAST
-        // =============================================================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-info-circle',
-                warning: 'fa-exclamation-triangle' };
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `<span><i class="fas ${icons[type] || icons.info}"></i></span><span>${message}</span>`;
-            container.appendChild(toast);
-            requestAnimationFrame(() => toast.classList.add('show'));
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 400);
-            }, 4000);
-        }
-
-        // =============================================================
-        // 5. TABS
-        // =============================================================
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            const target = document.getElementById(`tab-${tab}`);
-            if (target) target.classList.add('active');
-
-            document.querySelectorAll('.navbar-nav .nav-link').forEach(el => el.classList.remove('active'));
-            const navLink = document.querySelector(`.navbar-nav .nav-link[data-tab="${tab}"]`);
-            if (navLink) navLink.classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            if (tab === 'signals') refreshSignals();
-            if (tab === 'modules') renderModules();
-            if (tab === 'personality') {
-                document.getElementById('personalityBirthday').addEventListener('change', function() {
-                    detectZodiac(this.value);
-                });
-            }
-        }
-
-        // =============================================================
-        // 6. PERSONALITY
-        // =============================================================
         function detectZodiac(dateStr) {
             if (!dateStr) return;
             const date = new Date(dateStr);
@@ -2439,17 +1648,12 @@
                 badgesContainer.appendChild(span);
             });
 
-            document.getElementById('personalityResult').classList.add('show');
+            document.getElementById('personalityResult').style.display = 'block';
             document.getElementById('personalityStatus').textContent = '✅ Selesai';
-            document.getElementById('personalityDot').style.display = 'inline-block';
 
             state.personalityData = { name, birthDate, gender, zodiac: zodiacKey, data };
             state.personalityModules = data.personalityModules || [];
             localStorage.setItem('mtc_personality', JSON.stringify(state.personalityData));
-
-            document.getElementById('personalityBanner').classList.add('show');
-            document.getElementById('personalityBannerText').textContent =
-                `Berdasarkan karakter ${data.name}, kamu cocok dengan gaya trading ${data.tradingStyle}. Kami sarankan memulai dari ${data.personalityModules.length} modul yang direkomendasikan.`;
 
             showToast(`🌟 Analisis karakter untuk ${name} selesai!`, 'success');
             renderModules();
@@ -2457,18 +1661,10 @@
 
         function goToModulesFromPersonality() {
             switchTab('modules');
-            setTimeout(() => {
-                const banner = document.getElementById('personalityBanner');
-                if (banner) {
-                    banner.scrollIntoView({ behavior: 'smooth' });
-                    banner.style.borderColor = 'var(--primary)';
-                    setTimeout(() => { banner.style.borderColor = 'var(--secondary)'; }, 2000);
-                }
-            }, 500);
         }
 
         // =============================================================
-        // 7. QUIZ
+        // QUIZ
         // =============================================================
         function selectQuizOption(element, step, value) {
             const parent = element.closest('.quiz-question');
@@ -2502,10 +1698,10 @@
         }
 
         function showQuizStep(step) {
-            document.querySelectorAll('.quiz-question').forEach((q, i) => q.classList.toggle('active', i === step));
+            document.querySelectorAll('.quiz-question').forEach((q, i) => q.style.display = i === step ? 'block' : 'none');
             document.querySelectorAll('.progress-quiz .dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === step);
-                dot.classList.toggle('completed', i < step);
+                dot.style.background = i === step ? 'var(--primary)' : i < step ? 'var(--primary-dark)' :
+                    'var(--border-color)';
             });
             document.getElementById('quizPrev').disabled = step === 0;
             const nextBtn = document.getElementById('quizNext');
@@ -2544,7 +1740,6 @@
                 recommended = recommended.filter(d => d >= 10);
                 if (recommended.length < 5) recommended = Array.from({ length: 19 }, (_, i) => i + 10);
             }
-            // Merge with personality
             if (state.personalityModules.length > 0) {
                 recommended = [...new Set([...recommended, ...state.personalityModules])];
             }
@@ -2557,22 +1752,17 @@
             localStorage.setItem('mtc_recommended_modules', JSON.stringify(recommended));
 
             document.getElementById('quizContainer').style.display = 'none';
-            document.getElementById('quizResult').classList.add('show');
+            document.getElementById('quizResult').style.display = 'block';
             document.getElementById('quizStatus').textContent = '✅ Selesai';
             document.getElementById('quizScoreBadge').textContent = '100%';
-            document.getElementById('quizDot').style.display = 'inline-block';
 
             const body = document.getElementById('quizResultBody');
             body.innerHTML = `
-                <p><span class="highlight-text">🎯 Gaya Trading: ${persona}</span></p>
-                <p>Kami merekomendasikan <span class="highlight-text">${recommended.length} modul</span> yang sesuai dengan profil tradingmu.</p>
+                <p><span class="highlight-text" style="color:var(--primary);font-weight:700;">🎯 Gaya Trading: ${persona}</span></p>
+                <p>Kami merekomendasikan <span class="highlight-text" style="color:var(--primary);font-weight:700;">${recommended.length} modul</span> yang sesuai dengan profil tradingmu.</p>
                 ${state.personalityModules.length > 0 ? `<p style="margin-top:8px;color:var(--secondary);font-size:0.85rem;">🌟 Juga berdasarkan karakter, ada tambahan rekomendasi personal.</p>` : ''}
                 <p style="margin-top:8px;color:var(--text-muted);font-size:0.85rem;">💡 <em>Mulai dari modul dasar dan tingkatkan secara bertahap.</em></p>
             `;
-
-            document.getElementById('recommendedBanner').classList.add('show');
-            document.getElementById('recommendedText').textContent =
-                `Berdasarkan hasil kuis, kamu adalah ${persona}. ${state.personalityModules.length > 0 ? 'Juga berdasarkan karakter, ' : ''}Kami sarankan memulai dari ${recommended.length} modul rekomendasi.`;
 
             showToast(`🎉 Kuis selesai! Gaya trading: ${persona}`, 'success');
             renderModules();
@@ -2589,11 +1779,9 @@
                 localStorage.removeItem('mtc_quiz_result');
                 localStorage.removeItem('mtc_recommended_modules');
                 document.getElementById('quizContainer').style.display = 'block';
-                document.getElementById('quizResult').classList.remove('show');
+                document.getElementById('quizResult').style.display = 'none';
                 document.getElementById('quizStatus').textContent = 'Belum dikerjakan';
                 document.getElementById('quizScoreBadge').textContent = '0%';
-                document.getElementById('recommendedBanner').classList.remove('show');
-                document.getElementById('quizDot').style.display = 'none';
                 document.querySelectorAll('.q-option').forEach(opt => opt.classList.remove('selected'));
                 document.getElementById('quizNext').disabled = true;
                 showQuizStep(0);
@@ -2603,203 +1791,111 @@
         }
 
         // =============================================================
-        // 8. AI SIGNALS
+        // MODULES
         // =============================================================
-        function generateSignalsData() {
-            const symbols = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY', 'BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'US30', 'NAS100'];
-            const newSignals = symbols.map(symbol => {
-                const signals = ['BUY', 'SELL', 'HOLD'];
-                const weights = [40, 40, 20];
-                const totalWeight = weights.reduce((a, b) => a + b, 0);
-                let rand = Math.random() * totalWeight,
-                    signal = 'HOLD';
-                for (let i = 0; i < weights.length; i++) {
-                    rand -= weights[i];
-                    if (rand <= 0) { signal = signals[i]; break; }
-                }
-                const basePrice = { XAUUSD: 2345.5, EURUSD: 1.085, GBPUSD: 1.265, USDJPY: 148.5, BTCUSDT: 67200,
-                    ETHUSDT: 3450, SOLUSDT: 145, US30: 38200, NAS100: 18200 } [symbol] || 100;
-                const vol = { XAUUSD: 15, EURUSD: 0.005, GBPUSD: 0.008, USDJPY: 0.5, BTCUSDT: 1500, ETHUSDT: 80,
-                    SOLUSDT: 5, US30: 200, NAS100: 150 } [symbol] || 10;
-                const price = basePrice + (Math.random() - 0.5) * vol;
-                const confidence = Math.round(50 + Math.random() * 45);
-                let sl, tp;
-                if (signal === 'BUY') { sl = price * (1 - (0.5 + Math.random() * 0.5) / 100);
-                    tp = price * (1 + (1 + Math.random() * 1.5) / 100); } else if (signal === 'SELL') { sl = price *
-                        (1 + (0.5 + Math.random() * 0.5) / 100);
-                    tp = price * (1 - (1 + Math.random() * 1.5) / 100); } else { sl = price * (1 + (Math.random() - 0.5) *
-                        0.5 / 100);
-                    tp = price * (1 + (Math.random() - 0.5) * 0.5 / 100); }
-                const type = ['XAUUSD', 'EURUSD', 'GBPUSD', 'USDJPY'].includes(symbol) ? 'forex' :
-                    ['BTCUSDT', 'ETHUSDT', 'SOLUSDT'].includes(symbol) ? 'crypto' : 'index';
-                const reasons = {
-                    'BUY': ['Bullish breakout with strong volume.', 'RSI above 50 with MACD bullish crossover.',
-                        'Price bounced off key support.'
-                    ],
-                    'SELL': ['Bearish breakdown with increasing volume.', 'RSI below 50 with MACD bearish crossover.',
-                        'Price rejected from key resistance.'
-                    ],
-                    'HOLD': ['Consolidation phase, no clear direction.', 'Trading within range, waiting for breakout.',
-                        'Low volatility, monitor for confirmation.'
-                    ]
-                };
-                const ind = `RSI: ${Math.round(30 + Math.random() * 40)} | MACD: ${signal === 'BUY' ? 'Bullish' : signal === 'SELL' ? 'Bearish' : 'Flat'} | MA50: ${Math.round(1950 + Math.random() * 50)}`;
-                return {
-                    symbol,
-                    signal,
-                    price,
-                    confidence,
-                    sl,
-                    tp,
-                    type,
-                    time: new Date().toISOString(),
-                    reasoning: (reasons[signal] || reasons['HOLD'])[Math.floor(Math.random() * 3)],
-                    indicators: ind,
-                    isNew: true
-                };
+        const moduleData = [];
+        const titles = [
+            'Pengenalan Trading & Pasar Keuangan',
+            'Memahami Price Action',
+            'Formasi Candlestick Dasar',
+            'Support & Resistance Level',
+            'Trend Analysis',
+            'Moving Average (MA/EMA)',
+            'RSI & Stochastic',
+            'MACD Indicator',
+            'Fibonacci Retracement',
+            'Breakout Strategy',
+            'Reversal Pattern',
+            'Continuation Pattern',
+            'Manajemen Risiko Dasar',
+            'Risk-to-Reward Ratio',
+            'Stop Loss & Take Profit',
+            'Psikologi Trading - Bagian 1',
+            'Psikologi Trading - Bagian 2',
+            'Membuat Trading Plan',
+            'Swing Trading Strategy',
+            'Scalping Strategy',
+            'Position Trading',
+            'Analisis Fundamental',
+            'Analisis Multi-Timeframe',
+            'Trading Journal',
+            'Evaluasi & Analisis Kinerja',
+            'Strategi Manajemen Modal',
+            'Membangun Konsistensi',
+            'Final Review & Next Steps'
+        ];
+        const descs = [
+            'Memahami dasar-dasar pasar keuangan, jenis-jenis instrumen, dan konsep dasar trading.',
+            'Belajar membaca pergerakan harga tanpa indikator, memahami candlestick patterns dasar.',
+            'Mengenal pola-pola candlestick dasar seperti Doji, Hammer, Shooting Star, Engulfing.',
+            'Cara mengidentifikasi level support dan resistance yang kuat untuk entry point.',
+            'Mengenal uptrend, downtrend, dan sideways. Cara menggunakan trendline.',
+            'Penggunaan moving average sebagai indikator trend dan support/resistance dinamis.',
+            'Indikator momentum untuk mengidentifikasi kondisi overbought dan oversold.',
+            'Menggunakan MACD untuk mengidentifikasi perubahan trend dan momentum.',
+            'Menggunakan level Fibonacci untuk menemukan support/resistance potensial.',
+            'Strategi trading breakout dan cara mengidentifikasi breakout yang valid.',
+            'Mengenal pola reversal seperti Head & Shoulders, Double Top/Bottom.',
+            'Pola continuation seperti Flag, Pennant, dan Wedge.',
+            'Konsep dasar manajemen risiko, position sizing, dan risk-to-reward ratio.',
+            'Menghitung dan menerapkan risk-to-reward ratio dalam setiap trade.',
+            'Cara menentukan SL dan TP yang optimal untuk setiap strategi trading.',
+            'Mengenal emosi dalam trading: fear, greed, dan FOMO.',
+            'Membangun mental trading yang disiplin dan konsisten.',
+            'Langkah-langkah membuat trading plan yang efektif dan terstruktur.',
+            'Strategi swing trading untuk posisi 2 hari hingga beberapa minggu.',
+            'Strategi scalping untuk transaksi cepat dalam hitungan menit.',
+            'Strategi posisi jangka panjang untuk trend makro.',
+            'Dasar-dasar analisis fundamental untuk trading.',
+            'Menggunakan multiple timeframe untuk konfirmasi sinyal trading.',
+            'Cara membuat dan menggunakan trading journal untuk evaluasi.',
+            'Menganalisis performa trading dan mencari area improvement.',
+            'Teknik manajemen modal untuk pertumbuhan portofolio berkelanjutan.',
+            'Tips dan trik untuk menjadi trader yang konsisten dan profitable.',
+            'Review seluruh materi dan langkah selanjutnya untuk pengembangan.'
+        ];
+        const categories = ['Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula', 'Pemula',
+            'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah', 'Menengah',
+            'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan', 'Lanjutan',
+            'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir', 'Mahir'
+        ];
+        for (let i = 1; i <= 28; i++) {
+            const idx = i - 1;
+            moduleData.push({
+                day: i,
+                title: titles[idx] || `Modul ${i}`,
+                desc: descs[idx] || `Materi pembelajaran hari ke-${i}`,
+                duration: `${15 + (i * 2) % 15} menit`,
+                type: i % 3 === 0 ? 'article' : 'video',
+                videoId: 'dQw4w9WgXcQ',
+                category: categories[idx] || 'Menengah',
+                content: descs[idx] || `Ini adalah materi pembelajaran untuk hari ke-${i}.`,
+                topics: ['Konsep dasar', 'Aplikasi praktis', 'Studi kasus']
             });
-            const existingMap = {};
-            signalStore.forEach(s => existingMap[s.symbol] = s.isNew);
-            newSignals.forEach(s => s.isNew = existingMap[s.symbol] === true ? false : true);
-            signalStore = newSignals;
-            return signalStore;
         }
 
-        function renderSignals() {
-            const container = document.getElementById('signalsContainer');
-            const footer = document.getElementById('signalFooter');
-            let filtered = signalStore;
-            if (signalFilter !== 'all') {
-                if (signalFilter === 'buy') filtered = signalStore.filter(s => s.signal === 'BUY');
-                else if (signalFilter === 'sell') filtered = signalStore.filter(s => s.signal === 'SELL');
-                else filtered = signalStore.filter(s => s.type === signalFilter);
-            }
-            document.getElementById('signalCount').textContent = `${filtered.length} sinyal`;
-            document.getElementById('signalLastUpdate').textContent = new Date().toLocaleTimeString();
-
-            if (filtered.length === 0) {
-                container.innerHTML =
-                    `<div style="text-align:center;padding:40px;color:var(--text-muted);"><div style="font-size:2rem;margin-bottom:12px;">🔍</div><p>Tidak ada sinyal untuk filter ini</p></div>`;
-                return;
-            }
-            let html = '<div class="signals-grid">';
-            filtered.forEach((s, i) => {
-                const cls = s.signal.toLowerCase();
-                const color = s.signal === 'BUY' ? 'var(--primary)' : s.signal === 'SELL' ? 'var(--danger)' :
-                    'var(--warning)';
-                const arrow = s.signal === 'BUY' ? '▲' : s.signal === 'SELL' ? '▼' : '●';
-                const typeLabel = s.type.charAt(0).toUpperCase() + s.type.slice(1);
-                html += `
-                    <div class="signal-card" onclick="showSignalDetail(${i})" style="animation: fadeSlideIn 0.4s ease ${i * 0.05}s both;">
-                        ${s.isNew ? '<span class="signal-badge-new">NEW</span>' : ''}
-                        <div class="signal-top">
-                            <span class="signal-symbol">${s.symbol}</span>
-                            <span class="signal-type ${s.type}">${typeLabel}</span>
-                        </div>
-                        <div class="signal-direction ${cls}" style="color:${color};">
-                            <span>${arrow}</span>
-                            <span class="signal-label">${s.signal}</span>
-                        </div>
-                        <div class="signal-price">$${s.price.toFixed(2)}</div>
-                        <div class="signal-confidence">
-                            <div class="conf-label"><span>Confidence</span><span>${s.confidence}%</span></div>
-                            <div class="conf-bar"><div class="conf-fill" style="width:${s.confidence}%;background:${color};"></div></div>
-                        </div>
-                        <div class="signal-meta">
-                            <span class="signal-time"><i class="fas fa-clock"></i> ${new Date(s.time).toLocaleTimeString()}</span>
-                            <span class="signal-entries">SL: $${s.sl.toFixed(2)} TP: $${s.tp.toFixed(2)}</span>
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            container.innerHTML = html;
-        }
-
-        function filterSignals(filter, btn) {
-            signalFilter = filter;
-            document.querySelectorAll('.signals-filters .filter-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            renderSignals();
-        }
-
-        function refreshSignals() {
-            const dot = document.getElementById('signalStatusDot');
-            const text = document.getElementById('signalStatusText');
-            dot.className = 'dot loading';
-            text.textContent = 'Loading...';
-            setTimeout(() => {
-                generateSignalsData();
-                renderSignals();
-                dot.className = 'dot online';
-                text.textContent = 'Connected';
-                const newSignals = signalStore.filter(s => s.isNew);
-                if (newSignals.length > 0) {
-                    document.getElementById('signalDot').style.display = 'inline-block';
-                    showToast(`🔔 ${newSignals.length} sinyal baru!`, 'info');
-                    setTimeout(() => { document.getElementById('signalDot').style.display = 'none'; }, 5000);
-                }
-            }, 800);
-        }
-
-        function showSignalDetail(index) {
-            const s = signalStore[index];
-            if (!s) return;
-            document.getElementById('modalSignalTitle').textContent = `Signal: ${s.symbol}`;
-            document.getElementById('detailSignal').textContent = s.signal;
-            document.getElementById('detailSignal').className = `detail-value ${s.signal.toLowerCase()}`;
-            document.getElementById('detailConfidence').textContent = `${s.confidence}%`;
-            document.getElementById('detailEntry').textContent = `$${s.price.toFixed(2)}`;
-            document.getElementById('detailSL').textContent = `$${s.sl.toFixed(2)}`;
-            document.getElementById('detailTP').textContent = `$${s.tp.toFixed(2)}`;
-            document.getElementById('detailTime').textContent = new Date(s.time).toLocaleString();
-            document.getElementById('detailReasoning').textContent = s.reasoning;
-            document.getElementById('detailIndicators').textContent = s.indicators;
-            document.getElementById('signalModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSignalModal() {
-            document.getElementById('signalModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function executeSignal() {
-            const signal = document.getElementById('detailSignal').textContent;
-            const symbol = document.getElementById('modalSignalTitle').textContent.replace('Signal: ', '');
-            showToast(`🚀 Signal ${signal} untuk ${symbol} dieksekusi!`, 'success');
-            closeSignalModal();
-        }
-
-        // =============================================================
-        // 9. MODULES DENGAN VIDEO FALLBACK
-        // =============================================================
         function renderModules() {
             const grid = document.getElementById('modulesGrid');
             grid.innerHTML = '';
             let completed = state.completedModules.length;
-            let allRecommended = [...state.recommendedModules];
-            if (state.personalityModules.length > 0) {
-                allRecommended = [...new Set([...allRecommended, ...state.personalityModules])];
-            }
 
             moduleData.forEach((mod, index) => {
                 const day = index + 1;
                 const isCompleted = state.completedModules.includes(day);
                 const isLocked = day > 1 && !state.completedModules.includes(day - 1) && day > state
                     .completedModules.length + 1;
-                const isQuizRec = state.recommendedModules.includes(day);
                 const isPerRec = state.personalityModules.includes(day);
-                const isRecommended = isQuizRec || isPerRec;
+                const isQuizRec = state.recommendedModules.includes(day);
+                const isRecommended = isPerRec || isQuizRec;
 
                 let status = 'locked',
                     statusLabel = '🔒 Terkunci',
                     statusClass = 'status-locked';
                 if (isCompleted) { status = 'completed';
                     statusLabel = '✅ Selesai';
-                    statusClass = 'status-completed'; } else if (isPerRec && !isLocked) { status = 'progress';
+                    statusClass = 'status-completed'; } else if (isPerRec) { status = 'progress';
                     statusLabel = '🌟 Karakter';
-                    statusClass = 'status-personality'; } else if (isQuizRec && !isLocked) { status = 'progress';
+                    statusClass = 'status-personality'; } else if (isQuizRec) { status = 'progress';
                     statusLabel = '⭐ Rekomendasi';
                     statusClass = 'status-recommended'; } else if (!isLocked) { status = 'progress';
                     statusLabel = '▶️ Belum Selesai';
@@ -2807,10 +1903,8 @@
 
                 const card = document.createElement('div');
                 card.className = 'module-card';
-                if (isPerRec && !isCompleted) { card.style.borderColor = 'var(--secondary)';
-                    card.style.borderWidth = '2px'; } else if (isQuizRec && !isCompleted) { card.style.borderColor =
-                        'var(--warning)';
-                    card.style.borderWidth = '2px'; }
+                card.style.cssText =
+                    `background:var(--bg-input);border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:18px 20px;transition:var(--transition);cursor:pointer;position:relative;${isPerRec && !isCompleted ? 'border-color:var(--secondary);border-width:2px;' : ''}${isQuizRec && !isCompleted && !isPerRec ? 'border-color:var(--warning);border-width:2px;' : ''}`;
 
                 let btnClass = 'btn-module-play',
                     btnText = '<i class="fas fa-play"></i> Mulai Belajar',
@@ -2818,28 +1912,25 @@
                 if (isCompleted) { btnText = '<i class="fas fa-redo"></i> Review'; } else if (isLocked) { btnClass =
                         'btn-module-locked';
                     btnText = '<i class="fas fa-lock"></i> Terkunci';
-                    btnAction = 'disabled'; } else if (isPerRec) { btnClass = 'btn-module-personality';
-                    btnText = '<i class="fas fa-user-astronaut"></i> Mulai'; } else if (isQuizRec) { btnText =
-                        '<i class="fas fa-star"></i> Mulai'; }
-
-                const videoInfo = mod.type === 'video' ?
-                    `<span style="color:var(--secondary);"><i class="fas fa-video"></i> ${mod.channel || 'YouTube'}</span>` :
-                    '';
+                    btnAction = 'disabled'; }
 
                 card.innerHTML = `
-                    <span class="module-status ${statusClass}">${statusLabel}</span>
-                    <div class="module-day">Hari ${day} ${isPerRec ? '🌟' : ''} ${isQuizRec && !isPerRec ? '⭐' : ''}</div>
-                    <div class="module-title">${mod.title}</div>
-                    <div class="module-desc">${mod.desc}</div>
-                    <div class="module-meta">
+                    <span class="module-status ${statusClass}" style="position:absolute;top:14px;right:14px;padding:2px 10px;border-radius:12px;font-size:0.55rem;font-weight:700;text-transform:uppercase;background:${isCompleted ? 'rgba(0,230,118,0.15)' : isPerRec ? 'rgba(41,98,255,0.2)' : isQuizRec ? 'rgba(255,171,0,0.15)' : 'rgba(255,255,255,0.05)'};color:${isCompleted ? 'var(--primary)' : isPerRec ? 'var(--secondary)' : isQuizRec ? 'var(--warning)' : 'var(--text-muted)'};${isPerRec ? 'border:1px solid var(--secondary);' : ''}">
+                        ${statusLabel}
+                    </span>
+                    <div class="module-day" style="font-size:0.65rem;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Hari ${day} ${isPerRec ? '🌟' : ''} ${isQuizRec && !isPerRec ? '⭐' : ''}</div>
+                    <div class="module-title" style="color:var(--text-primary);font-weight:600;font-size:0.95rem;margin:6px 0 4px;">${mod.title}</div>
+                    <div class="module-desc" style="color:var(--text-muted);font-size:0.8rem;line-height:1.5;">${mod.desc}</div>
+                    <div class="module-meta" style="display:flex;gap:16px;margin-top:10px;font-size:0.7rem;color:var(--text-muted);flex-wrap:wrap;">
                         <span><i class="fas fa-clock"></i> ${mod.duration}</span>
                         <span><i class="fas ${mod.type === 'video' ? 'fa-play-circle' : 'fa-file-alt'}"></i> ${mod.type === 'video' ? 'Video' : 'Artikel'}</span>
                         <span><i class="fas fa-tag"></i> ${mod.category}</span>
-                        ${videoInfo}
                         ${isPerRec ? '<span style="color:var(--secondary);"><i class="fas fa-user-astronaut"></i> Karakter</span>' : ''}
                         ${isQuizRec && !isPerRec ? '<span style="color:var(--warning);"><i class="fas fa-star"></i> Kuis</span>' : ''}
                     </div>
-                    <button class="btn-module ${btnClass}" ${btnAction}>${btnText}</button>
+                    <button class="btn-module ${btnClass}" ${btnAction} style="margin-top:12px;padding:6px 18px;border:none;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:${isLocked ? 'not-allowed' : 'pointer'};transition:var(--transition);display:inline-flex;align-items:center;gap:6px;background:${isCompleted ? 'var(--primary)' : isLocked ? 'rgba(255,255,255,0.05)' : 'var(--primary)'};color:${isLocked ? 'var(--text-muted)' : '#0a0a0e'};">
+                        ${btnText}
+                    </button>
                 `;
                 grid.appendChild(card);
             });
@@ -2848,170 +1939,14 @@
             document.getElementById('remainingCount').textContent = 28 - completed;
         }
 
-        function scrollToRecommended() {
-            const first = document.querySelector(
-                '.module-card .module-status.status-recommended, .module-card .module-status.status-personality');
-            if (first) {
-                const card = first.closest('.module-card');
-                if (card) {
-                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    card.style.borderColor = 'var(--primary)';
-                    card.style.boxShadow = '0 0 30px rgba(0,230,118,0.2)';
-                    setTimeout(() => {
-                        card.style.borderColor = card.querySelector('.status-personality') ? 'var(--secondary)' :
-                            'var(--warning)';
-                        card.style.boxShadow = 'none';
-                    }, 3000);
-                }
-            } else {
-                showToast('Belum ada modul rekomendasi. Ikuti kuis atau analisis karakter terlebih dahulu!', 'warning');
-                switchTab('quiz');
-            }
-        }
-
-        // =============================================================
-        // 10. MODULE OPEN / COMPLETE (DENGAN VIDEO FALLBACK)
-        // =============================================================
         function openModule(day) {
-            if (day > 1 && !state.isSubscribed) {
-                showToast('🔒 Silakan berlangganan untuk mengakses semua modul!', 'warning');
-                document.getElementById('plansSection').scrollIntoView({ behavior: 'smooth' });
-                return;
-            }
             const mod = moduleData[day - 1];
             state.currentModule = day;
-            document.getElementById('moduleModalTitle').textContent = `Hari ${day}: ${mod.title}`;
-
-            const video = document.getElementById('moduleVideo');
-            const fallback = document.getElementById('videoFallback');
-            const container = document.getElementById('videoContainer');
-            const link = document.getElementById('fallbackYouTubeLink');
-
-            if (mod.type === 'video' && mod.videoId) {
-                // Reset state
-                video.style.display = 'block';
-                fallback.style.display = 'none';
-                container.style.opacity = '0.6';
-
-                // Set video source
-                const embedUrl = `https://www.youtube.com/embed/${mod.videoId}?rel=0&modestbranding=1&autoplay=0&enablejsapi=1`;
-                video.src = embedUrl;
-
-                // Set fallback link
-                link.href = `https://www.youtube.com/watch?v=${mod.videoId}`;
-                document.getElementById('fallbackChannel').textContent = mod.channel || 'YouTube';
-
-                // Handle video load success
-                video.onload = function() {
-                    container.style.opacity = '1';
-                };
-
-                // Handle video error (fallback)
-                video.onerror = function() {
-                    console.warn('⚠️ YouTube video failed to load, showing fallback');
-                    showVideoFallback(mod);
-                };
-
-                // Timeout fallback after 8 seconds
-                clearTimeout(window.videoTimeout);
-                window.videoTimeout = setTimeout(() => {
-                    if (video.src && !video.loaded) {
-                        showVideoFallback(mod);
-                    }
-                }, 8000);
-
-                // Add channel info
-                container.setAttribute('data-channel', `📺 ${mod.channel || 'YouTube'}`);
-
-            } else {
-                // Article mode
-                video.src = '';
-                video.style.display = 'none';
-                fallback.style.display = 'none';
-                container.style.opacity = '1';
-            }
-
-            // Update content
-            document.getElementById('moduleContentTitle').textContent = mod.title;
-            document.getElementById('moduleContentDesc').textContent = mod.content;
-
-            const list = document.getElementById('moduleContentList');
-            list.innerHTML = '';
-            mod.topics.forEach(t => {
-                const li = document.createElement('li');
-                li.textContent = t;
-                list.appendChild(li);
-            });
-
-            document.getElementById('moduleModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function showVideoFallback(mod) {
-            const video = document.getElementById('moduleVideo');
-            const fallback = document.getElementById('videoFallback');
-            const container = document.getElementById('videoContainer');
-
-            // Hide video iframe
-            if (video) {
-                video.style.display = 'none';
-            }
-
-            // Show fallback
-            if (fallback) {
-                fallback.style.display = 'flex';
-                document.getElementById('fallbackYouTubeLink').href = `https://www.youtube.com/watch?v=${mod.videoId}`;
-                document.getElementById('fallbackChannel').textContent = mod.channel || 'YouTube';
-            }
-
-            container.style.opacity = '1';
-        }
-
-        function markModuleComplete() {
-            const day = state.currentModule;
-            if (!day) return;
-            if (!state.completedModules.includes(day)) {
-                state.completedModules.push(day);
-                localStorage.setItem('mtc_completed', JSON.stringify(state.completedModules));
-                const isPer = state.personalityModules.includes(day);
-                const isQuiz = state.recommendedModules.includes(day);
-                if (isPer) showToast(`🌟 Modul karakter Hari ${day} selesai!`, 'success');
-                else if (isQuiz) showToast(`⭐ Modul rekomendasi Hari ${day} selesai!`, 'success');
-                else showToast(`✅ Modul Hari ${day} selesai!`, 'success');
-                renderModules();
-                if (state.completedModules.length === 28) showToast('🎉 Selamat! Semua modul selesai!', 'success');
-            }
-            closeModuleModal();
-        }
-
-        function closeModuleModal() {
-            document.getElementById('moduleModal').classList.remove('active');
-            document.body.style.overflow = '';
-            // Reset video
-            const video = document.getElementById('moduleVideo');
-            if (video) video.src = '';
-            // Hide fallback
-            const fallback = document.getElementById('videoFallback');
-            if (fallback) fallback.style.display = 'none';
+            showToast(`📚 Membuka modul: ${mod.title}`, 'info');
         }
 
         // =============================================================
-        // 11. SUBSCRIPTION
-        // =============================================================
-        function subscribePlan(plan, price) {
-            if (confirm(`Apakah Anda ingin berlangganan paket ${plan} seharga $${price}/bulan?`)) {
-                state.isSubscribed = true;
-                state.subscriptionPlan = plan;
-                localStorage.setItem('mtc_subscribed', 'true');
-                localStorage.setItem('mtc_plan', plan);
-                localStorage.setItem('mtc_subscription_date', new Date().toISOString());
-                showToast(`✅ Berhasil berlangganan ${plan}! Akses semua modul dibuka.`, 'success');
-                renderModules();
-            }
-        }
-
-        // =============================================================
-        // 12. CALCULATOR
+        // CALCULATOR
         // =============================================================
         function calculateRisk() {
             const balance = parseFloat(document.getElementById('calcBalance').value) || 0;
@@ -3034,7 +1969,7 @@
         }
 
         // =============================================================
-        // 13. INIT
+        // INIT
         // =============================================================
         document.addEventListener('DOMContentLoaded', function() {
             // Restore personality
@@ -3048,12 +1983,8 @@
                     state.personalityModules = zodiacData[d.zodiac].personalityModules || [];
                 }
                 document.getElementById('personalityStatus').textContent = '✅ Selesai';
-                document.getElementById('personalityDot').style.display = 'inline-block';
                 if (d.zodiac && zodiacData[d.zodiac]) {
                     const zi = zodiacData[d.zodiac];
-                    document.getElementById('personalityBanner').classList.add('show');
-                    document.getElementById('personalityBannerText').textContent =
-                        `Berdasarkan karakter ${zi.name}, kamu cocok dengan gaya trading ${zi.tradingStyle}.`;
                     document.getElementById('resultPersonalityName').textContent = `Halo, ${d.name}! 👋`;
                     document.getElementById('resultPersonalitySub').textContent =
                         `${d.gender === 'male' ? 'Laki-laki' : 'Perempuan'} · Tanggal Lahir: ${new Date(d.birthDate).toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}`;
@@ -3074,27 +2005,23 @@
                         sp.textContent = b;
                         bc.appendChild(sp);
                     });
-                    document.getElementById('personalityResult').classList.add('show');
+                    document.getElementById('personalityResult').style.display = 'block';
                 }
             }
 
             // Restore quiz
             if (state.quizCompleted && state.quizResult) {
                 document.getElementById('quizContainer').style.display = 'none';
-                document.getElementById('quizResult').classList.add('show');
+                document.getElementById('quizResult').style.display = 'block';
                 document.getElementById('quizStatus').textContent = '✅ Selesai';
                 document.getElementById('quizScoreBadge').textContent = '100%';
-                document.getElementById('quizDot').style.display = 'inline-block';
                 try {
                     const r = JSON.parse(state.quizResult);
                     state.recommendedModules = r.recommended || [];
-                    document.getElementById('recommendedBanner').classList.add('show');
-                    document.getElementById('recommendedText').textContent =
-                        `Berdasarkan hasil kuis, kamu adalah ${r.persona || 'Trader'}. ${state.personalityModules.length > 0 ? 'Juga berdasarkan karakter, ' : ''}Kami sarankan memulai dari ${r.recommended ? r.recommended.length : 0} modul rekomendasi.`;
                     const body = document.getElementById('quizResultBody');
                     body.innerHTML = `
-                        <p><span class="highlight-text">🎯 Gaya Trading: ${r.persona || 'Trader'}</span></p>
-                        <p>Kami merekomendasikan <span class="highlight-text">${r.recommended ? r.recommended.length : 0} modul</span> yang sesuai dengan profil tradingmu.</p>
+                        <p><span class="highlight-text" style="color:var(--primary);font-weight:700;">🎯 Gaya Trading: ${r.persona || 'Trader'}</span></p>
+                        <p>Kami merekomendasikan <span class="highlight-text" style="color:var(--primary);font-weight:700;">${r.recommended ? r.recommended.length : 0} modul</span> yang sesuai dengan profil tradingmu.</p>
                         ${state.personalityModules.length > 0 ? '<p style="margin-top:8px;color:var(--secondary);font-size:0.85rem;">🌟 Juga berdasarkan karakter, ada tambahan rekomendasi personal.</p>' : ''}
                     `;
                 } catch (e) {}
@@ -3116,41 +2043,38 @@
                 document.getElementById('signalStatusText').textContent = 'Connected';
                 document.getElementById('signalStatusDot').className = 'dot online';
             }, 1000);
+
             refreshTimer = setInterval(() => {
                 generateSignalsData();
                 renderSignals();
-                const newSignals = signalStore.filter(s => s.isNew);
+                const newSignals = signalStore.filter(s => s.isNew && !state.viewedSignals.includes(s.symbol + s
+                .time));
                 if (newSignals.length > 0) {
                     document.getElementById('signalDot').style.display = 'inline-block';
                     showToast(`🔔 ${newSignals.length} sinyal baru!`, 'info');
-                    setTimeout(() => { document.getElementById('signalDot').style.display = 'none'; }, 5000);
                 }
             }, 30000);
 
             renderModules();
             calculateRisk();
 
-            // Set active tab
             const activeTab = localStorage.getItem('mtc_active_tab') || 'dashboard';
             switchTab(activeTab);
 
-            console.log('🚀 Madangan Trade Club loaded!');
-            console.log('📚 28 Modules with valid video references & fallback');
+            console.log('🚀 Madangan Trade Club v2.0 loaded!');
             console.log('📊 Modules completed:', state.completedModules.length);
             console.log('📝 Quiz:', state.quizCompleted);
             console.log('🌟 Personality:', state.personalityData ? '✅' : '❌');
             console.log('📡 Signals:', signalStore.length);
+            console.log('👁️ Viewed signals:', state.viewedSignals.length);
         });
 
-        // Cleanup
         window.addEventListener('beforeunload', function() {
             if (refreshTimer) clearInterval(refreshTimer);
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') { closeSignalModal();
-                closeModuleModal(); }
+            if (e.key === 'Escape') { closeSignalModal(); }
             if (e.key === 'r' && (e.ctrlKey || e.metaKey)) { e.preventDefault();
                 refreshSignals(); }
         });
